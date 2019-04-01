@@ -4,6 +4,8 @@ create  table  teachers(
     code_teacher varchar (100),
     password varchar (100),
     information varchar (100),
+    time_expired varchar (100),
+    last_login varchar (100),
     primary key (code_teacher)
 
 );
@@ -20,10 +22,10 @@ create table  teams(
 create  table  account(
     username varchar (100),
     password varchar (100),
-    name varchar (100),
     email varchar (100),
     team varchar (100),
     primary key (username),
+    ip varchar (100),
     foreign key (team) references teams(team);
 );
 
