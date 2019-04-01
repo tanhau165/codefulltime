@@ -103,12 +103,16 @@ create table report_examinations(
     time_submit varchar (100),
     username varchar (100),
     primary key (code)
-
 );
 
 create table submissions(
 
     code varchar (100),
-    score int
-
+    score int,
+    exercise_code varchar (100),
+    time_submit varchar (100),
+    time_limit varchar (100),
+    username varchar (100),
+    primary key (code),
+    foreign key (exercise_code) references exercises(exercise_code)
 )
