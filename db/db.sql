@@ -114,5 +114,53 @@ create table submissions(
     username varchar (100),
     primary key (code),
     foreign key (exercise_code) references exercises(exercise_code),
-    foreign key (username) references account(username)
+    foreign key (username) references account(username);
 );
+
+create table pastes(
+    code_paste varchar (100),
+    name varchar (100),
+    content varchar (1000),
+    type_of_content varchar (100),
+    like int,
+    view int,
+    time_add varchar (100),
+    username varchar (100),
+    primary key (code_paste),
+    foreign key (username) references account(username);
+);
+
+
+create table news_feed(
+    code_news_feeds varchar (100),
+    content varchar (3000),
+    like int,
+    username varchar (100),
+     primary key (code_paste),
+    foreign key (code_news_feeds) references account(username);
+
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
