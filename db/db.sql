@@ -16,6 +16,7 @@ create table  teams(
     name varchar (100),
     information varchar(1000),
     teacher varchar (100),
+    location varchar (100),
     primary key (code_team),
     foreign key (teacher) references teachers(teacher)
 );
@@ -24,8 +25,70 @@ create  table  account(
     password varchar (100),
     email varchar (100),
     team varchar (100),
-    primary key (username),
     ip varchar (100),
+    primary key (username),
     foreign key (team) references teams(team);
 );
 
+
+create table collections(
+
+    code_collection varchar (100),
+    name varchar (100),
+    code_team varchar (100),
+
+    primary key (code_collection),
+    foreign key (code_team) references teams(code_team)
+
+);
+
+
+create table examinations(
+
+     code_examination varchar (100),
+     question varchar (1000),
+     code_collection varchar (100),
+     answer_a varchar (100),
+     answer_b varchar (100),
+     answer_c varchar (100),
+     answer_d varchar (100),
+     answer_correct varchar (100),
+     type_of_language varchar (100),
+     primary key (code_examination),
+     foreign key (code_collection) references collections(code_collection)
+
+);
+
+create table exercises(
+
+    exercise_code varchar (100),
+    question varchar (100),
+    name varchar (100),
+    time_limit varchar(100),
+    memory_limit varchar (100),
+    best_score varchar (100),
+    input1 varchar (100),
+    input2 varchar (100),
+    input3 varchar (100),
+    input4 varchar (100),
+    input5 varchar (100),
+    input6 varchar (100),
+    input7 varchar (100),
+    input8 varchar (100),
+    input9 varchar (100),
+    input10 varchar (100),
+    output1 varchar (100),
+    output2 varchar (100),
+    output3 varchar (100),
+    output4 varchar (100),
+    output5 varchar (100),
+    output6 varchar (100),
+    output7 varchar (100),
+    output8 varchar (100),
+    output9 varchar (100),
+    output10 varchar (100),
+    code_collection varchar (100),
+    primary key (exercise_code),
+    foreign key (code_collection) references collections(code_collection)
+
+)
