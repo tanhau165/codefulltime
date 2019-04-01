@@ -20,12 +20,14 @@ create table  teams(
     primary key (code_team),
     foreign key (teacher) references teachers(teacher)
 );
+
 create  table  account(
     username varchar (100),
     password varchar (100),
     email varchar (100),
     team varchar (100),
     ip varchar (100),
+    role varchar (100),
     primary key (username),
     foreign key (team) references teams(team);
 );
@@ -44,7 +46,6 @@ create table collections(
 
 
 create table examinations(
-
      code_examination varchar (100),
      question varchar (1000),
      code_collection varchar (100),
@@ -66,7 +67,7 @@ create table exercises(
     name varchar (100),
     time_limit varchar(100),
     memory_limit varchar (100),
-    best_score varchar (100),
+    best_score int,
     input1 varchar (100),
     input2 varchar (100),
     input3 varchar (100),
@@ -87,8 +88,27 @@ create table exercises(
     output8 varchar (100),
     output9 varchar (100),
     output10 varchar (100),
-    code_collection varchar (100),
+    team varchar (100),
     primary key (exercise_code),
-    foreign key (code_collection) references collections(code_collection)
+    foreign key (team) references teams(code_team)
+
+);
+
+create table report_examinations(
+
+    code varchar (100),
+    score int ,
+    team varchar (100),
+    list_examination varchar (100),
+    time_submit varchar (100),
+    username varchar (100),
+    primary key (code)
+
+);
+
+create table submissions(
+
+    code varchar (100),
+    score int
 
 )
