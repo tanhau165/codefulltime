@@ -112,9 +112,11 @@ create table submissions(
     time_submit varchar (100),
     time_limit varchar (100),
     username varchar (100),
+    source_code VARCHAR(100),
+    language_of_source VARCHAR(3000),
     primary key (code),
     foreign key (exercise_code) references exercises(exercise_code),
-    foreign key (username) references account(username);
+    foreign key (username) references account(username)
 );
 
 create table pastes(
@@ -136,7 +138,7 @@ create table news_feed(
     content varchar (3000),
     like int,
     username varchar (100),
-     primary key (code_paste),
+    primary key (code_paste),
     foreign key (code_news_feeds) references account(username);
 
 );
