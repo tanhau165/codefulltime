@@ -88,6 +88,7 @@ create table exercises(
     output8 varchar (100),
     output9 varchar (100),
     output10 varchar (100),
+    explain varchar(1000),
     team varchar (100),
     primary key (exercise_code),
     foreign key (team) references teams(code_team)
@@ -119,6 +120,23 @@ create table submissions(
     foreign key (username) references account(username)
 );
 
+create table report_errors(
+    code varchar(100),
+    content_error varchar(1000),
+    code_error varchar(100),
+    primary key(code);
+);
+
+create table key_words(
+
+  key_word varchar(1000),
+  time_search varchar(100),
+  username varchar(1000),
+  primary key(key_word),
+  foreign key(username) references account(username);
+);
+
+
 create table pastes(
     code_paste varchar (100),
     name varchar (100),
@@ -140,7 +158,6 @@ create table news_feed(
     username varchar (100),
     primary key (code_paste),
     foreign key (code_news_feeds) references account(username);
-
 );
 
 

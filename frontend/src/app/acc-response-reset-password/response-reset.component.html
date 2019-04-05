@@ -1,0 +1,48 @@
+<div class="ui center form" style="width: 300px;">
+
+  <form (ngSubmit)="createNewPass(formNewPass)" #formNewPass="ngForm" action="">
+    <div class="field">
+      <label>Email (<b style="color: red">*</b>)</label>
+      <input type="text"
+             [style.border]="txtEmail.touched ? txtEmail.invalid ? '1px solid red' : '2px solid green': ''"
+             #txtEmail="ngModel" placeholder="Email" ngModel name="email" email required>
+      <div *ngIf="txtEmail.touched && txtEmail.invalid">
+        Email incorrect format
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Password (<b style="color: red">*</b>)</label>
+      <input type="password"
+             [style.border]="txtPassword.touched ? txtPassword.errors?.minlength ? '1px solid red' : '2px solid green': ''"
+             #txtPassword="ngModel" placeholder="Password" ngModel name="password" minlength="5" maxlength="32"
+             required>
+      <div *ngIf="txtPassword .touched && txtPassword.errors?.minlength">
+        Length of password from 5 to 32 character.
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Re-pass (<b style="color: red">*</b>)</label>
+      <input type="password"
+             [style.border]="txtRepass.touched ? (txtRepass.errors?.minlength || txtRepass.value != txtPassword.value) ? '1px solid red' : '2px solid green': ''"
+             #txtRepass="ngModel" placeholder="Re Password" ngModel name="password_confirmation" minlength="5"
+             maxlength="32" required pattern="{{txtPassword.value}}">
+      <div *ngIf="txtRepass .touched && txtRepass.errors?.minlength">
+        Length of password from 5 to 32 character.
+      </div>
+
+      <div
+        *ngIf="(txtRepass .touched && txtRepass.errors?.minlength) ||(txtRepass .touched && txtRepass.value != txtPassword.value)">
+        Re-type password not match with password
+      </div>
+
+    </div>
+
+    <div class="ui buttons">
+      <button [disabled]="formNewPass.invalid" class="ui positive button">Reset password</button>
+      <div class="or"></div>
+      <a routerLink="/login" class="ui  button">Login</a>
+    </div>
+  </form>
+</div>

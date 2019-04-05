@@ -1,0 +1,42 @@
+<div class="ui inverted segment">
+  <div class="ui inverted secondary pointing menu">
+    <a routerLink="/" class="item">
+      Home
+    </a>
+    <a class="item">
+      Exercise
+    </a>
+    <a class="item">
+      Rank
+    </a>
+    <a class="item">
+      Submission
+    </a>
+    <a class="item">
+      News feed
+    </a>
+    <a class="item">
+      Paste
+    </a>
+    <div class="ui search">
+      <div class="ui icon input">
+        <input class="prompt" type="text" placeholder="Search countries...">
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
+    <div class="ui dropdown item">
+      {{name}}
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <a *ngIf="isLoggedIn" routerLink="/profile" class="item">Profile</a>
+        <a *ngIf="isLoggedIn" (click)="logout()" class="item">Logout</a>
+        <a *ngIf="!isLoggedIn" routerLink="/login" class="item">Login</a>
+        <a *ngIf="!isLoggedIn" routerLink="/register" class="item">Register</a>
+        <a *ngIf="isLoggedIn" routerLink="/change-pass" class="item">Change password</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+

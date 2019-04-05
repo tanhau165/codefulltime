@@ -1,0 +1,23 @@
+<div class="ui center form" style="width: 300px;">
+  <form (ngSubmit)="resetPass(formReset)" #formReset="ngForm" action="">
+
+
+
+
+    <div class="field">
+      <label>Email (<b style="color: red">*</b>)</label>
+      <input type="text"
+             [style.border]="txtEmail.touched ? txtEmail.invalid ? '1px solid red' : '2px solid green': ''"
+             #txtEmail="ngModel" placeholder="Email" ngModel name="email" email required>
+      <div *ngIf="txtEmail.touched && txtEmail.invalid">
+        Email incorrect format
+      </div>
+    </div>
+
+    <div class="ui buttons">
+      <button [disabled]="formReset.invalid" class="ui positive button">Send</button>
+      <div class="or"></div>
+      <a routerLink="/login" class="ui  button">Login</a>
+    </div>
+  </form>
+</div>
