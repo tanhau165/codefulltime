@@ -15,20 +15,21 @@ Codefulltime
   
 # II. Yêu cầu công nghệ
 
-  - Hosting: Tự cấu hình và cài đặt php laravel trên VPS.
+  - Hosting: Tự cấu hình và cài đặt php laravel trên VPS hoặc mua 2 hosting (1 APIs, 1 front-end)
   
-  - Front-end: Angular 7, Giao diện chọn lựa giữa: Bootstrap, Foundation, Bulma, UIKit, Semantic UI
+  - Front-end: Angular 7, Semantic UI
   
-  - Back-end: Php laravel webservices 
+  - Back-end: PHP laravel webservices 
   
   - Database: MySql
+  
+  - Authentication: JWT
   
 # III. Các công việc
 
   | To do                                 |          doing                      |              done                 |
   |---------------------------------------|-------------------------------------|-----------------------------------|
-  | Foundation                            | Bootstrap                           |                                   |
-  | Bulma                                 | Semantic                            |                                   |
-  | UIKit                                 |                                     |                                   |
-  | Angular + Spring Java: Login, Products|                                     |                                   |    
+  |   Login (JWT + Laravel APIs)          |                                     |               Semantic            |
+  |                                       |                                     |                                   |
+  |                                       |                                     |                                   |
   
