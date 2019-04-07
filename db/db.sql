@@ -29,7 +29,7 @@ create  table  account(
     ip varchar (100),
     role varchar (100),
     primary key (username),
-    foreign key (team) references teams(team);
+    foreign key (team) references teams(team)
 );
 
 

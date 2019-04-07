@@ -19,6 +19,8 @@ class AuthController extends Controller
      *
      * @return void
      */
+
+
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login', 'register', 'changepass']]);
@@ -34,7 +36,7 @@ class AuthController extends Controller
         $credentials = request(['username', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Email or password does\'t exist'], 401);
+            return response()->json(['error' => 'Username or password does\'t exist'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -42,7 +44,15 @@ class AuthController extends Controller
 
     public function register(SignUpRequest $request)
     {
-        User::create($request->all());
+        $request->merge([
+            'score' => 0
+        ]);
+        try {
+            User::create($request->all());
+        } catch (\Exception $exception) {
+            return response()->json(['error' => 'Username already'], 400);
+
+        }
         return $this->login($request);
     }
 
@@ -100,9 +110,8 @@ class AuthController extends Controller
 
         try {
             $credentials = request(['username', 'password']);
-
             if (!$token = auth()->attempt($credentials)) {
-                return response()->json(['status' => 'ErrorOldPass'], 200);
+                return response()->json(['status' => 'ErrorOldPass'], 400);
             }
             $newPass = $rq->new_password;
             $user = User::where('username', $rq->username)->first();

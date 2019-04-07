@@ -7,6 +7,16 @@
       "app",
       "camelCase"
     ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case",
+      "allow-trailing-underscore",
+      "allow-snake-case"
+
+    ],
     "component-selector": [
       true,
       "element",

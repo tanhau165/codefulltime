@@ -23,10 +23,17 @@
               "src/assets"
             ],
             "styles": [
+              "src/editor/lib/codemirror.css",
               "src/styles.css",
-              "node_modules/semantic-ui/dist/semantic.min.css"
+              "src/editor/theme/dracula.css",
+              "src/editor/theme/midnight.css"
             ],
             "scripts": [
+              "src/editor/lib/codemirror.js",
+              "src/editor/mode/python/python.js",
+              "src/editor/mode/clike/clike.js",
+              "src/editor/mode/javascript/javascript.js",
+              "src/editor/mode/markdown/markdown.js"
             ],
             "es5BrowserSupport": true
           },
@@ -84,7 +91,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"

@@ -1,0 +1,71 @@
+<div class="ui center form" style="width: 300px; margin: auto auto">
+  <form (ngSubmit)="register(formRegister)" #formRegister="ngForm" action="">
+
+    <div class="form-group">
+      <label for="name">Name (<b style="color: red">*</b>)</label>
+      <input id="name" type="text"
+             [className]="txtName.touched ? (txtName.value.length < 6 || txtName.value.length > 54 || txtName.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+             #txtName="ngModel" placeholder="Name" ngModel name="name" required>
+      <div *ngIf="txtName.touched ? (txtName.value.length < 6 || txtName.value.length > 54 || txtName.invalid): false"
+           class="invalid-feedback">
+        Length of name from 6 to 54 character.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="username">Username (<b style="color: red">*</b>)</label>
+      <input id="username" type="text" class="form-control"
+             [className]="txtUsername.touched ? (txtUsername.value.length < 6 || txtUsername.value.length > 18 || txtUsername.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+             #txtUsername="ngModel" placeholder="Username" ngModel name="username" required>
+      <div
+        *ngIf="txtUsername.touched ? (txtUsername.value.length < 6 || txtUsername.value.length > 18 || txtUsername.invalid):false"
+        class="invalid-feedback">
+        Length of username from 6 to 18 character.
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="email">Email (<b style="color: red">*</b>)</label>
+      <input id="email" type="text" class="form-control"
+             [className]="txtEmail.touched ? (txtEmail.value.length < 6 || txtEmail.value.length > 50 || txtEmail.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+             #txtEmail="ngModel" placeholder="Email" ngModel name="email" required email>
+      <div
+        *ngIf="txtEmail.touched ? (txtEmail.value.length < 6 || txtEmail.value.length > 50 || txtEmail.invalid):false"
+        class="invalid-feedback">
+        Email incorrect format
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label>Password (<b style="color: red">*</b>)</label>
+      <input type="password" class="form-control"
+             [className]="txtPassword.touched ? (txtPassword.value.length < 6 || txtPassword.value.length > 32 || txtPassword.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+             #txtPassword="ngModel" placeholder="Password" ngModel name="password">
+      <div
+        *ngIf="txtPassword.touched ? (txtPassword.value.length < 6 || txtPassword.value.length > 32 || txtPassword.invalid):false"
+        class="invalid-feedback">
+        Length of password from 5 to 32 character.
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label>Re Password (<b style="color: red">*</b>)</label>
+      <input type="password" class="form-control"
+             [className]="txtRepass.touched ? (txtRepass.value != txtPassword.value ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+             #txtRepass="ngModel" placeholder="Password" ngModel name="password_confirmation">
+      <div
+        *ngIf="txtRepass.touched ? (txtRepass.value != txtPassword.value):false">
+        Re-type password not match with password
+      </div>
+    </div>
+
+    <div>{{errorMessage}}</div>
+    <div class="ui buttons">
+      <button [disabled]="formRegister.invalid" class="btn btn-success" style="margin-right: 20px">Register</button>
+      <a routerLink="/login" class="btn btn-primary">Login</a>
+    </div>
+  </form>
+</div>

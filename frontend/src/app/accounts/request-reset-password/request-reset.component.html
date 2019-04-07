@@ -1,0 +1,22 @@
+<div class="ui center form" style="width: 300px; margin: auto auto">
+  <form (ngSubmit)="resetPass(formReset)" #formReset="ngForm" action="">
+
+
+    <div class="form-group">
+      <label for="email">Email (<b style="color: red">*</b>)</label>
+      <input id="email" type="text" class="form-control"
+             [className]="txtEmail.touched ? (txtEmail.value.length < 6 || txtEmail.value.length > 50 || txtEmail.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+             #txtEmail="ngModel" placeholder="Email" ngModel name="email" required email>
+      <div
+        *ngIf="txtEmail.touched ? (txtEmail.value.length < 6 || txtEmail.value.length > 50 || txtEmail.invalid):false"
+        class="invalid-feedback">
+        Email incorrect format
+      </div>
+    </div>
+    {{message}}
+    <div class="ui buttons">
+      <button [disabled]="formReset.invalid" class="btn btn-primary" style="margin-right: 20px">Send</button>
+      <a routerLink="/login" class="btn btn-warning">Login</a>
+    </div>
+  </form>
+</div>

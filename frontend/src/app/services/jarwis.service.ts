@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {ConfigService} from './config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JarwisService {
-  api = 'http://localhost:8000/api';
 
-  constructor(private http: HttpClient) {
+  api = this.config.api;
+
+  constructor(private http: HttpClient, private config: ConfigService) {
   }
 
   register(data) {
@@ -18,7 +20,7 @@ export class JarwisService {
     return this.http.get('http://api.ipify.org/?format=json');
   }
 
-  login(data): any {
+  login(data) {
     return this.http.post(`${this.api}/login`, data);
   }
 
@@ -30,11 +32,11 @@ export class JarwisService {
     return this.http.post(`${this.api}/refresh`, {}, {headers: {Authorization: `Bearer ${token}`}});
   }
 
-  sendPasswordResetLink(data) {
+  sendPasswordResetLink(data): any {
     return this.http.post(`${this.api}/sendPasswordResetLink`, data);
   }
 
-  resetPassword(data) {
+  resetPassword(data): any {
     return this.http.post(`${this.api}/resetPassword`, data);
   }
 

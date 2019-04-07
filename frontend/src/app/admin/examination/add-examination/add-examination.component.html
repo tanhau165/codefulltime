@@ -1,0 +1,31 @@
+
+<h3>Action with Examination</h3>
+<label for="code_examination">Code Examination</label>
+<input type="text" id="code_examination" #txtCode="ngModel" [(ngModel)]="code_examination">
+
+<label for="question">Question</label>
+<input type="text" id="question" #txtQuestion="ngModel" [(ngModel)]="question">
+
+<label for="code_collection">Code collection</label>
+<select name="code_collection" [(ngModel)]="code_collection" id="code_collection" class="form-control">
+  <option value="" *ngFor="let team of teams"></option>
+</select>
+
+<label for="code">Source code</label>
+<textarea id="code" name="contentpaste" [(ngModel)]="source"></textarea><br>
+
+<label for="theme"></label>
+<select class="form-control" id="theme" (change)="selectTheme(th)" #th="ngModel" [(ngModel)]="theme" name="theme">
+  <option value="dracula">dracula</option>
+  <option value="midnight">midnight</option>
+</select>
+
+<label for="language"></label>
+<select class="form-control" id="language" (change)="selectLanguage(lg)" #lg="ngModel" [(ngModel)]="language"
+        name="language">
+  <option value="text/x-c++src">C++</option>
+  <option value="text/x-java">Java</option>
+  <option value="text/x-python">Python</option>
+  <option value="text/javascript">Javascript</option>
+  <option value="markdown">Markdown</option>
+</select>

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TokenService} from '../services/token.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
+import {JarwisService} from '../services/jarwis.service';
 
 declare var $;
 
@@ -43,7 +44,8 @@ export class MenuComponent implements OnInit {
   constructor(
     private token: TokenService,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private jwt: JarwisService
   ) {
     this.auth.authStatus.subscribe(value => this.isLoggedIn = value);
     this.auth.authName.subscribe(value => this.name = value);
@@ -51,11 +53,10 @@ export class MenuComponent implements OnInit {
 
   public isLoggedIn: boolean;
   public name: string;
-
+  public isTeacher;
 
   ngOnInit() {
-    $('.ui.search').search({source: this.source});
-    $('.dropdown').dropdown({transition: 'drop'});
+
   }
 
   logout() {
@@ -64,5 +65,20 @@ export class MenuComponent implements OnInit {
     this.auth.changeAuthStatus(false);
     this.auth.authStatus.subscribe(value => this.isLoggedIn = value);
     this.router.navigateByUrl('/');
+  }
+
+  goToTeacher() {
+    this.jwt.me(this.token.get()).subscribe(
+      data => {
+        if (data.role !== 1) {
+          this.router.navigateByUrl('/admin');
+        } else {
+          console.log('You are not a admin');
+        }
+      },
+      error => {
+        console.log('You must login first or contact to administrator');
+      }
+    );
   }
 }

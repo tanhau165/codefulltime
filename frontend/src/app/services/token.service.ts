@@ -1,16 +1,17 @@
 import {Injectable} from '@angular/core';
+import {ConfigService} from './config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
-  api = 'http://localhost:8000/api';
+  api = this.config.api;
   private iss = {
     login: `${this.api}/login`,
     register: `${this.api}/register`,
   };
 
-  constructor() {
+  constructor(private config: ConfigService) {
   }
 
   handle(accessToken) {

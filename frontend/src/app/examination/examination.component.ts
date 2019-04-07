@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
+declare var CodeMirror: any;
 
 @Component({
   selector: 'app-examination',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExaminationComponent implements OnInit {
 
-  constructor() { }
+
+
+  constructor() {
+  }
 
   ngOnInit() {
+
   }
+
 
 }
