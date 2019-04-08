@@ -1,3 +1,67 @@
-<p>
-  add-team works!
-</p>
+<div class="col-sm-3"></div>
+<div class="col-sm-6">
+  <h3>Add new Team</h3>
+
+  <form (ngSubmit)="addNewTeam(formAddTeam)" #formAddTeam="ngForm" action="">
+    <div class="form-group">
+      <label>Code team (<b style="color: red">*</b>)</label>
+      <input type="text" class="form-control"
+             [className]="txtCodeTeam.touched ?
+         (txtCodeTeam.value.length < 3 || txtCodeTeam.value.length > 6 ||
+         txtCodeTeam.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+
+             #txtCodeTeam="ngModel" placeholder="Code team" ngModel name="code_team">
+      <div
+        *ngIf="txtCodeTeam.touched ? (txtCodeTeam.value.length < 3 || txtCodeTeam.value.length > 6 || txtCodeTeam.invalid):false"
+        class="invalid-feedback">
+        Length of code from 3 to 6 character.
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label>Name (<b style="color: red">*</b>)</label>
+      <input type="text" class="form-control"
+             [className]="txtNameTeam.touched ?
+         (txtNameTeam.value.length < 5 || txtNameTeam.value.length > 15 ||
+         txtNameTeam.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+
+             #txtNameTeam="ngModel" placeholder="Name of team" ngModel name="name">
+      <div
+        *ngIf="txtNameTeam.touched ? (txtNameTeam.value.length < 5 || txtNameTeam.value.length > 15 || txtNameTeam.invalid):false"
+        class="invalid-feedback">
+        Length of name from 5 to 15 character.
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label>Information</label>
+      <input type="text" class="form-control"
+             [className]="txtInfo.touched ?
+         (txtInfo.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+
+             #txtInfo="ngModel" placeholder="Information of team" ngModel name="information">
+    </div>
+    <div>{{errorMsg}}</div>
+    <div class="form-group">
+      <label>Location (<b style="color: red">*</b>) (Only view with account in this location)</label>
+      <select required class="form-control" name="location" ngModel #location="ngModel" id="location">
+        <option *ngFor="let l of listLocation" [ngValue]="l.code">{{l.name}}</option>
+      </select>
+
+      <div
+        *ngIf="location.touched ? (location.invalid):false"
+        class="invalid-feedback">
+        Required choose the location
+      </div>
+    </div>
+
+
+    <div class="ui buttons">
+      <button [disabled]="formAddTeam.invalid" class="btn btn-success" style="margin-right: 20px">Add team</button>
+      <a routerLink="/admin" class="btn btn-primary">Go to dashboard</a>
+    </div>
+  </form>
+</div>
+<div class="col-sm-3"></div>

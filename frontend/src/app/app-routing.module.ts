@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {RegisterComponent} from './accounts/register/register.component';
 import {LoginComponent} from './accounts/login/login.component';
-import {ExaminationComponent} from './examination/examination.component';
 import {ProfileComponent} from './accounts/profile/profile.component';
 import {BeforeLoginService} from './services/before-login.service';
 import {AfterLoginService} from './services/after-login.service';
@@ -16,6 +15,7 @@ import {AddExaminationComponent} from './admin/examination/add-examination/add-e
 import {EditTeamComponent} from './admin/team/edit-team/edit-team.component';
 import {EditCollectionComponent} from './admin/collection/edit-collection/edit-collection.component';
 import {EditExaminationComponent} from './admin/examination/edit-examination/edit-examination.component';
+import {ExaminationComponent} from './examination/examination.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent, canActivate: [BeforeLoginService]},

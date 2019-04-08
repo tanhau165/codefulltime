@@ -6,8 +6,8 @@ import {TeacherAdminService} from './teacher-admin.service';
 import {Teams} from '../../models/teams';
 import {Collections} from '../../models/collections';
 import {CollectionsService} from '../collection/collections.service';
-import {ExaminationService} from '../../examination/examination.service';
 import {Examination} from '../../models/examination';
+import {ExamminationServiceService} from '../examination/exammination-service.service';
 
 
 
@@ -31,7 +31,7 @@ export class TeacherAdminComponent implements OnInit {
 
 
   constructor(private jwt: JarwisService, private token: TokenService, private router: Router, private teacherService: TeacherAdminService,
-              private collectionS: CollectionsService, private examinationS: ExaminationService
+              private collectionS: CollectionsService, private examinationS: ExamminationServiceService
   ) {
   }
 

@@ -1,1 +1,75 @@
-{{code_collection}}
+<div class="col-sm-3"></div>
+<div class="col-sm-6">
+  <h3>Add new collection</h3>
+
+  <form (ngSubmit)="editCollection(formAddCollection)" #formAddCollection="ngForm" action="">
+    <div class="form-group">
+      <label>Code collection (<b style="color: red">*</b>)</label>
+      <input type="text" class="form-control"
+             [className]="txtCodeCollection.touched ?
+         (txtCodeCollection.value.length < 3 || txtCodeCollection.value.length > 6 ||
+         txtCodeCollection.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+
+             #txtCodeCollection="ngModel" placeholder="Code team" [(ngModel)]="code_collection" name="code_collection" readonly>
+      <div
+        *ngIf="txtCodeCollection.touched ? (txtCodeCollection.value.length < 3 || txtCodeCollection.value.length > 6 || txtCodeCollection.invalid):false"
+        class="invalid-feedback">
+        Length of code from 3 to 6 character.
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label>Name (<b style="color: red">*</b>)</label>
+      <input type="text" class="form-control"
+             [className]="txtNameTeam.touched ?
+         (txtNameTeam.value.length < 5 || txtNameTeam.value.length > 15 ||
+         txtNameTeam.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+
+             #txtNameTeam="ngModel" placeholder="Name of team" [(ngModel)]="name" name="name">
+      <div
+        *ngIf="txtNameTeam.touched ? (txtNameTeam.value.length < 5 || txtNameTeam.value.length > 15 || txtNameTeam.invalid):false"
+        class="invalid-feedback">
+        Length of name from 5 to 15 character.
+      </div>
+    </div>
+
+    <div class="form-group">
+
+      <label>Team (<b style="color: red">*</b>) (Teams for collection)</label>
+      <p>Current team: {{code_team}}</p>
+      <select required class="form-control" name="code_team" ngModel #team="ngModel" id="code_team">
+        <option *ngFor="let l of listTeam" [ngValue]="l.code_team">{{l.name}} ({{l.code_team}})</option>
+      </select>
+
+      <div
+        *ngIf="team.touched ? (team.invalid):false"
+        class="invalid-feedback">
+        Required choose the location
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Status (<b style="color: red">*</b>) (Status 1: Show, Status 0: Hide)</label>
+      <p>Current status: {{status}}</p>
+      <select required class="form-control" name="status" ngModel #status="ngModel" id="status">
+        <option value="1">Show</option>
+        <option value="0">Hide</option>
+      </select>
+
+      <div
+        *ngIf="status.touched ? (status.invalid):false"
+        class="invalid-feedback">
+        Required choose the location
+      </div>
+    </div>
+
+    <div>{{errorMsg}}</div>
+    <div class="ui buttons">
+      <button [disabled]="formAddCollection.invalid" class="btn btn-success" style="margin-right: 20px">Add collection
+      </button>
+      <a routerLink="/admin" class="btn btn-primary">Go to dashboard</a>
+    </div>
+  </form>
+</div>
+<div class="col-sm-3"></div>

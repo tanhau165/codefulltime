@@ -41,31 +41,51 @@ class TeamsController extends Controller
 
     public function GetOne(Request $request)
     {
-        $account = auth()->user();
-        if ($account->role == 1) {
-            return response()->json(['error' => 'You aren\'t a teacher'], 400);
-        }
-        $listTeam = Teams::where('teacher', $account->username)
-            ->where(['code_team' => $request->code_team])
-            ->first();
+       
+        $listTeam = Teams::where(['code_team' => $request->code_team])
+            ->first(); 
         return response()->json([
-            'team' => $listTeam,
-            'username' => $account->username
+            'team' => $listTeam
         ], 200);
     }
 
     public function Add(Request $request)
     {
         $account = auth()->user();
-        if ($account->role == 1 || $account->role == 2) {
+        if ($account->role == 1) {
             return response()->json([
-                'error' => 'You aren\'t a administrator'
+                'error' => 'You aren\'t a teacher or administrator'
             ], 400);
         }
+		$request->merge([
+                'teacher' => $account->username
+            ]);
         Teams::create($request->all());
         return response()->json([
-            'status' => 'success',
+            'message' => 'Add new team successfully',
             'data' => $request->all()
         ]);
+    }
+	
+	public function Update(Request $request)
+    {
+        $account = auth()->user();
+        if ($account->role == 1) {
+            return response()->json(['error' => 'You aren\'t a teacher'], 400);
+        }
+        try {
+            Teams::find($request->code_team)->update($request->all());
+            return response()->json([
+                'message' => 'Update team '.$request->name.' successfully' ,
+                'team' => $request->all()
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e,
+                'team' => $request->all()
+                ], 500);
+
+        }
     }
 }

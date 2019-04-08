@@ -23,7 +23,8 @@ class Examinations extends Model
         'answer_d',
         'answer_correct',
         'type_of_language',
-        'explain_question'
+        'explain_question',
+		'status'
     ];
 
 }

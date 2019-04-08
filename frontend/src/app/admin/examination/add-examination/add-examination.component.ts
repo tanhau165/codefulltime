@@ -1,4 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+import {TeamServiceService} from '../../team/team-service.service';
+import {Collections} from '../../../models/collections';
+import {CollectionsService} from '../../collection/collections.service';
+import {ConfigService} from '../../../services/config.service';
+import {ExamminationServiceService} from '../exammination-service.service';
+import {TokenService} from '../../../services/token.service';
 
 declare var CodeMirror: any;
 
@@ -13,15 +19,32 @@ export class AddExaminationComponent implements OnInit {
   source: any;
   language: any;
   theme: any;
-
+  errMsg: string;
   code_examination: any;
   question: any;
   code_collection: any;
+  listTeam: any;
+  listCollection: Collections[] = [];
 
-  constructor() {
+  listLanguage = this.config.listLanguage;
+
+
+  constructor(private teamS: TeamServiceService, private  collectionS: CollectionsService,
+              private config: ConfigService, private examinationS: ExamminationServiceService,
+              private token: TokenService
+  ) {
   }
 
   ngOnInit() {
+    this.teamS.getAll().subscribe(
+      res => {
+        this.listTeam = res.teams;
+      },
+      error => {
+
+      }
+    );
+
     this.theme = 'dracula';
     this.source = '';
     this.language = 'text/javascript';
@@ -30,10 +53,10 @@ export class AddExaminationComponent implements OnInit {
       styleActiveLine: true,
       matchBrackets: true,
       extraKeys: {
-        'F11': (cm) => {
+        F11: (cm) => {
           cm.setOption('fullScreen', !cm.getOption('fullScreen'));
         },
-        'Esc': (cm) => {
+        Esc: (cm) => {
           if (cm.getOption('fullScreen')) {
             cm.setOption('fullScreen', false);
           }
@@ -51,6 +74,7 @@ export class AddExaminationComponent implements OnInit {
       theme: `${this.theme}`
     });
   }
+
   selectTheme(input) {
     const theme = input.value;
     this.theme = theme;
@@ -63,4 +87,37 @@ export class AddExaminationComponent implements OnInit {
     this.editor.setOption('mode', {name: language.value, globalVars: true});
   }
 
+  addNewExamination(formAddExamination) {
+    const examination = formAddExamination.value;
+    examination.question = this.editor.getValue();
+    // examination.status = parseInt(examination.status, 10);
+    console.log();
+    this.examinationS.addNewExamination(this.token.get(), {
+      code_examination: examination.code_examination,
+      question: examination.question,
+      code_collection: examination.code_collection,
+      type_of_language: examination.type_of_language,
+      explain_question: examination.explain_question,
+      status: parseInt(examination.status, 10),
+      answer_a: examination.answer_a,
+      answer_b: examination.answer_b,
+      answer_c: examination.answer_c,
+      answer_d: examination.answer_d,
+      answer_correct: examination.answer_correct
+    }).subscribe(
+      res => this.errMsg = res.message,
+      error => this.errMsg = error.error.error
+    );
+  }
+
+  changeTeam(value) {
+    this.listCollection = [];
+    this.collectionS.getCollectionByTeam(value).subscribe(
+      res => {
+        res.collections.forEach((collection) => {
+          this.listCollection.push(new Collections(collection));
+        });
+      }
+    );
+  }
 }

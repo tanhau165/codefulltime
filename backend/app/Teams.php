@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Teams extends Model
 {
     protected $table = 'teams';
-    protected $primaryKey = 'code_time';
+    protected $primaryKey = 'code_team';
     public $timestamps = false;
     public $incrementing = false;
 

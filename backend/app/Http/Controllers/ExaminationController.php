@@ -53,16 +53,17 @@ class ExaminationController extends Controller
         }
         try {
             Examinations::create($request->all());
+			
             return response()->json([
-                'status' => 'success',
+                'message' => 'Create new examination successfully',
                 'examination' => $request->all()
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => $e,
+                'error' => 'Examination code already',
                 'examination' => $request->all()
-            ], 500);
+            ], 400);
 
         }
     }
@@ -76,13 +77,13 @@ class ExaminationController extends Controller
         try {
             Examinations::find($request->code_examination)->update($request->all());
             return response()->json([
-                'status' => 'success',
+                'message' => 'Update examination '.$request->code_examination.' successfully',
                 'examination' => $request->all()
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => $e,
+                'error' => $e->message,
                 'examination' => $request->all()
                 ], 500);
 

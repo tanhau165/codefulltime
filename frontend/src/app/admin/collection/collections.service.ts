@@ -15,4 +15,16 @@ export class CollectionsService {
   getCollectionByTeam(code_team): any {
     return this.http.get(`${this.api}/client/collection/get/${code_team}`);
   }
+
+  addNewCollection(token, collection): any {
+    return this.http.post(`${this.api}/admin/collection/add`, collection, {headers: {Authorization: `Bearer ${token}`}});
+  }
+
+  editCollection(token, collection) {
+    return this.http.post(`${this.api}/admin/collection/edit`, collection, {headers: {Authorization: `Bearer ${token}`}});
+  }
+
+  getOneCollection(code_collection): any {
+    return this.http.get(`${this.api}/client/collection/one/${code_collection}`);
+  }
 }

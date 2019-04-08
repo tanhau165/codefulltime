@@ -16,19 +16,20 @@ Route::group([
 
         // Teams
         Route::post('team/add', 'TeamsController@Add');
+		Route::post('team/edit', 'TeamsController@Update');
         Route::get('teams', 'TeamsController@Get');
 
 
         // Collections
         Route::post('collection/add', 'CollectionsController@Add');
-        Route::post('collection/update', 'CollectionsController@Update');
+        Route::post('collection/edit', 'CollectionsController@Update');
         Route::post('collection/hide/{code_collection}', 'CollectionsController@Hide');
         Route::post('collection/show/{code_collection}', 'CollectionsController@Show');
 
 
         // Examination
         Route::post('examination/add','ExaminationController@Add');
-        Route::post('examination/update','ExaminationController@Update');
+        Route::post('examination/edit','ExaminationController@Update');
         Route::post('examination/hide/{code_examination}', 'ExaminationController@Hide');
         Route::post('examination/show/{code_examination}', 'ExaminationController@Show');
 

@@ -81,13 +81,13 @@ class CollectionsController extends Controller
         try {
             Collections::create($request->all());
             return response()->json([
-                'status' => 'success',
+                'message' => 'Add new collection successfully',
                 'data' => $request->all()
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'error' => 'Can\'t not create new collection. If duplicate code of collection. You must change now.',
                 'data' => $request->all()
             ], 500);
         }

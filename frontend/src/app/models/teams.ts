@@ -12,4 +12,5 @@ export class Teams {
     this.teacher = teamResponse.teacher;
     this.location = teamResponse.location;
   }
+
 }
