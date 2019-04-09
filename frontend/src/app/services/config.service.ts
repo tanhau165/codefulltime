@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class ConfigService {
-  public api = 'http://localhost:8000/api';
+  public api = 'http://spobiotri.site/api';
 
   public listLanguage = [
     {id: '', code: 'text/x-c++src', name: 'C++'},

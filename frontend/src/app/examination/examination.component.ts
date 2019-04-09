@@ -177,52 +177,61 @@ export class ExaminationComponent implements OnInit {
   reChooseIfInCorrect() { // chọn câu trả lời đúng nếu sai
     const answer_correct = this.currentExamination.answer_correct;
     if (answer_correct === 'A') {
-      document.getElementById('row_A').style = 'background-color: #00bb00;';
+      document.getElementById('row_A').style.backgroundColor = '#00bb00;';
     }
     if (answer_correct === 'B') {
-      document.getElementById('row_B').style = 'background-color: #00bb00;';
+      document.getElementById('row_B').style.backgroundColor = '#00bb00;';
     }
     if (answer_correct === 'C') {
-      document.getElementById('row_C').style = 'background-color: #00bb00;';
+      document.getElementById('row_C').style.backgroundColor = '#00bb00;';
     }
     if (answer_correct === 'D') {
-      document.getElementById('row_D').style = 'background-color: #00bb00;';
+      document.getElementById('row_D').style.backgroundColor = '#00bb00;';
     }
   }
 
   chooseA() {
-    document.getElementById('ans_a').checked = true;
+    const a: any = document.getElementById('ans_a');
+    a.checked = true;
     this.answer_correct = 'A';
   }
 
   chooseB() {
-    document.getElementById('ans_b').checked = true;
+    const b: any = document.getElementById('ans_b');
+    b.checked = true;
+
     this.answer_correct = 'B';
   }
 
   chooseC() {
-    document.getElementById('ans_c').checked = true;
+    const c: any = document.getElementById('ans_c');
+    c.checked = true;
     this.answer_correct = 'C';
   }
 
   chooseD() {
-    document.getElementById('ans_d').checked = true;
+    const d: any = document.getElementById('ans_d');
+    d.checked = true;
     this.answer_correct = 'D';
   }
 
 
   removeSelectAnswer() {
-    document.getElementById('ans_a').checked = false;
-    document.getElementById('ans_b').checked = false;
-    document.getElementById('ans_c').checked = false;
-    document.getElementById('ans_d').checked = false;
+    const a: any = document.getElementById('ans_a');
+    a.checked = false;
+    const b: any = document.getElementById('ans_b');
+    b.checked = false;
+    const c: any = document.getElementById('ans_c');
+    c.checked = false;
+    const d: any = document.getElementById('ans_d');
+    d.checked = false;
   }
 
   removeHighlightAnswerIncorrect() {
-    document.getElementById('row_A').style = '';
-    document.getElementById('row_B').style = '';
-    document.getElementById('row_C').style = '';
-    document.getElementById('row_D').style = '';
+    document.getElementById('row_A').style.backgroundColor = '';
+    document.getElementById('row_B').style.backgroundColor = '';
+    document.getElementById('row_C').style.backgroundColor = '';
+    document.getElementById('row_D').style.backgroundColor = '';
   }
 
   goToAnotherExamination() { // hàm được gọi khi làm sai muốn làm lại. Đây là hàm được xem như là reset tất cả mọi thứ trở về ban đầu và cập nhật luôn cả điểm của account lên giao diện
