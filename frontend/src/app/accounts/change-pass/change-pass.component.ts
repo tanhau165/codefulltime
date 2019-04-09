@@ -37,10 +37,7 @@ export class ChangePassComponent implements OnInit {
           password: this.oldPassword,
           new_password: this.newPassword
         }, this.token.get()).subscribe(data1 => {
-
-            if (data1.status === 'Success') {
-              this.message = 'Change password successfully !';
-            }
+            this.message = data1.message;
           },
           err => this.handleError(err)
         );
@@ -52,8 +49,6 @@ export class ChangePassComponent implements OnInit {
   }
 
   handleError(error: HttpErrorResponse) {
-    if (error.error.status === 'ErrorOldPass') {
-      this.message = 'Old password not match current pass';
-    }
+    this.message = error.error.error;
   }
 }

@@ -21,7 +21,7 @@ export class RequestResetComponent implements OnInit {
 
   resetPass(formReset) {
     this.jwt.sendPasswordResetLink(formReset.value).subscribe(
-      data => this.message = data.data,
+      data => this.message = data.message,
       err => this.handleError(err)
     );
   }

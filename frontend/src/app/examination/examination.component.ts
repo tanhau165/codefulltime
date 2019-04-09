@@ -5,8 +5,11 @@ import {Teams} from '../models/teams';
 import {TeamServiceService} from '../admin/team/team-service.service';
 import {Collections} from '../models/collections';
 import {CollectionsService} from '../admin/collection/collections.service';
+import {TokenService} from '../services/token.service';
+import {JarwisService} from '../services/jarwis.service';
 
 declare var CodeMirror: any;
+declare var showdown: any;
 
 @Component({
   selector: 'app-examination',
@@ -19,23 +22,37 @@ export class ExaminationComponent implements OnInit {
   end = true;
   finish = false;
 
+  msgCheckScore: string;
+
+  score = 0;
   // for setup
   listTeam: Teams[] = [];
   listCollection: Collections[] = [];
 
   listExamination: Examination[] = [];
+  listExaminationCodeCorrect: string[] = [];
 
   currentExamination: Examination = null;
   answer_correct: any;
 
+  // information
+  yourScore: number;
+  username: string;
+  currentCollection: any;
+
+  editor: any;
+
   constructor(
     private examinationS: ExamminationServiceService,
     private teamS: TeamServiceService,
-    private collectionS: CollectionsService
+    private collectionS: CollectionsService,
+    private token: TokenService,
+    private jwt: JarwisService
   ) {
   }
 
   ngOnInit() {
+
     this.teamS.getAll().subscribe(
       res => {
         res.teams.forEach((val) => {
@@ -43,8 +60,12 @@ export class ExaminationComponent implements OnInit {
         });
       }
     );
-
-
+    this.jwt.me(this.token.get()).subscribe(
+      res => {
+        this.yourScore = res.score;
+        this.username = res.username;
+      }
+    );
   }
 
   onChangeTeam(teamOption: HTMLSelectElement) {
@@ -62,16 +83,52 @@ export class ExaminationComponent implements OnInit {
     const codeCollection = formStarted.value.code_collection;
     this.start = true;
     this.end = false;
+
+
     this.examinationS.getExaminationByCollection(codeCollection).subscribe(
       res => {
         res.examinations.forEach(v => {
           this.listExamination.push(new Examination(v));
         });
+        this.currentCollection = this.listCollection[0].name;
         this.currentExamination = this.getRandomExamination(this.currentExamination);
+        this.loadQuestionToHTML();
       },
       error => {
       }
     );
+  }
+
+  loadQuestionToHTML() {
+
+    this.editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        extraKeys: {
+          F11: (cm) => {
+            cm.setOption('fullScreen', !cm.getOption('fullScreen'));
+          },
+          Esc: (cm) => {
+            if (cm.getOption('fullScreen')) {
+              cm.setOption('fullScreen', false);
+            }
+          },
+          'Ctrl-Space': 'autocomplete',
+          'Alt-F': 'findPersistent',
+          'Ctrl-Q': (cm) => {
+            cm.foldCode(cm.getCursor());
+          }
+        },
+        // mode: {name: `${this.currentExamination.type_of_language}`, globalVars: true},
+        lineWrapping: true,
+        foldGutter: true,
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+        theme: 'dracula'
+      }
+    );
+    this.editor.setOption('readOnly', 'cursor');
+    this.editor.setValue(this.currentExamination.question);
   }
 
 
@@ -81,7 +138,7 @@ export class ExaminationComponent implements OnInit {
       this.currentExamination = this.listExamination[index];
       return this.currentExamination;
     } else {
-      this.listExamination.slice(this.listExamination.indexOf(this.currentExamination), 1);
+      this.listExamination.splice(this.listExamination.indexOf(this.currentExamination), 1);
       const index = Math.floor(Math.random() * this.listExamination.length);
       this.currentExamination = this.listExamination[index];
       return this.currentExamination;
@@ -89,17 +146,35 @@ export class ExaminationComponent implements OnInit {
   }
 
   check() {
+
     if (this.currentExamination.answer_correct === this.answer_correct) {
       // đúng và tiếp tục
+      this.score++;
+      this.listExaminationCodeCorrect.push(this.currentExamination.code_examination);
+      const temp = this.currentExamination;
       this.currentExamination = this.getRandomExamination(this.currentExamination);
+
+      if (this.editor !== null) {
+        if (this.currentExamination !== undefined) {
+          this.editor.setOption('mode', {name: `${this.currentExamination.type_of_language}`, globalVars: true});
+          this.editor.setValue(this.currentExamination.question);
+        }
+      }
+
+      if (this.currentExamination == null) {
+        this.saveScore(false);
+        this.currentExamination = temp;
+      } else {
+        this.removeSelectAnswer();
+      }
     } else {
       // tính điểm lưu database và giải thích câu trả lời
+      this.saveScore(true);
       this.reChooseIfInCorrect();
-      this.finish = true;
     }
   }
 
-  reChooseIfInCorrect() {
+  reChooseIfInCorrect() { // chọn câu trả lời đúng nếu sai
     const answer_correct = this.currentExamination.answer_correct;
     if (answer_correct === 'A') {
       document.getElementById('row_A').style = 'background-color: #00bb00;';
@@ -113,20 +188,6 @@ export class ExaminationComponent implements OnInit {
     if (answer_correct === 'D') {
       document.getElementById('row_D').style = 'background-color: #00bb00;';
     }
-
-    // if (this.answer_correct === 'A') {
-    //   document.getElementById('row_A').style = 'background-color: red;';
-    // }
-    // if (this.answer_correct === 'B') {
-    //   document.getElementById('row_B').style = 'background-color: red;';
-    // }
-    // if (this.answer_correct === 'C') {
-    //   document.getElementById('row_C').style = 'background-color: red;';
-    // }
-    // if (this.answer_correct === 'D') {
-    //   document.getElementById('row_D').style = 'background-color: red;';
-    // }
-
   }
 
   chooseA() {
@@ -149,20 +210,64 @@ export class ExaminationComponent implements OnInit {
     this.answer_correct = 'D';
   }
 
-  goToAnotherExamination() {
-    this.start = false;
-    this.end = true;
-    this.finish = false;
-    document.getElementById('row_A').style = '';
-    document.getElementById('row_B').style = '';
-    document.getElementById('row_C').style = '';
-    document.getElementById('row_D').style = '';
+
+  removeSelectAnswer() {
     document.getElementById('ans_a').checked = false;
     document.getElementById('ans_b').checked = false;
     document.getElementById('ans_c').checked = false;
     document.getElementById('ans_d').checked = false;
+  }
+
+  removeHighlightAnswerIncorrect() {
+    document.getElementById('row_A').style = '';
+    document.getElementById('row_B').style = '';
+    document.getElementById('row_C').style = '';
+    document.getElementById('row_D').style = '';
+  }
+
+  goToAnotherExamination() { // hàm được gọi khi làm sai muốn làm lại. Đây là hàm được xem như là reset tất cả mọi thứ trở về ban đầu và cập nhật luôn cả điểm của account lên giao diện
+    this.start = false;
+    this.end = true;
+    this.finish = false;
+    this.removeHighlightAnswerIncorrect();
+    this.removeSelectAnswer();
     this.currentExamination = null;
     this.answer_correct = '';
     this.listExamination = [];
+    this.score = 0;
+    this.jwt.me(this.token.get()).subscribe(
+      res => this.yourScore = res.score
+    );
+    this.msgCheckScore = '';
+  }
+
+  private saveScore(questionAvailable) { // hàm save score khi làm sai 1 câu
+    if (!questionAvailable) {
+      this.examinationS.addNewReportExamination({
+        score: this.score,
+        list_examination: this.listExaminationCodeCorrect.join(','),
+        code_collection: this.currentCollection
+      }, this.token.get()).subscribe(
+        res => {
+          this.finish = true;
+          const strings = res.message.split('.');
+          this.msgCheckScore = 'Congratulations, you have answered our entire question. ' + strings[2] + '. ' + strings[3];
+        },
+        error => console.log(error)
+      );
+    } else {
+
+      this.examinationS.addNewReportExamination({
+        score: this.score,
+        list_examination: this.listExaminationCodeCorrect.join(','),
+        code_collection: this.currentExamination.code_collection
+      }, this.token.get()).subscribe(
+        res => {
+          this.finish = true;
+          this.msgCheckScore = res.message;
+        },
+        error => console.log(error)
+      );
+    }
   }
 }

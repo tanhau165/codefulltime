@@ -24,7 +24,7 @@ class Examinations extends Model
         'answer_correct',
         'type_of_language',
         'explain_question',
-		'status'
+        'status'
     ];
 
 }

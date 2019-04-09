@@ -11,7 +11,7 @@ export class ConfigService {
     {id: '', code: 'text/x-java', name: 'Java'},
     {id: '', code: 'text/x-python', name: 'Python'},
     {id: '', code: 'text/javascript', name: 'Javascript'},
-    {id: '', code: 'markdown', name: 'Markdown'}
+    {id: '00', code: 'text/plain', name: 'Text/Plain Text'}
   ];
 
   constructor() {

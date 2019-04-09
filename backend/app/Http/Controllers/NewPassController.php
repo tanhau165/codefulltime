@@ -18,6 +18,6 @@ class NewPassController extends Controller
         $user = User::where('email',$request->email)->first();
         $user->update(['password'=>$request->password]);
         $this->getPasswordResetTableRow($request)->delete();
-        return response()->json(['data'=>'Password Successfully Changed'],Response::HTTP_CREATED);
+        return response()->json(['message'=>'Password Successfully Changed'],Response::HTTP_CREATED);
     }
 }

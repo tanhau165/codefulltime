@@ -20,7 +20,7 @@ export class CollectionsService {
     return this.http.post(`${this.api}/admin/collection/add`, collection, {headers: {Authorization: `Bearer ${token}`}});
   }
 
-  editCollection(token, collection) {
+  editCollection(token, collection): any {
     return this.http.post(`${this.api}/admin/collection/edit`, collection, {headers: {Authorization: `Bearer ${token}`}});
   }
 

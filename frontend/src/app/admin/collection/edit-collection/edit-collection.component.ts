@@ -18,6 +18,7 @@ export class EditCollectionComponent implements OnInit {
 
   collection: Collections;
   listTeam: any;
+  errMsg: string;
 
 
   constructor(
@@ -25,7 +26,6 @@ export class EditCollectionComponent implements OnInit {
     private collectionS: CollectionsService,
     private teamS: TeamServiceService,
     private token: TokenService
-
   ) {
   }
 
@@ -60,8 +60,8 @@ export class EditCollectionComponent implements OnInit {
   editCollection(formAddCollection) {
     console.log(formAddCollection.value);
     this.collectionS.editCollection(this.token.get(), formAddCollection.value).subscribe(
-      res => console.log(res),
-      err => console.log(err)
+      res => this.errMsg = res.message,
+      err => this.errMsg = err.error.error
     );
   }
 }

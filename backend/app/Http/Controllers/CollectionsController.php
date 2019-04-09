@@ -23,9 +23,9 @@ class CollectionsController extends Controller
     {
         try {
             $collection = Collections::all();
-            return response()->json(['status' => 'success', 'data' => $collection], 200);
+            return response()->json(['message' => 'Get all collection successfully', 'collections' => $collection], 200);
         } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'data' => $e], 500);
+            return response()->json(['error' => 'Get all collection incorrect', 'data' => $e], 500);
         }
     }
 
@@ -36,13 +36,13 @@ class CollectionsController extends Controller
         try {
             $collection = Collections::where('code_team', $code_team)->get();
             return response()->json([
-                'status' => 'success',
+                'message' => 'Get collection by team successfully',
                 'collections' => $collection
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'error' => 'Get collection by team incorrect',
                 'data' => $e
             ], 500);
         }
@@ -57,15 +57,15 @@ class CollectionsController extends Controller
                 ->first();
 
             return response()->json([
-                'status' => 'success',
-                'data' => $collection
+                'message' => 'Get collection with code ' . $code_collection . 'successfully',
+                'collection' => $collection
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'error' => 'Collection not found',
                 'data' => $e
-            ], 500);
+            ], 404);
         }
     }
 
@@ -106,12 +106,12 @@ class CollectionsController extends Controller
         try {
             Collections::find($request->code_collection)->update($request->all());
             return response()->json([
-                'status' => 'success',
+                'message' => 'Update collection successfully',
                 'data' => $request->all()
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'error' => 'Update collection incorrect',
                 'data' => $e
             ], 500);
         }
@@ -135,12 +135,12 @@ class CollectionsController extends Controller
             $collection = Collections::where('code_collection', $code_collection)
                 ->first();
             return response()->json([
-                'status' => 'success',
+                'message' => 'Hide ' . $code_collection . 'successfully',
                 'data' => $collection
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'error' => 'Hide collection ' . $code_collection . 'error.',
                 'data' => $e
             ], 500);
         }
@@ -164,12 +164,12 @@ class CollectionsController extends Controller
             $collection = Collections::where('code_collection', $code_collection)
                 ->first();
             return response()->json([
-                'status' => 'success',
+                'message' => 'Show collection successfully',
                 'data' => $collection
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'error' => 'Show collection is error',
                 'data' => $e
             ], 500);
         }

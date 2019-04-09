@@ -111,15 +111,15 @@ class AuthController extends Controller
         try {
             $credentials = request(['username', 'password']);
             if (!$token = auth()->attempt($credentials)) {
-                return response()->json(['status' => 'ErrorOldPass'], 400);
+                return response()->json(['error' => 'Old password not match'], 400);
             }
             $newPass = $rq->new_password;
             $user = User::where('username', $rq->username)->first();
             $user->update(['password' => $newPass]);
         } catch (\Error $ex) {
-            return response()->json(['status' => 'Error'], 401);
+            return response()->json(['error' => 'Change password error'], 401);
         }
-        return response()->json(['status' => 'Success'], 200);
+        return response()->json(['message' => 'Change password successfully'], 200);
 
 
     }

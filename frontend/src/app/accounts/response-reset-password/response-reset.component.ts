@@ -31,7 +31,7 @@ export class ResponseResetComponent implements OnInit {
       password_confirmation: formNewPass.value.password_confirmation,
       resetToken: this.token
     }).subscribe(
-      res => this.message = res.data,
+      res => this.message = res.message,
       err => this.handleError(err)
     );
   }

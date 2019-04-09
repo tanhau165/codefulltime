@@ -20,7 +20,7 @@ class ExaminationController extends Controller
     public function GetAll()
     {
         $listExam = Examinations::all();
-        return response()->json(['listExamination' => $listExam], 200);
+        return response()->json(['examinations' => $listExam], 200);
     }
 
 
@@ -53,16 +53,16 @@ class ExaminationController extends Controller
         }
         try {
             Examinations::create($request->all());
-			
+
             return response()->json([
                 'message' => 'Create new examination successfully',
-                'examination' => $request->all()
+                'data' => $request->all()
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
                 'error' => 'Examination code already',
-                'examination' => $request->all()
+                'data' => $request->all()
             ], 400);
 
         }
@@ -77,15 +77,15 @@ class ExaminationController extends Controller
         try {
             Examinations::find($request->code_examination)->update($request->all());
             return response()->json([
-                'message' => 'Update examination '.$request->code_examination.' successfully',
+                'message' => 'Update examination ' . $request->code_examination . ' successfully',
                 'examination' => $request->all()
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'error' => $e->message,
+                'error' => $e,
                 'examination' => $request->all()
-                ], 500);
+            ], 500);
 
         }
     }
@@ -108,13 +108,13 @@ class ExaminationController extends Controller
                 ->first();
 
             return response()->json([
-                'status' => 'success',
+                'message' => 'Hide examination ' . $code_examination . ' successfully.',
                 'examination' => $examination
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => $e,
+                'error' => 'Hide examination ' . $code_examination . 'incorrect',
                 'examination' => $request->all()
             ], 500);
 
@@ -129,7 +129,7 @@ class ExaminationController extends Controller
         $account = auth()->user();
         if ($account->role == 1) {
             return response()->json([
-                'error' => 'You aren\'t a teacher'
+                'error' => 'You aren\'t a teacher.'
             ], 400);
         }
         try {
@@ -139,17 +139,16 @@ class ExaminationController extends Controller
                 ]);
             $examination = Examinations::where('code_examination', $code_examination)->first();
             return response()->json([
-                'status' => 'success',
+                'message' => 'Show examination ' . $code_examination . 'successfully.',
                 'examination' => $examination
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
-                'status' => $e,
+                'error' => 'Show examination ' . $code_examination . 'incorrect.',
                 'examination' => $request->all()
             ], 500);
 
         }
     }
-
 }

@@ -34,4 +34,7 @@ export class ExamminationServiceService {
     return this.http.get(`${this.api}/client/examination/one/${code_examination}`);
   }
 
+  addNewReportExamination(data, token): any {
+    return this.http.post(`${this.api}/admin/rp-examination/add`, data, {headers: {Authorization: `Bearer ${token}`}});
+  }
 }

@@ -41,8 +41,9 @@
 
 
     <div *ngIf="start && !end" class="col-sm-9">
-      <p>{{currentExamination?.code_examination}}</p>
-      <p>{{currentExamination?.question}}</p>
+      <textarea id="code" #txtQuestion="ngModel" name="question" ngModel></textarea>
+
+      <p>{{currentExamination?.answer_correct}}</p>
       <table class="table">
         <tr (click)="chooseA()" id="row_A">
           <td width="2%">
@@ -73,8 +74,11 @@
           </td>
         </tr>
       </table>
-      <button (click)="check()" [disabled]="finish" class="btn btn-success">Check</button>
-      <button (click)="goToAnotherExamination()" *ngIf="finish" class="btn btn-success">Check</button>
+      <p>{{msgCheckScore}}</p>
+      <button (click)="check()" [disabled]="finish" style="margin-right: 20px" class="btn btn-success">Check</button>
+      <button (click)="goToAnotherExamination()" *ngIf="finish" class="btn btn-success">Go to dashboard for new
+        examination
+      </button>
     </div>
 
 
@@ -82,9 +86,11 @@
       <div class="card text-white bg-success mb-3" style="position: fixed">
         <div class="card-header">Information</div>
         <div class="card-body">
-          <h5 class="card-title">Success card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
+          <h5 class="card-title">{{username}}</h5>
+          <p class="card-text">Your score: {{yourScore}}</p>
+          <p class="card-text">Current score of examination: {{score}}</p>
+          <p class="card-text">Collection: {{currentCollection}}</p>
+          <p class="card-text">Current question: {{currentExamination?.code_examination}}</p>
         </div>
       </div>
     </div>
