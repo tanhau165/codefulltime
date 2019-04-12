@@ -37,4 +37,9 @@ export class ExamminationServiceService {
   addNewReportExamination(data, token): any {
     return this.http.post(`${this.api}/admin/rp-examination/add`, data, {headers: {Authorization: `Bearer ${token}`}});
   }
+
+  getTopRpExamination(numberRow): any {
+    return this.http.get(`${this.api}/client/rp-examinations/get/top/${numberRow}`);
+  }
+
 }

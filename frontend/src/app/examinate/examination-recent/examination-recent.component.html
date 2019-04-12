@@ -1,0 +1,21 @@
+<table style="margin-top: 10px; border-radius: 5px" class="table table-primary table-borderless">
+  <thead class="bg-primary">
+  <tr>
+    <th colspan="4" scope="col">Submit examination recent</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Name</td>
+    <td>Score</td>
+    <td>Collection</td>
+    <td>Times</td>
+  </tr>
+  <tr *ngFor="let exam of examinations">
+    <td>{{exam?.account?.name}}</td>
+    <td>{{exam?.score}}</td>
+    <td>{{exam?.code_collection}}</td>
+    <td>{{exam?.times_submit}}</td>
+  </tr>
+  </tbody>
+</table>

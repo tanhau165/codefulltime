@@ -91,6 +91,7 @@ class ExerciseController extends Controller
             ], 400);
         }
         Exercise::create($request->all());
+
         return response()->json([
             'message' => 'Add new exercise successfully',
             'exercise' => $request->all()

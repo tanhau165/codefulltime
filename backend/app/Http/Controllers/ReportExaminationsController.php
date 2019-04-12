@@ -13,9 +13,17 @@ class ReportExaminationsController extends Controller
         $this->middleware('auth:api',
             ['except' => [
                 'GetAll',
-                'GetByUsername'
+                'GetByUsername',
+                'GetWithRow'
             ]]
         );
+    }
+
+    public function GetWithRow(Request $request)
+    {
+        $number_row = $request->number_row;
+        $listExam = ReportExaminations::take($number_row)->orderby('code', 'desc')->get();
+        return response()->json(['rpexams' => $listExam], 200);
     }
 
     public function GetAll()
@@ -57,8 +65,10 @@ class ReportExaminationsController extends Controller
         // Lay ra so lan submit voi collection nay
         $c = round(microtime(true) * 1000);
         $code = $c . rand_string(20);
+        $time = date('h:i:s d-m-Y');
         $request->merge([
-            'code' => $code
+            'code' => $code,
+            'time_submit' => $time
         ]);
         $rp = ReportExaminations::where('username', $account->username)
             ->where('code_collection', $request->code_collection)
@@ -77,7 +87,7 @@ class ReportExaminationsController extends Controller
         if ($rp == null) { // chua lan nao
             $request->merge([
                 'username' => $account->username,
-                'times_submit' => 0
+                'times_submit' => 1
             ]);
         } else {
             $request->merge([
@@ -94,12 +104,12 @@ class ReportExaminationsController extends Controller
                         'score' => ($account->score - $bestScore + $request->score)
                     ]);
                 return response()->json([
-                    'message' => 'Sorry. You have chosen the wrong answer. Total score for you: ' . $request->score . 'Updated your score: ' . ($account->score - $bestScore + $request->score),
+                    'message' => 'Sorry. You have chosen the wrong answer. Total score for you: ' . $request->score . '. Updated your score: ' . ($account->score - $bestScore + $request->score),
                     'report_examination' => $request->all()
                 ], 200);
             }
             return response()->json([
-                'message' => "Sorry. You have chosen the wrong answer. Total score for you: " . $request->score . ' .Because current score not greater than your score, this score will not save in system.',
+                'message' => "Sorry. You have chosen the wrong answer. Total score for you: " . $request->score . '. Because current score not greater than your score, this score will not save in system.',
                 'report_examination' => $request->all()
             ], 200);
 

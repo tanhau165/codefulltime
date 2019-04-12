@@ -1,11 +1,13 @@
 <div class="row">
-  <div class="col-sm-2">
+  <div class="col-sm-6">
     <h3>Action</h3>
     <a style="margin-bottom: 20px;" class="btn btn-primary" routerLink="/admin/team/add">Add new team</a><br>
     <a style="margin-bottom: 20px;" class="btn btn-success" routerLink="/admin/collection/add">Add new
       collection</a><br>
     <a style="margin-bottom: 20px;" class="btn btn-danger" routerLink="/admin/examination/add">Add new Examination</a>
+    <a style="margin-bottom: 20px;" class="btn btn-primary" routerLink="/admin/exercise/add">Add new exercise</a><br>
   </div>
+
 </div>
 
 <div class="row">
@@ -20,7 +22,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let team of teams" >
+      <tr *ngFor="let team of teams">
         <td (click)="clickToViewCollection(team.code_team)">{{team.code_team}}</td>
         <td (click)="clickToViewCollection(team.code_team)">{{team.name}}</td>
         <td><a routerLink="/admin/team/edit/{{team.code_team}}" class="btn btn-warning">Edit</a></td>
@@ -41,7 +43,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let collection of collections" >
+      <tr *ngFor="let collection of collections">
         <td (click)="clickToViewExamination(collection.code_collection)">{{collection.code_collection}}</td>
         <td (click)="clickToViewExamination(collection.code_collection)">{{collection.name}}</td>
         <td><a routerLink="/admin/collection/edit/{{collection.code_collection}}"
@@ -62,7 +64,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let examination of examinations " >
+      <tr *ngFor="let examination of examinations ">
         <td (click)="detailsExamination(examination.code_examination)">{{examination.code_examination}}</td>
         <td (click)="detailsExamination(examination.code_examination)">{{examination.question}}</td>
         <td>{{examination.explain_question}}</td>
@@ -87,9 +89,31 @@
       </tr>
       </tfoot>
     </table>
-
   </div>
-
-
 </div>
+
+<div class="row">
+  <div class="col-sm-9">
+    <table class="table table-bordered table-dark">
+      <thead>
+      <tr>
+        <th width="10%" scope="col">Code</th>
+        <th width="70%" scope="col">Name</th>
+        <th width="10%" scope="col">Best score</th>
+        <th width="10%" scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let e of exercises">
+        <td>{{e.exercise_code}}</td>
+        <td>{{e.name}}</td>
+        <td>{{e.best_score}}</td>
+        <td><a routerLink="/admin/exercise/edit/{{e.exercise_code}}"
+               class="btn btn-warning">Edit</a>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <router-outlet></router-outlet>

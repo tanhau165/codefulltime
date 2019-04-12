@@ -23,8 +23,26 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register', 'changepass']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'changepass', 'Rank', 'TopRank']]);
     }
+
+
+    public function Rank()
+    {
+        $accounts = User::orderby('score', 'desc')->get();
+        return response()->json([
+            'accounts' => $accounts
+        ], 200);
+    }
+
+    public function TopRank()
+    {
+        $accounts = User::orderby('score', 'desc')->take(10)->get();
+        return response()->json([
+            'accounts' => $accounts
+        ], 200);
+    }
+
 
     /**
      * Get a JWT via given credentials.
@@ -44,8 +62,13 @@ class AuthController extends Controller
 
     public function register(SignUpRequest $request)
     {
+        $c = round(microtime(true) * 1000);
+        $code = $c . rand_string(20);
         $request->merge([
-            'score' => 0
+            'score' => 0,
+            'avatar' => 'https://zero1.sg/img/accountlogin-icon.png',
+            'cup' => 0,
+            'id'=>$code
         ]);
         try {
             User::create($request->all());
@@ -101,7 +124,8 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            'name' => auth()->user()->name
+            'name' => auth()->user()->name,
+            'role' => auth()->user()->role
         ]);
     }
 
@@ -125,4 +149,15 @@ class AuthController extends Controller
     }
 
 
+}
+function rand_string($length)
+{
+    $str = "";
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    $size = strlen($chars);
+    for ($i = 0; $i < $length; $i++) {
+        $str .= $chars[rand(0, $size - 1)];
+    }
+    $str = substr(str_shuffle($chars), 0, $length);
+    return $str;
 }

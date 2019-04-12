@@ -14,9 +14,7 @@ export class TeacherAdminService {
   }
 
   teams(token): any {
-    return this.http.get(`${this.api}/client/teams/`, {headers: {Authorization: `Bearer ${token}`}});
+    return this.http.get(`${this.api}/admin/teams`, {headers: {Authorization: `Bearer ${token}`}});
   }
-
-
 
 }

@@ -1,0 +1,30 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reportError">
+  Report {{name_object}}
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="reportError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">What do you want, my friend ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form (ngSubmit)="onSendReport(formRp)" #formRp="ngForm">
+        <div class="modal-body">
+          <textarea class="form-control" style="resize: none" rows="10" name="content_error" ngModel #txtContent="ngModel"
+                    placeholder="Write your report to here..." required></textarea>
+        </div>
+        <div class="modal-footer">
+          <p style="color: red">{{message}}</p><br>
+          <button type="submit" [disabled]="formRp.invalid" class="btn btn-primary">Send this report for error</button>
+          <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

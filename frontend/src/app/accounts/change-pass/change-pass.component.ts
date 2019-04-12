@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {JarwisService} from '../../services/jarwis.service';
 import {TokenService} from '../../services/token.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-change-pass',
@@ -13,7 +14,8 @@ export class ChangePassComponent implements OnInit {
 
   constructor(
     private jwt: JarwisService,
-    private token: TokenService
+    private token: TokenService,
+    private auth: AuthService
   ) {
   }
 
@@ -23,6 +25,7 @@ export class ChangePassComponent implements OnInit {
   message: any;
 
   ngOnInit() {
+    this.auth.changeMenuActive('Account');
   }
 
   changePass(formChangePass) {

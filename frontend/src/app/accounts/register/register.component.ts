@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.auth.changeMenuActive('Account');
   }
 
   register(formRegister) {
@@ -53,7 +54,7 @@ export class RegisterComponent implements OnInit {
     this.token.setName(data.name);
     this.auth.changeAuthStatus(true);
     this.auth.changeName(data.name);
-    this.router.navigateByUrl('/profile');
+    this.router.navigateByUrl('/');
   }
 
   handleError(error) {

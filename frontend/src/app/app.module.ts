@@ -7,7 +7,7 @@ import {AppComponent} from './app.component';
 import {MenuComponent} from './menu/menu.component';
 import {LoginComponent} from './accounts/login/login.component';
 import {RegisterComponent} from './accounts/register/register.component';
-import {ExaminationComponent} from './examination/examination.component';
+import {ExaminationComponent} from './examinate/examination/examination.component';
 import {FormsModule} from '@angular/forms';
 import {JarwisService} from './services/jarwis.service';
 import {ProfileComponent} from './accounts/profile/profile.component';
@@ -26,6 +26,18 @@ import { AddCollectionComponent } from './admin/collection/add-collection/add-co
 import { EditCollectionComponent } from './admin/collection/edit-collection/edit-collection.component';
 import { AddExaminationComponent } from './admin/examination/add-examination/add-examination.component';
 import { EditExaminationComponent } from './admin/examination/edit-examination/edit-examination.component';
+import { RankComponent } from './rank/rank.component';
+import { TopRankComponent } from './top-rank/top-rank.component';
+import { ReportErroreComponent } from './report-errore/report-errore.component';
+import { ExerciseRecentComponent } from './exercise/exercise-recent/exercise-recent.component';
+import { ExerciseAllComponent } from './exercise/exercise-all/exercise-all.component';
+import { ExerciseDetailsComponent } from './exercise/exercise-details/exercise-details.component';
+import { ExerciseSubmitComponent } from './exercise/exercise-submit/exercise-submit.component';
+import { SubmissionComponent } from './submit/submission/submission.component';
+import { AddComponent } from './admin/exercise/add/add.component';
+import { EditComponent } from './admin/exercise/edit/edit.component';
+import { RecentSubmissionComponent } from './submit/recent-submission/recent-submission.component';
+import { ExaminationRecentComponent } from './examinate/examination-recent/examination-recent.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +57,18 @@ import { EditExaminationComponent } from './admin/examination/edit-examination/e
     EditCollectionComponent,
     AddExaminationComponent,
     EditExaminationComponent,
+    RankComponent,
+    TopRankComponent,
+    ReportErroreComponent,
+    ExerciseRecentComponent,
+    ExerciseAllComponent,
+    ExerciseDetailsComponent,
+    ExerciseSubmitComponent,
+    SubmissionComponent,
+    AddComponent,
+    EditComponent,
+    RecentSubmissionComponent,
+    ExaminationRecentComponent,
   ],
   imports: [
     BrowserModule,

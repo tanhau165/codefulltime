@@ -15,7 +15,9 @@ class SubmissionController extends Controller
             ['except' => [
                 'GetAll',
                 'GetOne',
-                'GetByUsername'
+                'GetByUsername',
+                'GetWithRow',
+                'GetWithExercise'
             ]]
         );
     }
@@ -24,6 +26,25 @@ class SubmissionController extends Controller
     public function GetAll()
     {
         $submissions = Submission::all();
+        return response()->json([
+            'submissions' => $submissions
+        ], 200);
+    }
+
+    public function GetWithRow(Request $request)
+    {
+        $number = $request->number_row;
+        $submissions = Submission::take($number)->orderby('code_submission','desc')->get();
+        return response()->json([
+            'submissions' => $submissions
+        ], 200);
+    }
+
+
+    public function GetWithExercise(Request $request)
+    {
+        $exercise_code = $request->exercise_code;
+        $submissions = Submission::where('exercise_code',$exercise_code)->take(5)->orderby('code_submission','desc')->get();
         return response()->json([
             'submissions' => $submissions
         ], 200);
@@ -67,6 +88,7 @@ class SubmissionController extends Controller
     public function Add(Request $request)
     {
         $account = auth()->user();
+        $time = date('h:i:s d-m-Y');
         $c = round(microtime(true) * 1000);
         $code = $c . rand_string(20);
         if ($account->role == 1) {
@@ -77,7 +99,8 @@ class SubmissionController extends Controller
 
         $request->merge([
             'username' => $account->username,
-            'code_submission' => $code
+            'code_submission' => $code,
+            'time_submit' => $time
         ]);
 
         // lay diem cao nhat
@@ -115,12 +138,12 @@ class SubmissionController extends Controller
                         'score' => ($account->score - $bestScore + $request->score)
                     ]);
                 return response()->json([
-                    'message' => 'You are submission successfully with score ' . $request->score . ' Score for you: ' . $request->score . 'Updated your score: ' . ($account->score - $bestScore + $request->score),
+                    'message' => 'You are submission successfully with score ' . $request->score . ' Score for you: ' . $request->score . '. Updated your score: ' . ($account->score - $bestScore + $request->score),
                     'report_examination' => $request->all()
                 ], 200);
             } else {
                 return response()->json([
-                    'message' => 'You are submission successfully with score ' . $request->score . 'No update your score because score of submission not equals score of before submission',
+                    'message' => 'You are submission successfully with score ' . $request->score . '. No update your score because score of submission not equals score of before submission',
                     'submission' => $request->all()
                 ], 201);
             }
@@ -131,7 +154,7 @@ class SubmissionController extends Controller
                     'score' => ($account->score + $request->score)
                 ]);
             return response()->json([
-                'message' => 'You are submission successfully with score ' . $request->score . ' Score for you: ' . $request->score . 'Updated your score: ' . ($account->score + $request->score),
+                'message' => 'You are submission successfully with score ' . $request->score . ' Score for you: ' . $request->score . '. Updated your score: ' . ($account->score + $request->score),
                 'report_examination' => $request->all()
             ], 200);
         }

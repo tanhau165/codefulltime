@@ -1,0 +1,9 @@
+<div class="card text-white bg-success">
+  <div class="card-header">Rank</div>
+  <ul style="color: black" class="list-group">
+    <li *ngFor="let acc of topRank"  class="list-group-item d-flex bg justify-content-between align-items-center">
+      {{acc.name}}
+      <span class="badge badge-primary badge-pill">{{acc.score}}</span>
+    </li>
+  </ul>
+</div>

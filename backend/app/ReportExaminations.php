@@ -12,6 +12,24 @@ class ReportExaminations extends Model
     public $incrementing = false;
 
 
+    public function toArray()
+    {
+        $acc = parent::toArray();
+        $acc['account'] = $this->account;
+        $acc['collection'] = $this->collection;
+        return $acc;
+    }
+
+    public function collection()
+    {
+        return $this->belongsTo('App\Collections', 'code_collection');
+    }
+
+    public function account()
+    {
+        return $this->belongsTo('App\User', 'username');
+    }
+
     protected $fillable = [
         'code',
         'score',

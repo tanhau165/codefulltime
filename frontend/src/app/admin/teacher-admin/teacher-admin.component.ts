@@ -8,7 +8,8 @@ import {Collections} from '../../models/collections';
 import {CollectionsService} from '../collection/collections.service';
 import {Examination} from '../../models/examination';
 import {ExamminationServiceService} from '../examination/exammination-service.service';
-
+import {ExerciseService} from '../exercise/exercise.service';
+import {Exercises} from '../../models/exercises';
 
 
 @Component({
@@ -21,6 +22,9 @@ export class TeacherAdminComponent implements OnInit {
   teams: Teams[] = [];
   collections: Collections[] = [];
   examinations: Examination[] = [];
+  exercises: any[] = [];
+
+
   currentExamination: Examination = null;
 
 
@@ -28,30 +32,16 @@ export class TeacherAdminComponent implements OnInit {
   currentCollection: string;
 
 
-
-
   constructor(private jwt: JarwisService, private token: TokenService, private router: Router, private teacherService: TeacherAdminService,
-              private collectionS: CollectionsService, private examinationS: ExamminationServiceService
+              private collectionS: CollectionsService, private examinationS: ExamminationServiceService,
+              private exeS: ExerciseService
   ) {
   }
 
   ngOnInit() {
 
+    this.loadData(this.token.get());
 
-
-
-    this.jwt.me(this.token.get()).subscribe(
-      data => {
-        if (data.role !== undefined && !isNaN(data.role) && data.role !== 3 && data.role !== 2) {
-          this.router.navigateByUrl('/');
-        } else {
-          this.loadData(this.token.get());
-        }
-      },
-      error => {
-        this.router.navigateByUrl('/');
-      }
-    );
   }
 
 
@@ -64,6 +54,14 @@ export class TeacherAdminComponent implements OnInit {
       },
       error => console.log(error)
     );
+    this.exeS.getOfMe(this.token.get()).subscribe(
+      vl => {
+        vl.exercises.forEach(e => {
+          this.exercises.push(e);
+        });
+      }
+    );
+
   }
 
   clickToViewCollection(team_code) {

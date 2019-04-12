@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {JarwisService} from '../../services/jarwis.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-response-reset',
@@ -11,7 +12,8 @@ export class ResponseResetComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private jwt: JarwisService
+    private jwt: JarwisService,
+    private auth: AuthService
   ) {
   }
 
@@ -19,6 +21,7 @@ export class ResponseResetComponent implements OnInit {
   message: any;
 
   ngOnInit() {
+    this.auth.changeMenuActive('Account');
     this.route.queryParams.subscribe(param => {
       this.token = param.token;
     });

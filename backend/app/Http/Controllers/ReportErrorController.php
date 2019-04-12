@@ -62,7 +62,7 @@ class ReportErrorController extends Controller
         ]);
         ReportError::create($request->all());
         return response()->json([
-            'message' => 'Report successfully'
+            'message' => 'Report successfully. Thanks very much. We will see your report.'
         ], 200);
     }
 }

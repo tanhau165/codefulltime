@@ -1,0 +1,50 @@
+<div style="margin-top: 20px">
+<div class="row">
+  <div class="col-sm-8">
+    <form ngForm #formSubmit="ngForm" (ngSubmit)="sendSolution()" action="">
+      <div class="form-group">
+        <label>Code exercise (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtCodeExercise.touched ?
+         (txtCodeExercise.value.length < 3 || txtCodeExercise.value.length > 6 ||
+         txtCodeExercise.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+               #txtCodeExercise="ngModel" placeholder="Code exercise" [(ngModel)]="exercise_code" name="exercise_code"
+               readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="code">Question (<b style="color: red">*</b>)</label>
+        <textarea id="code" #txtQuestion="ngModel" name="question" ngModel></textarea><br>
+        <div
+          *ngIf="txtQuestion.touched ? (txtQuestion.value.length < 3 || txtQuestion.value.length > 6 || txtQuestion.invalid):false"
+          class="invalid-feedback">
+          Length of code from 3 to 6 character.
+        </div>
+
+        <label for="theme"></label>
+        <select required="required" class="form-control" id="theme" (change)="selectTheme(th)" #th="ngModel" [(ngModel)]="theme" name="theme">
+          <option value="dracula">dracula</option>
+          <option value="midnight">midnight</option>
+        </select>
+
+        <label for="language"></label>
+        <select required="required" class="form-control" id="language" (change)="selectLanguage(lg)" #lg="ngModel" [(ngModel)]="language"
+                name="type_of_language">
+          <option value="{{lang.code}}" *ngFor="let lang of listLanguage">{{lang.name}}</option>
+        </select>
+      </div>
+      <div *ngIf="clickedSendSolution" class="spinner-border text-primary" style="margin-top: 5px; margin-bottom: 5px" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <br>
+      <button class="btn btn-success" type="submit" [disabled]="formSubmit.invalid">Send solution</button>
+
+    </form>
+
+  </div>
+  <div class="col-sm-4">
+
+    <div id="output"></div>
+  </div>
+</div>
+</div>

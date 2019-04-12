@@ -5,6 +5,7 @@ import {CollectionsService} from '../../collection/collections.service';
 import {ConfigService} from '../../../services/config.service';
 import {ExamminationServiceService} from '../exammination-service.service';
 import {TokenService} from '../../../services/token.service';
+import {AuthService} from '../../../services/auth.service';
 
 declare var CodeMirror: any;
 
@@ -26,12 +27,13 @@ export class AddExaminationComponent implements OnInit {
   listTeam: any;
   listCollection: Collections[] = [];
 
+
   listLanguage = this.config.listLanguage;
 
 
   constructor(private teamS: TeamServiceService, private  collectionS: CollectionsService,
               private config: ConfigService, private examinationS: ExamminationServiceService,
-              private token: TokenService
+              private token: TokenService, private auth: AuthService
   ) {
   }
 
@@ -44,6 +46,7 @@ export class AddExaminationComponent implements OnInit {
 
       }
     );
+
 
     this.theme = 'dracula';
     this.source = '';

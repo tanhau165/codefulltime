@@ -12,10 +12,14 @@ class ExaminationController extends Controller
         $this->middleware('auth:api',
             ['except' => [
                 'GetByCollection',
-                'GetOne'
+                'GetOne',
+                'GetAll',
             ]]
         );
     }
+
+
+
 
     public function GetAll()
     {

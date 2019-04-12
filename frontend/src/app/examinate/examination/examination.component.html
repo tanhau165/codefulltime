@@ -1,0 +1,111 @@
+<div style="margin-top: 20px">
+  <div class="row">
+    <div class="col-sm-9">
+      <div *ngIf="end" class="row">
+        <div class="col-sm-4">
+          <app-top-rank></app-top-rank>
+          <app-recent-submission></app-recent-submission>
+        </div>
+        <div class="col-sm-8">
+          <div class="card text-white bg-warning">
+            <div class="card-header"><h1>Hello, you can go to examination now.</h1></div>
+          </div>
+          <form (ngSubmit)="getStarted(formStarted)" #formStarted="ngForm">
+            <div class="form-group">
+              <label for="team">Team</label>
+              <select id="team" class="form-control" #teamOption ngModel (change)="onChangeTeam(teamOption)"
+                      name="team"
+                      required>
+                <option *ngFor="let team of listTeam" value="{{team.code_team}}">{{team.name}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="team">Collection</label>
+              <select id="collection" class="form-control" #collectionOption ngModel name="code_collection"
+                      required>
+                <option *ngFor="let collection of listCollection"
+                        value="{{collection.code_collection}}">{{collection.name}}</option>
+              </select>
+            </div>
+
+            <button [disabled]="formStarted.invalid" *ngIf="isLoggedIn" type="submit" class="btn btn-primary">Get
+              started
+            </button>
+            <a routerLink="/login" type="submit" *ngIf="!isLoggedIn" class="btn btn-primary">Login first</a>
+          </form>
+        </div>
+      </div>
+      <div *ngIf="start && !end" class="row">
+        <div class="col-sm-12">
+          <textarea id="code" #txtQuestion="ngModel" name="question" ngModel></textarea>
+          <table class="table">
+            <tr (click)="chooseA()" id="row_A">
+              <td width="2%">
+                <input type="radio" [(ngModel)]="answer_correct" value="A" name="answer_correct" id="ans_a">
+              </td>
+              <td width="98%">{{currentExamination?.answer_a}}
+              </td>
+            </tr>
+            <tr (click)="chooseB()" id="row_B">
+              <td>
+                <input [(ngModel)]="answer_correct" type="radio" value="B" name="answer_correct" id="ans_b">
+              </td>
+              <td>{{currentExamination?.answer_b}}
+              </td>
+            </tr>
+            <tr (click)="chooseC()" id="row_C">
+              <td>
+                <input [(ngModel)]="answer_correct" type="radio" value="C" name="answer_correct" id="ans_c">
+              </td>
+              <td>{{currentExamination?.answer_c}}
+              </td>
+            </tr>
+            <tr (click)="chooseD()" id="row_D">
+              <th>
+                <input [(ngModel)]="answer_correct" type="radio" value="D" name="answer_correct" id="ans_d">
+              </th>
+              <td>{{currentExamination?.answer_d}}
+              </td>
+            </tr>
+          </table>
+          {{currentExamination?.answer_correct}}
+          <div class="alert alert-danger alert-dismissible fade show" *ngIf="finish &&!win" role="alert">
+            <strong>{{currentExamination.explain_question}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="alert alert-success alert-dismissible fade show" *ngIf="finish" role="alert">
+            <strong>{{msgCheckScore}}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <button (click)="check()" [disabled]="finish" style="margin-right: 10px" class="btn btn-success">Check</button>
+          <button (click)="goToAnotherExamination()" style="margin-right: 10px" *ngIf="finish" class="btn btn-success">Go
+            to
+            dashboard for new
+            examination
+          </button>
+          <app-report-errore [name_object]="'question'"
+                             [code_object]="currentExamination?.code_examination"></app-report-errore>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card text-white bg-success" *ngIf="isLoggedIn">
+        <div class="card-header">Information</div>
+        <div class="card-body">
+          <h5 class="card-title">{{username}}</h5>
+          <p class="card-text">Your score: {{yourScore}}</p>
+          <p class="card-text">Current score: {{score}}</p>
+          <p class="card-text">Collection: {{currentCollection}}</p>
+          <p class="card-text">Current question: {{currentExamination?.code_examination}}</p>
+          <p class="card-text">Time: {{round(time / 60)}} : {{time % 60}} s</p>
+        </div>
+      </div>
+      <app-examination-recent></app-examination-recent>
+    </div>
+  </div>
+</div>

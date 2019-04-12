@@ -15,7 +15,15 @@ import {AddExaminationComponent} from './admin/examination/add-examination/add-e
 import {EditTeamComponent} from './admin/team/edit-team/edit-team.component';
 import {EditCollectionComponent} from './admin/collection/edit-collection/edit-collection.component';
 import {EditExaminationComponent} from './admin/examination/edit-examination/edit-examination.component';
-import {ExaminationComponent} from './examination/examination.component';
+import {ExaminationComponent} from './examinate/examination/examination.component';
+import {RankComponent} from './rank/rank.component';
+import {AddComponent} from './admin/exercise/add/add.component';
+import {EditComponent} from './admin/exercise/edit/edit.component';
+import {IsAdminService} from './services/is-admin.service';
+import {ExerciseAllComponent} from './exercise/exercise-all/exercise-all.component';
+import {ExerciseDetailsComponent} from './exercise/exercise-details/exercise-details.component';
+import {ExerciseSubmitComponent} from './exercise/exercise-submit/exercise-submit.component';
+import {SubmissionComponent} from './submit/submission/submission.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent, canActivate: [BeforeLoginService]},
@@ -25,16 +33,23 @@ const routes: Routes = [
   {path: 'response-password-reset', component: ResponseResetComponent, canActivate: [BeforeLoginService]},
   {path: 'change-pass', component: ChangePassComponent, canActivate: [AfterLoginService]},
   {path: '', component: ExaminationComponent},
+  {path: 'rank', component: RankComponent},
+  {path: 'submission', component: SubmissionComponent},
+  {path: 'exercise', component: ExerciseAllComponent},
+  {path: 'exercise-details/:exercise', component: ExerciseDetailsComponent},
+  {path: 'exercise-submit/:exercise', component: ExerciseSubmitComponent},
 
 
-  {path: 'admin', component: TeacherAdminComponent},
+  {path: 'admin', component: TeacherAdminComponent, canActivate: [IsAdminService]},
   {path: 'admin/team/add', component: AddTeamComponent},
   {path: 'admin/collection/add', component: AddCollectionComponent},
   {path: 'admin/examination/add', component: AddExaminationComponent},
+  {path: 'admin/exercise/add', component: AddComponent},
 
   {path: 'admin/team/edit/:team', component: EditTeamComponent},
   {path: 'admin/collection/edit/:collection', component: EditCollectionComponent},
-  {path: 'admin/examination/edit/:examination', component: EditExaminationComponent}
+  {path: 'admin/examination/edit/:examination', component: EditExaminationComponent},
+  {path: 'admin/exercise/edit/:exercise', component: EditComponent},
 ];
 
 @NgModule({

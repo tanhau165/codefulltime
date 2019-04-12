@@ -49,11 +49,13 @@ export class MenuComponent implements OnInit {
   ) {
     this.auth.authStatus.subscribe(value => this.isLoggedIn = value);
     this.auth.authName.subscribe(value => this.name = value);
+    this.auth.menuActive.subscribe(value => this.active = value);
   }
 
   public isLoggedIn: boolean;
   public name: string;
   public isTeacher;
+  public active: string;
 
   ngOnInit() {
 
@@ -80,5 +82,9 @@ export class MenuComponent implements OnInit {
         console.log('You must login first or contact to administrator');
       }
     );
+  }
+
+  notifyFeature() {
+    $('#btnNotifyFeature').click();
   }
 }

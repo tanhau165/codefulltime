@@ -19,7 +19,7 @@ export class TeamServiceService {
   }
 
   getTeam(code_team): any {
-    return this.http.get(`${this.api}/client/team/get/${code_team}`, {});
+    return this.http.get(`${this.api}/client/team/get/${code_team}`);
   }
 
   editTeam(token, team): any {
@@ -29,7 +29,10 @@ export class TeamServiceService {
   }
 
   getAll(): any {
-    return this.http.get(`${this.api}/client/teams`, {});
+    return this.http.get(`${this.api}/client/teams`);
   }
 
+  getOfMe(token): any {
+    return this.http.get(`${this.api}/admin/teams`, {headers: {Authorization: `Bearer ${token}`}});
+  }
 }

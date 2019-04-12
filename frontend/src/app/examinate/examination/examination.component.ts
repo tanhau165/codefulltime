@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Examination} from '../models/examination';
-import {ExamminationServiceService} from '../admin/examination/exammination-service.service';
-import {Teams} from '../models/teams';
-import {TeamServiceService} from '../admin/team/team-service.service';
-import {Collections} from '../models/collections';
-import {CollectionsService} from '../admin/collection/collections.service';
-import {TokenService} from '../services/token.service';
-import {JarwisService} from '../services/jarwis.service';
+import {Examination} from '../../models/examination';
+import {ExamminationServiceService} from '../../admin/examination/exammination-service.service';
+import {Teams} from '../../models/teams';
+import {TeamServiceService} from '../../admin/team/team-service.service';
+import {Collections} from '../../models/collections';
+import {CollectionsService} from '../../admin/collection/collections.service';
+import {TokenService} from '../../services/token.service';
+import {JarwisService} from '../../services/jarwis.service';
+import {AuthService} from '../../services/auth.service';
 
 declare var CodeMirror: any;
 declare var showdown: any;
@@ -21,6 +22,7 @@ export class ExaminationComponent implements OnInit {
   start = false;
   end = true;
   finish = false;
+  win = false;
 
   msgCheckScore: string;
 
@@ -41,18 +43,25 @@ export class ExaminationComponent implements OnInit {
   currentCollection: any;
 
   editor: any;
+  isLoggedIn = false;
+
+  time = 0;
+
+  timer: any;
 
   constructor(
     private examinationS: ExamminationServiceService,
     private teamS: TeamServiceService,
     private collectionS: CollectionsService,
     private token: TokenService,
-    private jwt: JarwisService
+    private jwt: JarwisService, private auth: AuthService
   ) {
+    this.auth.authStatus.subscribe(value => this.isLoggedIn = value);
   }
 
   ngOnInit() {
 
+    this.auth.changeMenuActive('Examination');
     this.teamS.getAll().subscribe(
       res => {
         res.teams.forEach((val) => {
@@ -60,12 +69,14 @@ export class ExaminationComponent implements OnInit {
         });
       }
     );
-    this.jwt.me(this.token.get()).subscribe(
-      res => {
-        this.yourScore = res.score;
-        this.username = res.username;
-      }
-    );
+    if (this.token.get() !== null) {
+      this.jwt.me(this.token.get()).subscribe(
+        res => {
+          this.yourScore = res.score;
+          this.username = res.username;
+        }
+      );
+    }
   }
 
   onChangeTeam(teamOption: HTMLSelectElement) {
@@ -84,6 +95,9 @@ export class ExaminationComponent implements OnInit {
     this.start = true;
     this.end = false;
 
+    if (this.start) {
+      this.timer = setInterval(() => this.time++, 1000);
+    }
 
     this.examinationS.getExaminationByCollection(codeCollection).subscribe(
       res => {
@@ -153,22 +167,22 @@ export class ExaminationComponent implements OnInit {
       this.listExaminationCodeCorrect.push(this.currentExamination.code_examination);
       const temp = this.currentExamination;
       this.currentExamination = this.getRandomExamination(this.currentExamination);
-
       if (this.editor !== null) {
         if (this.currentExamination !== undefined) {
           this.editor.setOption('mode', {name: `${this.currentExamination.type_of_language}`, globalVars: true});
           this.editor.setValue(this.currentExamination.question);
         }
       }
-
       if (this.currentExamination == null) {
         this.saveScore(false);
         this.currentExamination = temp;
+        clearInterval(this.timer);
       } else {
         this.removeSelectAnswer();
       }
     } else {
       // tính điểm lưu database và giải thích câu trả lời
+      clearInterval(this.timer);
       this.saveScore(true);
       this.reChooseIfInCorrect();
     }
@@ -238,6 +252,8 @@ export class ExaminationComponent implements OnInit {
     this.start = false;
     this.end = true;
     this.finish = false;
+    this.win = false;
+
     this.removeHighlightAnswerIncorrect();
     this.removeSelectAnswer();
     this.currentExamination = null;
@@ -248,6 +264,7 @@ export class ExaminationComponent implements OnInit {
       res => this.yourScore = res.score
     );
     this.msgCheckScore = '';
+    this.time = 0;
   }
 
   private saveScore(questionAvailable) { // hàm save score khi làm sai 1 câu
@@ -261,6 +278,7 @@ export class ExaminationComponent implements OnInit {
           this.finish = true;
           const strings = res.message.split('.');
           this.msgCheckScore = 'Congratulations, you have answered our entire question. ' + strings[2] + '. ' + strings[3];
+          this.win = true;
         },
         error => console.log(error)
       );
@@ -278,5 +296,9 @@ export class ExaminationComponent implements OnInit {
         error => console.log(error)
       );
     }
+  }
+
+  round(s) {
+    return Math.floor(s);
   }
 }

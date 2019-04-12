@@ -22,6 +22,15 @@ export class TokenService {
     localStorage.setItem('name', name);
   }
 
+  setRole(role) {
+    localStorage.setItem('role', role);
+  }
+
+  getRole() {
+    const name = localStorage.getItem('role');
+    return name === null || name === undefined ? 0 : parseInt(name, 10);
+  }
+
   getName() {
     const name = localStorage.getItem('name');
     return name === null || name === undefined ? 'Account' : name;
@@ -38,6 +47,7 @@ export class TokenService {
   remove() {
     localStorage.removeItem('token');
     localStorage.removeItem('name');
+    localStorage.removeItem('role');
   }
 
   isValid() {

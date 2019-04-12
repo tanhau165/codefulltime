@@ -15,6 +15,7 @@ class ReportError extends Model
     protected $fillable = [
         'content_error',
         'code_object',
+        'name_object',
         'code_error',
         'username'
     ];

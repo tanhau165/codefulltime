@@ -35,6 +35,7 @@ Route::group([
 
         // Report Examination
         Route::post('rp-examination/add', 'ReportExaminationsController@Add');
+        Route::post('rp-examination/me', 'ReportExaminationsController@RpExaminationOfMe');
 
 
         // Exercise
@@ -50,6 +51,20 @@ Route::group([
         //ReportError
         Route::post('rp-error/add', 'ReportErrorController@Add');
         Route::post('rp-errors/me', 'ReportErrorController@GetOfMe');
+
+        //Keyword
+        Route::post('/key-words/me', 'KeyWordController@GetOfMe');
+
+
+        //Pastes
+        Route::post('/paste/add', 'PasteController@Add');
+        Route::post('/paste/edit', 'PasteController@Update');
+        Route::post('/pastes/me', 'PasteController@PasteOfMe');
+
+        // Account
+        Route::post('accounts', 'AccountController@Rank');
+        Route::post('accounts/top', 'AccountController@TopRank');
+
     });
 
     Route::group(['prefix' => 'client'], function () {
@@ -65,14 +80,16 @@ Route::group([
 
         // Examination
         Route::get('examination/get/{code_collection}', 'ExaminationController@GetByCollection');
+
         Route::get('examination/one/{code_examination}', 'ExaminationController@GetOne');
         Route::get('examinations', 'ExaminationController@GetAll');
 
 
         // Report Examination
         Route::get('rp-examinations', 'ReportExaminationsController@GetAll');
-        Route::get('rp-examination/get/{username}', 'ReportExaminationsController@GetByUsername');
-        Route::post('rp-examination/me', 'ReportExaminationsController@RpExaminationOfMe');
+        Route::get('rp-examinations/get/username/{username}', 'ReportExaminationsController@GetByUsername');
+        Route::get('rp-examinations/get/top/{number_row}', 'ReportExaminationsController@GetWithRow');
+
 
         // Exercise
         Route::get('/exercises', 'ExerciseController@GetAll');
@@ -82,6 +99,8 @@ Route::group([
 
         // Submission
         Route::get('/submissions', 'SubmissionController@GetAll');
+        Route::get('/submissions/get/top/{number_row}', 'SubmissionController@GetWithRow');
+        Route::get('/submissions/get/exercise/{exercise_code}', 'SubmissionController@GetWithExercise');
         Route::get('/submission/get/one/{code_submission}', 'SubmissionController@GetOne');
         Route::get('/submissions/get/username/{username}', 'SubmissionController@GetByUsername');
 
@@ -90,7 +109,21 @@ Route::group([
         Route::get('/rp-error/get/one/{code_error}', 'ReportErrorController@GetOne');
         Route::get('/rp-errors/get/username/{username}', 'ReportErrorController@GetByUsername');
 
+
+        //Keyword
+        Route::get('/key-words', 'KeyWordController@GetAll');
+        Route::get('/key-word/get/one/{key_word}', 'KeyWordController@GetOne');
+        Route::get('/key-words/get/username/{username}', 'KeyWordController@GetByUsername');
+        Route::get('/key-word/search', 'KeyWordController@Add');
+
+        //Paste
+        Route::get('/pastes', 'PasteController@GetAll');
+        Route::get('/paste/get/one/{code_paste}', 'PasteController@GetOne');
+        Route::get('/pastes/get/username/{username}', 'PasteController@GetByUsername');
+
     });
 });
-
+header('Access-Control-Allow-Origin:  *');
+header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
 //php artisan cache:clear && php artisan view:clear && php artisan route:clear && php artisan clear-compiled && php artisan config:cache && php artisan serve

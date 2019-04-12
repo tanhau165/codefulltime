@@ -11,8 +11,23 @@ class Exercise extends Model
     public $timestamps = false;
     public $incrementing = false;
 
+public function toArray()
+{
+    $arr = parent::toArray();
+    $arr['team'] = $this->team;
+    $arr['account'] = $this->account;
+    return $arr;
+}
 
+    public function team()
+    {
+        return $this->belongsTo('App\Teams', 'code_team');
+    }
 
+    public function account()
+    {
+        return $this->belongsTo('App\User', 'username');
+    }
 
     protected $fillable = [
         'exercise_code',
@@ -26,22 +41,23 @@ class Exercise extends Model
         'input3',
         'input4',
         'input5',
-        'input6',
-        'input7',
-        'input8',
-        'input9',
-        'input10',
+//        'input6',
+//        'input7',
+//        'input8',
+//        'input9',
+//        'input10',
         'output1',
         'output2',
         'output3',
         'output4',
         'output5',
-        'output6',
-        'output7',
-        'output8',
-        'output9',
-        'output10',
+//        'output6',
+//        'output7',
+//        'output8',
+//        'output9',
+//        'output10',
         'code_team',
-        'username'
+        'username',
+        'status'
     ];
 }

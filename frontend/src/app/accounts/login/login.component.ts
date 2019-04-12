@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.auth.changeMenuActive('Account');
   }
 
   login(formLogin) {
@@ -47,7 +48,12 @@ export class LoginComponent implements OnInit {
     this.auth.changeAuthStatus(true);
     this.token.setName(data.name);
     this.auth.changeName(data.name);
-    this.router.navigateByUrl('/profile');
+
+    this.token.setRole(data.role + '');
+    this.auth.changeRole(data.role);
+
+    this.auth.changeRole(data.role !== 1 ? 'Admin' : 'Customer');
+    this.router.navigateByUrl('/');
   }
 
   handleError(error: HttpErrorResponse) {
