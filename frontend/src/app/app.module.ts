@@ -38,7 +38,18 @@ import { AddComponent } from './admin/exercise/add/add.component';
 import { EditComponent } from './admin/exercise/edit/edit.component';
 import { RecentSubmissionComponent } from './submit/recent-submission/recent-submission.component';
 import { ExaminationRecentComponent } from './examinate/examination-recent/examination-recent.component';
-
+import { CommentComponent } from './comment/comment.component';
+import { TTAcountComponent } from './tooltip/ttacount/ttacount.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ViewExaminationComponent } from './admin/examination/view-examination/view-examination.component';
+import { SubmissionForExerciseComponent } from './exercise/submission-for-exercise/submission-for-exercise.component';
+import { NewsFeedComponent } from './newfeedall/news-feed/news-feed.component';
+import { MenuAdminComponent } from './admin/menu-admin/menu-admin.component';
+import { ViewTeamComponent } from './admin/team/view-team/view-team.component';
+import { ViewCollectionComponent } from './admin/collection/view-collection/view-collection.component';
+import { ViewExerciseComponent } from './admin/exercise/view-exercise/view-exercise.component';
+import { LikeComponent } from './like/like.component';
+import { SearchComponent } from './search/search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,13 +80,25 @@ import { ExaminationRecentComponent } from './examinate/examination-recent/exami
     EditComponent,
     RecentSubmissionComponent,
     ExaminationRecentComponent,
+    CommentComponent,
+    TTAcountComponent,
+    ViewExaminationComponent,
+    SubmissionForExerciseComponent,
+    NewsFeedComponent,
+    MenuAdminComponent,
+    ViewTeamComponent,
+    ViewCollectionComponent,
+    ViewExerciseComponent,
+    LikeComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SnotifyModule
+    SnotifyModule,
+    NgbModule
   ],
   providers: [
     JarwisService,

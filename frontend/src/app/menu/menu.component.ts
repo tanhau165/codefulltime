@@ -3,6 +3,8 @@ import {TokenService} from '../services/token.service';
 import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {JarwisService} from '../services/jarwis.service';
+import {Keyword} from '../models/keyword';
+import {SearchService} from '../search/search.service';
 
 declare var $;
 
@@ -45,20 +47,32 @@ export class MenuComponent implements OnInit {
     private token: TokenService,
     private router: Router,
     private auth: AuthService,
-    private jwt: JarwisService
+    private jwt: JarwisService,
+    private kwS: SearchService
   ) {
     this.auth.authStatus.subscribe(value => this.isLoggedIn = value);
     this.auth.authName.subscribe(value => this.name = value);
     this.auth.menuActive.subscribe(value => this.active = value);
+    this.auth.roleAdmin.subscribe(value => {
+      this.isTeacher = value;
+    });
+
   }
 
   public isLoggedIn: boolean;
   public name: string;
-  public isTeacher;
+  public isTeacher: number;
   public active: string;
+  keywords: Keyword[] = [];
 
   ngOnInit() {
-
+    this.kwS.getAll().subscribe(
+      res => {
+        res.keywords.forEach(v => {
+          this.keywords.push(new Keyword(v));
+        });
+      }
+    );
   }
 
   logout() {
@@ -86,5 +100,11 @@ export class MenuComponent implements OnInit {
 
   notifyFeature() {
     $('#btnNotifyFeature').click();
+  }
+
+  search(ngForm) {
+    this.kwS.add(ngForm.value.keyword).subscribe(res => {
+      console.log(res);
+    });
   }
 }

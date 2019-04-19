@@ -21,7 +21,6 @@ export class SubmissionComponent implements OnInit {
     this.auth.changeMenuActive('Submission');
     this.smS.getAll().subscribe(res => {
         res.submissions.forEach((v) => {
-          console.log(v);
           this.submissions.push(v);
         });
         $(document).ready(() => {

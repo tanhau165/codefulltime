@@ -32,6 +32,10 @@ export class TeamServiceService {
     return this.http.get(`${this.api}/client/teams`);
   }
 
+  getByLocation(location): any {
+    return this.http.get(`${this.api}/client/teams/get/location/${location}`);
+  }
+
   getOfMe(token): any {
     return this.http.get(`${this.api}/admin/teams`, {headers: {Authorization: `Bearer ${token}`}});
   }

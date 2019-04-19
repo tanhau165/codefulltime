@@ -30,28 +30,44 @@ export class RegisterComponent implements OnInit {
 
     this.jwt.getIp().subscribe(ip => {
         const obj: any = ip;
-        const data = {
-          username: formRegister.value.username,
-          password: formRegister.value.password,
-          password_confirmation: formRegister.value.password_confirmation,
-          email: formRegister.value.email,
-          name: formRegister.value.name,
-          role: 1,
-          ip_client: obj.ip
-        };
-        this.jwt.register(data).subscribe(
-          res => {
-            this.handleResponse(res);
-          },
-          error => this.handleError(error)
+        this.jwt.getLocation(obj.ip).subscribe(location => {
+            const data = {
+              username: formRegister.value.username,
+              password: formRegister.value.password,
+              password_confirmation: formRegister.value.password_confirmation,
+              email: formRegister.value.email,
+              name: formRegister.value.name,
+              role: 1,
+              ip_client: obj.ip,
+              location: this.getCountryCode(location.countryCode)
+            };
+            this.jwt.register(data).subscribe(
+              res => {
+                this.handleResponse(res);
+              },
+              error => this.handleError(error)
+            );
+          }
         );
       }
     );
   }
 
+  getCountryCode(countryCode) {
+    countryCode = countryCode.toLowerCase();
+    if (countryCode !== 'jp' && countryCode !== 'vn' && countryCode !== 'en') {
+      return 'en';
+    }
+    return countryCode;
+  }
+
   handleResponse(data) {
     this.token.handle(data.access_token);
     this.token.setName(data.name);
+
+    this.token.setRole(data.role + '');
+    this.auth.changeRole(data.role);
+
     this.auth.changeAuthStatus(true);
     this.auth.changeName(data.name);
     this.router.navigateByUrl('/');

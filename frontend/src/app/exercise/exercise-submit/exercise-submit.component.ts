@@ -5,6 +5,7 @@ import {ConfigService} from '../../services/config.service';
 import {SubmissionService} from '../../submit/submission.service';
 import {TokenService} from '../../services/token.service';
 import {JudgeOutput} from '../../models/judge-output';
+import {AuthService} from '../../services/auth.service';
 
 declare var CodeMirror: any;
 declare var $: any;
@@ -38,11 +39,13 @@ export class ExerciseSubmitComponent implements OnInit {
     private exerS: ExerciseService,
     private config: ConfigService,
     private smS: SubmissionService,
-    private token: TokenService
+    private token: TokenService,
+    private auth: AuthService
   ) {
   }
 
   ngOnInit() {
+    this.auth.changeMenuActive('Exercise');
     this.listLanguage = this.config.listLanguageSumbitable;
     this.router.paramMap.subscribe(value => {
       this.exercise_code = value.get('exercise');
@@ -94,7 +97,7 @@ export class ExerciseSubmitComponent implements OnInit {
     this.editor.setOption('mode', {name: language.value, globalVars: true});
   }
 
-  sendSolution() {
+  async sendSolution() {
     this.clickedSendSolution = true;
     $('#output').empty();
     const idLang = this.getLanguageCode(this.language);
@@ -102,6 +105,7 @@ export class ExerciseSubmitComponent implements OnInit {
     for (const std of this.getListStd()) {
       this.listData.push(this.generateDataSendToAPI(std.stdIn, source, idLang, std.expectedOutput));
     }
+
 
     this.smS.sendToAPICheckScore(this.listData[0]).subscribe(res1 => {
       const output1 = new JudgeOutput(res1);

@@ -12,7 +12,8 @@ class ChangePasswordController extends Controller
 {
     public function process(ChangePasswordRequest $request)
     {
-        return $this->getPasswordResetTableRow($request)->count()> 0 ? $this->changePassword($request) : $this->tokenNotFoundResponse();
+        return $this->getPasswordResetTableRow($request)
+            ->count()> 0 ? $this->changePassword($request) : $this->tokenNotFoundResponse();
     }
 
     private function getPasswordResetTableRow($request)

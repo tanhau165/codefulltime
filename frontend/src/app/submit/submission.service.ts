@@ -35,4 +35,12 @@ export class SubmissionService {
     return this.http.post('https://api.judge0.com/submissions?wait=true', data);
   }
 
+  getById(id): any {
+    return this.http.get(`${this.config.api}/client/submissions/get/id/${id}`);
+  }
+
+  getQuestionAnswer(id): any {
+    return this.http.get(`${this.config.api}/client/rp-examinations/get/exercise-answered/${id}`);
+  }
+
 }

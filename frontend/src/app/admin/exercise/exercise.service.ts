@@ -17,7 +17,7 @@ export class ExerciseService {
   ) {
   }
 
-  addExercise(exercise, token) {
+  addExercise(exercise, token): any {
     return this.http.post(`${this.api}/admin/exercise/add`, exercise, {headers: {Authorization: `Bearer ${token}`}});
   }
 
@@ -36,6 +36,10 @@ export class ExerciseService {
   editExercise(exercise, token) {
 
     return this.http.post(`${this.api}/admin/exercise/edit`, exercise, {headers: {Authorization: `Bearer ${token}`}});
+  }
+
+  getExerciseSubmittedByID(id): any {
+    return this.http.get(`${this.api}/client/exercises/get/exercise-submitted/${id}`);
   }
 
 }

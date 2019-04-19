@@ -1,0 +1,28 @@
+<div *ngIf="view_header" style="margin-top: 20px" class="p-3 mb-2 bg-success text-white text-uppercase-bold"><i class="fa fa-comment-o" aria-hidden="true"></i> Comment</div>
+<div id="comment"></div>
+<div *ngIf="isLoggedIn">
+  <textarea rows="1" [id]="codeObject" (keydown)="sendComment(cmt, $event)" #cmt type="text" class="form-control margin-element" placeholder="Write your comment" style="resize: none"></textarea>
+  <div *ngFor="let comment of comments" class="media border p-3">
+    <img src="{{comment?.account?.avatar}}" alt="{{comment?.account?.name}}" class="mr-3 align-self-start"
+         style="width:45px;">
+    <div class="media-body">
+      <p><a routerLink="/profile/{{comment?.account?.id}}" data-toggle="tooltip" data-placement="top" data-html="true" title="Score: {{comment?.account?.score}}<br/>Cup: {{comment?.account?.cup?.name}}">{{comment?.account?.name}}</a>
+        &nbsp;<small [innerHTML]="comment?.content"></small>
+      </p>
+
+      <textarea style="resize: none; " rows="1" id="{{comment?.code_comment}}" type="text" class="form-control margin-element ans-comment"
+                (keydown)="sendAnsComment(comment?.code_comment, ans, $event)" #ans placeholder="Write your comment"></textarea>
+      <div *ngFor="let ans of comment.ans_comments" class="media p-3">
+        <img src="{{ans?.account?.avatar}}" alt="{{ans?.account?.name}}" class="mr-3 align-self-start"
+             style="width:35px;">
+        <div class="media-body">
+          <p><a routerLink="/profile/{{ans?.account?.id}}" data-toggle="tooltip" data-placement="top" data-html="true" title="Score: {{ans?.account?.score}}<br/>Cup: {{ans?.account?.cup?.name}}">{{ans?.account?.name}}</a>
+            &nbsp;<small [innerHTML]="ans?.content"></small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a *ngIf="!isLoggedIn" routerLink="/login">Login to view and add comment</a>

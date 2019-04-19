@@ -63,17 +63,17 @@ class AuthController extends Controller
     public function register(SignUpRequest $request)
     {
         $c = round(microtime(true) * 1000);
-        $code = $c . rand_string(20);
+        $code = $c . rand_string(5);
         $request->merge([
             'score' => 0,
             'avatar' => 'https://zero1.sg/img/accountlogin-icon.png',
-            'cup' => 0,
-            'id'=>$code
+            'code_cup' => '1',
+            'id' => $code
         ]);
         try {
             User::create($request->all());
         } catch (\Exception $exception) {
-            return response()->json(['error' => 'Username already'], 400);
+            return response()->json(['error' => 'Username already', 'obj'=>$exception], 400);
 
         }
         return $this->login($request);
@@ -150,6 +150,7 @@ class AuthController extends Controller
 
 
 }
+
 function rand_string($length)
 {
     $str = "";

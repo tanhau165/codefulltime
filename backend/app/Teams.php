@@ -22,7 +22,7 @@ class Teams extends Model
 
     public function account()
     {
-        return $this->belongsTo('App\User', 'teacher');
+        return $this->belongsTo('App\Account', 'teacher');
     }
 
     public function toArray()

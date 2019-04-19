@@ -154,15 +154,20 @@ create table pastes(
 create table news_feed(
     code_news_feeds varchar (100),
     content varchar (3000),
-    like int,
+    number_of_like int,
     username varchar (100),
-    primary key (code_paste),
-    foreign key (code_news_feeds) references account(username);
+    time_add varchar(100),
+    primary key (code_news_feeds),
+    foreign key (username) references account(username);
 );
 
-
-
-
+create table media(
+    code_media varchar(100),
+    type_media varchar(100),
+    link_media varchar(1000),
+    code_news_feeds varchar (100),
+    foreign key (code_news_feeds) references news_feed(code_news_feeds);
+);
 
 
 

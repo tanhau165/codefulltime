@@ -1,0 +1,9 @@
+<b style="color: red">{{account.name}}</b><br>
+<strong>{{account.id}}</strong>
+<div class="media">
+  <img [src]="account.avatar" class="align-self-start mr-3" style="width:60px">
+  <div class="media-body">
+    <p>Score: {{account.score}}</p>
+    <p>Cup: {{account?.cup?.name}}</p>
+  </div>
+</div>

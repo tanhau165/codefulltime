@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
 import {TeamServiceService} from '../../team/team-service.service';
 import {CollectionsService} from '../../collection/collections.service';
 import {ConfigService} from '../../../services/config.service';

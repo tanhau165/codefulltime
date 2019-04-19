@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
+use App\Examinations;
 use App\ReportExaminations;
 use App\User;
 use Illuminate\Http\Request;
@@ -14,7 +16,8 @@ class ReportExaminationsController extends Controller
             ['except' => [
                 'GetAll',
                 'GetByUsername',
-                'GetWithRow'
+                'GetWithRow',
+                'GetListExerciseAnswered'
             ]]
         );
     }
@@ -28,17 +31,45 @@ class ReportExaminationsController extends Controller
 
     public function GetAll()
     {
-        $list = ReportExaminations::all();
+        $list = ReportExaminations::orderby('code', 'desc')->get();
         return response()->json([
             'message' => 'success',
             'rpexams' => $list
         ], 200);
     }
 
+    public function GetListExerciseAnswered(Request $request)
+    {
+        $id = $request->id;
+        $account = Account::where('id', $id)->first();
+        $listAllExercise = Examinations::all();
+        $listAnswered = [];
+        $listQuestionAnser = [];
+        $listRp = ReportExaminations::where('username', $account->username)->get();
+        foreach ($listRp as $rpe) {
+            foreach (explode(',', $rpe->list_examination) as $ec) {
+                if ($ec != '')
+                    array_push($listAnswered, $ec);
+            }
+        }
+        array_unique($listAnswered);
+
+        foreach ($listAllExercise as $examination) {
+            if (in_array($examination->code_examination, $listAnswered)) {
+                array_push($listQuestionAnser, $examination);
+            }
+        }
+        return response()->json([
+            'examinations' => $listQuestionAnser,
+            'account' => $account,
+
+        ]);
+    }
+
     public function GetByUsername(Request $request)
     {
         $username = $request->username;
-        $list = ReportExaminations::where('username', $username)->get();
+        $list = ReportExaminations::where('username', $username)->orderby('code', 'desc')->get();
 
         return response()->json([
             'message' => 'success',
@@ -50,7 +81,7 @@ class ReportExaminationsController extends Controller
     public function RpExaminationOfMe()
     {
         $account = auth()->user();
-        $list = ReportExaminations::where('username', $account->username)->get();
+        $list = ReportExaminations::where('username', $account->username)->orderby('code', 'desc')->get();
 
         return response()->json([
             'status' => 'success',
@@ -98,26 +129,30 @@ class ReportExaminationsController extends Controller
         try {
             ReportExaminations::create($request->all());
             // Update score
-            if ($bestScore < $request->score) {
+            if ($bestScore < ((int)$request->score)) {
                 User::where('username', $account->username)
                     ->update([
                         'score' => ($account->score - $bestScore + $request->score)
                     ]);
+
                 return response()->json([
                     'message' => 'Sorry. You have chosen the wrong answer. Total score for you: ' . $request->score . '. Updated your score: ' . ($account->score - $bestScore + $request->score),
-                    'report_examination' => $request->all()
+                    'report_examination' => $request->all(),
+                    'CPR' => CupController::CalcCup($account->id)
                 ], 200);
             }
             return response()->json([
                 'message' => "Sorry. You have chosen the wrong answer. Total score for you: " . $request->score . '. Because current score not greater than your score, this score will not save in system.',
-                'report_examination' => $request->all()
+                'report_examination' => $request->all(),
+                'CPR' => CupController::CalcCup($account->id)
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
                 'status' => $e,
                 'update_score' => 'no',
-                'report_examination' => $request->all()
+                'report_examination' => $request->all(),
+                'CPR' => CupController::CalcCup($account->id)
             ], 500);
 
         }
@@ -126,6 +161,7 @@ class ReportExaminationsController extends Controller
 
 
 }
+
 
 function rand_string($length)
 {

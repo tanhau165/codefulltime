@@ -66,7 +66,7 @@ export class AddComponent implements OnInit {
     const exercise = new Exercises(formAddExercise.value, this.editor.getValue());
     console.log(this.editor.getValue());
     this.exerciseS.addExercise(exercise, this.token.get()).subscribe(
-      res => console.log(res),
+      res => this.errMsg = res.message,
       error => {
       }
     );

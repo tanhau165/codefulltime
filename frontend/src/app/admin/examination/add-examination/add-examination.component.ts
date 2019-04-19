@@ -6,8 +6,10 @@ import {ConfigService} from '../../../services/config.service';
 import {ExamminationServiceService} from '../exammination-service.service';
 import {TokenService} from '../../../services/token.service';
 import {AuthService} from '../../../services/auth.service';
+import {NgForm} from '@angular/forms';
 
 declare var CodeMirror: any;
+declare var $: any;
 
 @Component({
   selector: 'app-add-examination',
@@ -38,6 +40,7 @@ export class AddExaminationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.auth.changeMenuAdminActive('Examination');
     this.teamS.getAll().subscribe(
       res => {
         this.listTeam = res.teams;
@@ -90,7 +93,7 @@ export class AddExaminationComponent implements OnInit {
     this.editor.setOption('mode', {name: language.value, globalVars: true});
   }
 
-  addNewExamination(formAddExamination) {
+  addNewExamination(formAddExamination: NgForm) {
     const examination = formAddExamination.value;
     examination.question = this.editor.getValue();
     // examination.status = parseInt(examination.status, 10);
@@ -106,9 +109,46 @@ export class AddExaminationComponent implements OnInit {
       answer_b: examination.answer_b,
       answer_c: examination.answer_c,
       answer_d: examination.answer_d,
+      answer_e: examination.answer_e,
+      answer_f: examination.answer_f,
+      answer_g: examination.answer_g,
+      answer_h: examination.answer_h,
+      answer_i: examination.answer_i,
+      answer_j: examination.answer_j,
+      answer_k: examination.answer_k,
       answer_correct: examination.answer_correct
     }).subscribe(
-      res => this.errMsg = res.message,
+      res => {
+        this.editor.setValue('');
+        $('#a').val('');
+        $('#b').val('');
+        $('#c').val('');
+        $('#d').val('');
+        $('#e').val('');
+        $('#f').val('');
+        $('#g').val('');
+        $('#h').val('');
+        $('#i').val('');
+        $('#j').val('');
+        $('#k').val('');
+        $('#explain').val('');
+        const controls = formAddExamination.controls;
+        controls.answer_a.setValue('');
+        controls.answer_b.setValue('');
+        controls.answer_c.setValue('');
+        controls.answer_d.setValue('');
+        controls.answer_e.setValue('');
+        controls.answer_f.setValue('');
+        controls.answer_g.setValue('');
+        controls.answer_h.setValue('');
+        controls.answer_i.setValue('');
+        controls.answer_j.setValue('');
+        controls.answer_k.setValue('');
+        controls.explain_question.setValue('');
+        console.log(formAddExamination.value);
+        this.errMsg = res.message;
+        setTimeout(() => this.errMsg = '', 2000);
+      },
       error => this.errMsg = error.error.error
     );
   }

@@ -27,7 +27,7 @@ class ReportExaminations extends Model
 
     public function account()
     {
-        return $this->belongsTo('App\User', 'username');
+        return $this->belongsTo('App\Account', 'username');
     }
 
     protected $fillable = [
@@ -37,6 +37,7 @@ class ReportExaminations extends Model
         'list_examination',
         'time_submit',
         'username',
-        'times_submit'
+        'times_submit',
+        'time_work'
     ];
 }

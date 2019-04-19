@@ -21,13 +21,13 @@ export class ExerciseDetailsComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private exerS: ExerciseService,
-    private auth: AuthService,
-    private smS: SubmissionService
+    private auth: AuthService
   ) {
     auth.authStatus.subscribe(value => this.isLoggedIn = value);
   }
 
   ngOnInit() {
+    this.auth.changeMenuActive('Exercise');
     this.router.paramMap.subscribe(value => {
       this.exercise_code = value.get('exercise');
       this.exerS.get(this.exercise_code).subscribe(
@@ -38,12 +38,6 @@ export class ExerciseDetailsComponent implements OnInit {
         }
       );
     });
-    this.smS.getWithExercise(this.exercise_code).subscribe(
-      res => {
-        res.submissions.forEach(s => {
-          this.submission.push(s);
-        });
-      }
-    );
+
   }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Exercise;
 use App\Submission;
 use App\User;
@@ -15,9 +16,9 @@ class SubmissionController extends Controller
             ['except' => [
                 'GetAll',
                 'GetOne',
-                'GetByUsername',
+                'GetByID',
                 'GetWithRow',
-                'GetWithExercise'
+                'GetWithExercise',
             ]]
         );
     }
@@ -25,7 +26,7 @@ class SubmissionController extends Controller
 
     public function GetAll()
     {
-        $submissions = Submission::all();
+        $submissions = Submission::orderby('code_submission', 'desc')->get();
         return response()->json([
             'submissions' => $submissions
         ], 200);
@@ -34,7 +35,7 @@ class SubmissionController extends Controller
     public function GetWithRow(Request $request)
     {
         $number = $request->number_row;
-        $submissions = Submission::take($number)->orderby('code_submission','desc')->get();
+        $submissions = Submission::take($number)->orderby('code_submission', 'desc')->get();
         return response()->json([
             'submissions' => $submissions
         ], 200);
@@ -44,7 +45,7 @@ class SubmissionController extends Controller
     public function GetWithExercise(Request $request)
     {
         $exercise_code = $request->exercise_code;
-        $submissions = Submission::where('exercise_code',$exercise_code)->take(5)->orderby('code_submission','desc')->get();
+        $submissions = Submission::where('exercise_code', $exercise_code)->take(5)->orderby('code_submission', 'desc')->get();
         return response()->json([
             'submissions' => $submissions
         ], 200);
@@ -64,10 +65,12 @@ class SubmissionController extends Controller
         ], 200);
     }
 
-    public function GetByUsername(Request $request)
+
+    public function GetByID(Request $request)
     {
-        $username = $request->username;
-        $submissions = Submission::where('username', $username)->get();
+        $id = $request->id;
+        $account = Account::where('id', $id)->first();
+        $submissions = Submission::where('username', $account->username)->get();
         return response()->json([
             'submissions' => $submissions
         ], 200);
@@ -114,13 +117,13 @@ class SubmissionController extends Controller
             ->orderby('score', 'desc')
             ->first();
 
-        if($exersiceBest == null){ // chua ai làm bài này lần nào
+        if ($exersiceBest == null) { // chua ai làm bài này lần nào
             Exercise::where('exercise_code', $request->exercise_code)
                 ->update([
                     'best_score' => ($request->score)
                 ]);
-        }else{
-            if($exersiceBest->score < $request->score){
+        } else {
+            if ($exersiceBest->score < $request->score) {
                 Exercise::where('exercise_code', $request->exercise_code)
                     ->update([
                         'best_score' => ($request->score)
@@ -138,13 +141,15 @@ class SubmissionController extends Controller
                         'score' => ($account->score - $bestScore + $request->score)
                     ]);
                 return response()->json([
+                    'CPR' => CupController::CalcCup($account->id),
                     'message' => 'You are submission successfully with score ' . $request->score . ' Score for you: ' . $request->score . '. Updated your score: ' . ($account->score - $bestScore + $request->score),
                     'report_examination' => $request->all()
                 ], 200);
             } else {
                 return response()->json([
                     'message' => 'You are submission successfully with score ' . $request->score . '. No update your score because score of submission not equals score of before submission',
-                    'submission' => $request->all()
+                    'submission' => $request->all(),
+                    'CPR' => CupController::CalcCup($account->id)
                 ], 201);
             }
         } else {
@@ -155,7 +160,8 @@ class SubmissionController extends Controller
                 ]);
             return response()->json([
                 'message' => 'You are submission successfully with score ' . $request->score . ' Score for you: ' . $request->score . '. Updated your score: ' . ($account->score + $request->score),
-                'report_examination' => $request->all()
+                'report_examination' => $request->all(),
+                'CPR' => CupController::CalcCup($account->id)
             ], 200);
         }
     }

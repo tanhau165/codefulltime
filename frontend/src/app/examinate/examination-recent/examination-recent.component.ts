@@ -2,11 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {Examination} from '../../models/examination';
 import {ExamminationServiceService} from '../../admin/examination/exammination-service.service';
 
+declare let $: any;
+
 @Component({
   selector: 'app-examination-recent',
   templateUrl: './examination-recent.component.html',
   styleUrls: ['./examination-recent.component.css']
 })
+
+
 export class ExaminationRecentComponent implements OnInit {
   examinations: Examination[] = [];
 
@@ -22,7 +26,11 @@ export class ExaminationRecentComponent implements OnInit {
         res.rpexams.forEach(v => {
           this.examinations.push(v);
         });
+        $(document).ready(() => {
+          $('[data-toggle="tooltip"]').tooltip();
+        });
       }
     );
   }
 }
+

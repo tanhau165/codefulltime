@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-menu-admin></app-menu-admin>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-8">
+    <a routerLink="/admin/examination/add" class="btn btn-lg btn-primary">Add</a>
+    <h3 *ngIf="code_collection!==null">List question in {{code_collection}}</h3>
+    <h3 *ngIf="code_collection===null">All your question</h3>
+    <table class="table table-bordered table-light" id="example">
+      <thead class="full-width">
+      <tr>
+        <th width="10%">Code</th>
+        <th width="20%">Collection</th>
+        <th width="20%">Number of choose</th>
+        <th width="20%">Status</th>
+        <th width="20%">Language</th>
+        <th width="10%">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let examination of examinations ">
+        <td>{{examination.code_examination}}</td>
+        <td>{{examination.code_collection}}</td>
+        <td>{{numberOfChoose(examination)}}</td>
+        <td>{{examination?.status === 1 ? 'Publish' : 'Hide'}}</td>
+        <td>{{getNameLanguage(examination?.type_of_language)}}</td>
+        <td><a routerLink="/admin/examination/edit/{{examination.code_examination}}"
+               class="btn btn-warning">Edit</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-4">
+
+  </div>
+</div>

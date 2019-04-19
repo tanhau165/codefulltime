@@ -1,181 +1,293 @@
-<div class="col-sm-3"></div>
-<div class="col-sm-6">
+<div class="row">
+  <div class="col-sm-12">
+    <app-menu-admin></app-menu-admin>
+  </div>
+</div>
 
-  <form (ngSubmit)="editExamination(formEditExamination)" #formEditExamination="ngForm" action="">
-    <div class="form-group">
-      <label>Code examination (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtCodeExamination.touched ?
+<form (ngSubmit)="editExamination(formEditExamination)" #formEditExamination="ngForm" action="">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Code question (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtCodeExamination.touched ?
          (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 6 ||
          txtCodeExamination.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtCodeExamination="ngModel" placeholder="Code team" [(ngModel)]="code_examination" name="code_examination" readonly>
-      <div
-        *ngIf="txtCodeExamination.touched ? (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 6 || txtCodeExamination.invalid):false"
-        class="invalid-feedback">
-        Length of code from 3 to 6 character.
+               #txtCodeExamination="ngModel" placeholder="Code team" [(ngModel)]="code_examination"
+               name="code_examination" readonly>
+        <div
+          *ngIf="txtCodeExamination.touched ? (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 6 || txtCodeExamination.invalid):false"
+          class="invalid-feedback">
+          Length of code from 3 to 6 character.
+        </div>
+
       </div>
 
-    </div>
 
+      <div class="form-group">
+        <label for="code">Question (<b style="color: red">*</b>)</label>
+        <textarea id="code" #txtQuestion="ngModel" name="question" ngModel>{{question}}</textarea><br>
+        <div
+          *ngIf="txtQuestion.touched ? (txtQuestion.value.length < 3 || txtQuestion.value.length > 6 || txtQuestion.invalid):false"
+          class="invalid-feedback">
+          Length of code from 3 to 6 character.
+        </div>
 
-    <div class="form-group">
-      <label for="code">Question (<b style="color: red">*</b>)</label>
-      <textarea id="code" #txtQuestion="ngModel" name="question" ngModel>{{question}}</textarea><br>
-      <div
-        *ngIf="txtQuestion.touched ? (txtQuestion.value.length < 3 || txtQuestion.value.length > 6 || txtQuestion.invalid):false"
-        class="invalid-feedback">
-        Length of code from 3 to 6 character.
+        <label for="theme">Theme</label>
+        <select class="form-control" id="theme" (change)="selectTheme(th)" #th="ngModel" [(ngModel)]="theme"
+                name="theme">
+          <option value="dracula">dracula</option>
+          <option value="midnight">midnight</option>
+        </select>
+
+        <label for="language">Language</label>
+        <select class="form-control" id="language" (change)="selectLanguage(lg)" #lg="ngModel"
+                [(ngModel)]="type_of_language"
+                name="type_of_language">
+          <option value="{{lang.code}}" *ngFor="let lang of listLanguage">{{lang.name}}</option>
+        </select>
+
       </div>
 
-      <label for="theme">Theme</label>
-      <select class="form-control" id="theme" (change)="selectTheme(th)" #th="ngModel" [(ngModel)]="theme" name="theme">
-        <option value="dracula">dracula</option>
-        <option value="midnight">midnight</option>
-      </select>
 
-      <label for="language">Language</label>
-      <select class="form-control" id="language" (change)="selectLanguage(lg)" #lg="ngModel" [(ngModel)]="type_of_language"
-              name="type_of_language">
-        <option value="{{lang.code}}" *ngFor="let lang of listLanguage" >{{lang.name}}</option>
-      </select>
+      <div class="form-group">
+        <label>Team (<b style="color: red">*</b>) (Teams for collection)</label>
+        <select required class="form-control" (change)="changeTeam(team.value)" name="code_team" ngModel #team="ngModel"
+                id="code_team">
+          <option *ngFor="let l of listTeam" [ngValue]="l.code_team">{{l.name}}</option>
+        </select>
 
-    </div>
-
-
-    <div class="form-group">
-      <label>Team (<b style="color: red">*</b>) (Teams for collection)</label>
-      <select required class="form-control" (change)="changeTeam(team.value)" name="code_team" ngModel #team="ngModel" id="code_team">
-        <option *ngFor="let l of listTeam" [ngValue]="l.code_team">{{l.name}}</option>
-      </select>
-
-      <div
-        *ngIf="team.touched ? (team.invalid):false"
-        class="invalid-feedback">
-        Required choose the location
+        <div
+          *ngIf="team.touched ? (team.invalid):false"
+          class="invalid-feedback">
+          Required choose the location
+        </div>
       </div>
-    </div>
 
 
-    <div class="form-group">
-      <label>Collection (<b style="color: red">*</b>) (Collection in {{team.value}})</label>
-      <p>Old collection: {{code_collection}}</p>
-      <select required class="form-control" name="code_collection" ngModel #collection="ngModel" id="code_collection">
-        <option *ngFor="let l of listCollection" [ngValue]="l.code_collection">{{l.name}}</option>
-      </select>
+      <div class="form-group">
+        <label>Collection (<b style="color: red">*</b>) (Collection in {{team.value}})</label>
+        <p>Old collection: {{code_collection}}</p>
+        <select required class="form-control" name="code_collection" ngModel #collection="ngModel" id="code_collection">
+          <option *ngFor="let l of listCollection" [ngValue]="l.code_collection">{{l.name}}</option>
+        </select>
 
-      <div
-        *ngIf="collection.touched ? (collection.invalid):false"
-        class="invalid-feedback">
-        Required choose the location
+        <div
+          *ngIf="collection.touched ? (collection.invalid):false"
+          class="invalid-feedback">
+          Required choose the location
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Explain examination (<b style="color: red">*</b>)</label>
-      <textarea type="text" class="form-control" rows="5" style="resize: none"
-                [className]="txtExplainExamination.touched ?
+      <div class="form-group">
+        <label>Explain examination (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtExplainExamination.touched ?
          (txtExplainExamination.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-                #txtExplainExamination="ngModel" placeholder="Explain for examination" [(ngModel)]="explain_question" name="explain_question"></textarea>
-      <div
-        *ngIf="txtExplainExamination.touched ? (txtExplainExamination.invalid):false"
-        class="invalid-feedback">
-        You must write explain for question
+                  #txtExplainExamination="ngModel" placeholder="Explain for examination" [(ngModel)]="explain_question"
+                  name="explain_question"></textarea>
+        <div
+          *ngIf="txtExplainExamination.touched ? (txtExplainExamination.invalid):false"
+          class="invalid-feedback">
+          You must write explain for question
+        </div>
+
       </div>
 
-    </div>
+      <div class="form-group">
+        <label for="status">Status (<b style="color: red">*</b>) (Status 1: Show, Status 0: Hide)</label>
 
-    <div class="form-group">
-      <label for="status">Status (<b style="color: red">*</b>) (Status 1: Show, Status 0: Hide)</label>
-
-      <select required class="form-control" name="status" [(ngModel)]="status" #txtStatus="ngModel" id="status">
-        <option value="1">Show</option>
-        <option value="0">Hide</option>
-      </select>
-      <div
-        *ngIf="txtStatus.touched ? (txtStatus.invalid):false"
-        class="invalid-feedback">
-        Required choose the location
+        <select required class="form-control" name="status" [(ngModel)]="status" #txtStatus="ngModel" id="status">
+          <option value="1">Show</option>
+          <option value="0">Hide</option>
+        </select>
+        <div
+          *ngIf="txtStatus.touched ? (txtStatus.invalid):false"
+          class="invalid-feedback">
+          Required choose the location
+        </div>
       </div>
     </div>
-
-    <div class="form-group">
-      <label>Answer A (<b style="color: red">*</b>)</label>
-      <textarea type="text" class="form-control" rows="5" style="resize: none"
-                [className]="txtAnsA.touched ?
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label>Answer A (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsA.touched ?
          (txtAnsA.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-                #txtAnsA="ngModel" placeholder="Your answer A" [(ngModel)]="answer_a" name="answer_a"></textarea>
-      <div
-        *ngIf="txtAnsA.touched ? (txtAnsA.invalid):false"
-        class="invalid-feedback">
-        You must write answer A
+                  #txtAnsA="ngModel" placeholder="Your answer A" [(ngModel)]="answer_a" name="answer_a"></textarea>
+        <div
+          *ngIf="txtAnsA.touched ? (txtAnsA.invalid):false"
+          class="invalid-feedback">
+          You must write answer A
+        </div>
+
       </div>
 
-    </div>
-
-    <div class="form-group">
-      <label>Answer B (<b style="color: red">*</b>)</label>
-      <textarea type="text" class="form-control" rows="5" style="resize: none"
-                [className]="txtAnsB.touched ?
+      <div class="form-group">
+        <label>Answer B (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsB.touched ?
          (txtAnsB.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-                #txtAnsB="ngModel" placeholder="Your answer B" [(ngModel)]="answer_b" name="answer_b"></textarea>
-      <div
-        *ngIf="txtAnsB.touched ? (txtAnsB.invalid):false"
-        class="invalid-feedback">
-        You must write answer B
+                  #txtAnsB="ngModel" placeholder="Your answer B" [(ngModel)]="answer_b" name="answer_b"></textarea>
+        <div
+          *ngIf="txtAnsB.touched ? (txtAnsB.invalid):false"
+          class="invalid-feedback">
+          You must write answer B
+        </div>
+
       </div>
 
-    </div>
-
-    <div class="form-group">
-      <label>Answer C (<b style="color: red">*</b>)</label>
-      <textarea type="text" class="form-control" rows="5" style="resize: none"
-                [className]="txtAnsC.touched ?
+      <div class="form-group">
+        <label>Answer C (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsC.touched ?
          (txtAnsC.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-                #txtAnsC="ngModel" placeholder="Your answer C" [(ngModel)]="answer_c" name="answer_c"></textarea>
-      <div
-        *ngIf="txtAnsC.touched ? (txtAnsC.invalid):false"
-        class="invalid-feedback">
-        You must write answer C
+                  #txtAnsC="ngModel" placeholder="Your answer C" [(ngModel)]="answer_c" name="answer_c"></textarea>
+        <div
+          *ngIf="txtAnsC.touched ? (txtAnsC.invalid):false"
+          class="invalid-feedback">
+          You must write answer C
+        </div>
+
       </div>
 
-    </div>
-
-    <div class="form-group">
-      <label>Answer D (<b style="color: red">*</b>)</label>
-      <textarea type="text" class="form-control" rows="5" style="resize: none"
-                [className]="txtAnsD.touched ?
+      <div class="form-group">
+        <label>Answer D (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsD.touched ?
          (txtAnsD.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-                #txtAnsD="ngModel" placeholder="Your answer D" [(ngModel)]="answer_d" name="answer_d"></textarea>
-      <div
-        *ngIf="txtAnsD.touched ? (txtAnsD.invalid):false"
-        class="invalid-feedback">
-        You must write answer D
+                  #txtAnsD="ngModel" placeholder="Your answer D" [(ngModel)]="answer_d" name="answer_d"></textarea>
+        <div
+          *ngIf="txtAnsD.touched ? (txtAnsD.invalid):false"
+          class="invalid-feedback">
+          You must write answer D
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Answer correct (<b style="color: red">*</b>) </label>
-      <select required class="form-control" name="answer_correct" [(ngModel)]="answer_correct" #answerCorrect="ngModel" id="answer_correct">
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="C">C</option>
-        <option value="D">D</option>
-      </select>
-      <div
-        *ngIf="answerCorrect.touched ? (answerCorrect.invalid):false"
-        class="invalid-feedback">
-        Choose your answer correct
+      <div class="form-group">
+        <label>Answer E (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsE.touched ?
+         (txtAnsE.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+                  #txtAnsE="ngModel" placeholder="Your answer E" [(ngModel)]="answer_e" name="answer_e"></textarea>
+        <div
+          *ngIf="txtAnsE.touched ? (txtAnsE.invalid):false"
+          class="invalid-feedback">
+          You must write answer E
+        </div>
       </div>
-    </div>
 
-    <div>{{errMsg}}</div>
-    <div class="ui buttons">
-      <button [disabled]="formEditExamination.invalid" class="btn btn-success" style="margin-right: 20px">Add
-        examination
-      </button>
-      <a routerLink="/admin" class="btn btn-primary">Go to dashboard</a>
-    </div>
-  </form>
 
-</div>
-<div class="col-sm-3"></div>
+      <div class="form-group">
+        <label>Answer F (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsF.touched ?
+         (txtAnsF.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+                  #txtAnsF="ngModel" placeholder="Your answer F" [(ngModel)]="answer_f" name="answer_f"></textarea>
+        <div
+          *ngIf="txtAnsF.touched ? (txtAnsF.invalid):false"
+          class="invalid-feedback">
+          You must write answer F
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Answer G (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsG.touched ?
+         (txtAnsG.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+                  #txtAnsG="ngModel" placeholder="Your answer G" [(ngModel)]="answer_g" name="answer_g"></textarea>
+        <div
+          *ngIf="txtAnsG.touched ? (txtAnsG.invalid):false"
+          class="invalid-feedback">
+          You must write answer G
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Answer H (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsH.touched ?
+         (txtAnsH.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+                  #txtAnsH="ngModel" placeholder="Your answer H" [(ngModel)]="answer_h" name="answer_h"></textarea>
+        <div
+          *ngIf="txtAnsH.touched ? (txtAnsH.invalid):false"
+          class="invalid-feedback">
+          You must write answer H
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Answer I (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsI.touched ?
+         (txtAnsI.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+                  #txtAnsI="ngModel" placeholder="Your answer I" [(ngModel)]="answer_i" name="answer_i"></textarea>
+        <div
+          *ngIf="txtAnsI.touched ? (txtAnsI.invalid):false"
+          class="invalid-feedback">
+          You must write answer I
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Answer J (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsI.touched ?
+         (txtAnsJ.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+                  #txtAnsJ="ngModel" placeholder="Your answer J" [(ngModel)]="answer_j" name="answer_j"></textarea>
+        <div
+          *ngIf="txtAnsJ.touched ? (txtAnsJ.invalid):false"
+          class="invalid-feedback">
+          You must write answer J
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Answer K (<b style="color: red">*</b>)</label>
+        <textarea type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsK.touched ?
+         (txtAnsK.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+                  #txtAnsK="ngModel" placeholder="Your answer K" [(ngModel)]="answer_k" name="answer_k"></textarea>
+        <div
+          *ngIf="txtAnsK.touched ? (txtAnsK.invalid):false"
+          class="invalid-feedback">
+          You must write answer K
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Answer correct (<b style="color: red">*</b>) </label>
+        <select required class="form-control" name="answer_correct" [(ngModel)]="answer_correct"
+                #answerCorrect="ngModel"
+                id="answer_correct">
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="E">E</option>
+          <option value="F">F</option>
+          <option value="G">G</option>
+          <option value="H">H</option>
+          <option value="I">I</option>
+          <option value="J">J</option>
+          <option value="K">K</option>
+        </select>
+        <div
+          *ngIf="answerCorrect.touched ? (answerCorrect.invalid):false"
+          class="invalid-feedback">
+          Choose your answer correct
+        </div>
+      </div>
+
+      <div>{{errMsg}}</div>
+      <div class="ui buttons">
+        <button [disabled]="formEditExamination.invalid" class="btn btn-success" style="margin-right: 20px">Update
+          examination
+        </button>
+        <a routerLink="/admin/examination/view" class="btn btn-primary">Back</a>
+      </div>
+
+    </div>
+  </div>
+</form>

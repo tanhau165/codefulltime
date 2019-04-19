@@ -7,6 +7,7 @@ import {ExamminationServiceService} from '../exammination-service.service';
 import {TokenService} from '../../../services/token.service';
 import {ActivatedRoute} from '@angular/router';
 import {Examination} from '../../../models/examination';
+import {AuthService} from '../../../services/auth.service';
 
 declare var CodeMirror: any;
 
@@ -29,6 +30,13 @@ export class EditExaminationComponent implements OnInit {
   answer_b: string;
   answer_c: string;
   answer_d: string;
+  answer_e: string;
+  answer_f: string;
+  answer_g: string;
+  answer_h: string;
+  answer_i: string;
+  answer_j: string;
+  answer_k: string;
   answer_correct: string;
   type_of_language: string;
   explain_question: string;
@@ -43,12 +51,12 @@ export class EditExaminationComponent implements OnInit {
 
   constructor(private teamS: TeamServiceService, private  collectionS: CollectionsService,
               private config: ConfigService, private examinationS: ExamminationServiceService,
-              private token: TokenService, private router: ActivatedRoute
+              private token: TokenService, private router: ActivatedRoute, private auth: AuthService
   ) {
   }
 
   ngOnInit() {
-
+    this.auth.changeMenuAdminActive('Examination');
     this.router.paramMap.subscribe(value => {
       this.code_examination = value.get('examination');
       this.examinationS.getOneExamination(this.code_examination).subscribe(
@@ -61,6 +69,13 @@ export class EditExaminationComponent implements OnInit {
           this.answer_b = examination.answer_b;
           this.answer_c = examination.answer_c;
           this.answer_d = examination.answer_d;
+          this.answer_e = examination.answer_e;
+          this.answer_f = examination.answer_f;
+          this.answer_g = examination.answer_g;
+          this.answer_h = examination.answer_h;
+          this.answer_i = examination.answer_i;
+          this.answer_j = examination.answer_j;
+          this.answer_k = examination.answer_k;
           this.answer_correct = examination.answer_correct;
           this.type_of_language = examination.type_of_language;
           this.explain_question = examination.explain_question;
@@ -139,6 +154,12 @@ export class EditExaminationComponent implements OnInit {
       answer_b: examination.answer_b,
       answer_c: examination.answer_c,
       answer_d: examination.answer_d,
+      answer_f: examination.answer_f,
+      answer_g: examination.answer_g,
+      answer_h: examination.answer_h,
+      answer_i: examination.answer_i,
+      answer_j: examination.answer_j,
+      answer_k: examination.answer_k,
       answer_correct: examination.answer_correct
     }).subscribe(
       res => this.errMsg = res.message,

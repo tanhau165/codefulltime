@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Collections;
+use App\Teams;
 use Illuminate\Http\Request;
 
 class CollectionsController extends Controller
@@ -14,9 +15,23 @@ class CollectionsController extends Controller
             ['except' => [
                 'GetByTeam',
                 'GetAll',
-                'GetOne'
+                'GetOne',
             ]]
         );
+    }
+
+    public function GetCollectionByID()
+    {
+        $account = auth()->user();
+        $teams = Teams::where('teacher', $account->username)->get();
+        $listCodeTeam = [];
+        foreach ($teams as $team) {
+            array_push($listCodeTeam, $team->code_team);
+        }
+        $collections = Collections::whereIn('code_team', $listCodeTeam)->get();
+        return response()->json([
+            'collections' => $collections
+        ]);
     }
 
     public function GetAll()

@@ -1,0 +1,22 @@
+<div class="card text-white bg-success margin-element">
+  <div class="card-header text-uppercase-bold"><i class="fa fa-pencil" aria-hidden="true"></i> Submission for exercise</div>
+  <div class="table-responsive">
+    <table class="card-table table table-borderles bg-white">
+      <tbody>
+      <tr class="text-bold">
+        <td width="60%">Acc</td>
+        <td width="30%">Lang.</td>
+        <td width="10%">Score</td>
+      </tr>
+      <tr *ngFor="let submit of submission">
+        <td><a routerLink="/profile/{{submit.exercise?.team?.account?.id}}" [ngbTooltip]="tipContent" data-html="true">{{submit.exercise?.team?.account?.name}}</a></td>
+        <td>{{submit.language.name}}</td>
+        <td>{{submit.score}}</td>
+        <ng-template #tipContent>
+          <app-ttacount [account]="submit.exercise?.team?.account"></app-ttacount>
+        </ng-template>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

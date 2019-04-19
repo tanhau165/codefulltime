@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-menu-admin></app-menu-admin>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-8">
+    <a routerLink="/admin/exercise/add" class="btn btn-lg btn-primary">Add</a>
+    <h3>All your exercises</h3>
+    <table id="example" class="table table-light table-bordered table-hover" style="width:100%">
+      <thead class="bg-success text-uppercase-bold text-white">
+      <tr>
+        <th width="5%" scope="col">Code</th>
+        <th width="45%" scope="col">Name</th>
+        <th width="15%" scope="col">Create by</th>
+        <th width="20%" scope="col">Team</th>
+        <th width="15%" scope="col">Best score</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let s of exercises">
+        <th scope="row">{{s.exercise_code}}</th>
+        <td>{{s.name}}</td>
+        <td>{{s.account.name}}</td>
+        <td>{{s.team.name}}</td>
+        <td>{{s.best_score}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

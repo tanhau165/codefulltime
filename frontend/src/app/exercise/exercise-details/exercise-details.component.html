@@ -1,47 +1,65 @@
-<div style="margin-top: 20px">
-  <div class="row">
-    <div class="col-sm-9">
-      <div>
-        <h3>{{exercise?.name}}</h3>
-      </div>
-      <div id="content"></div>
-      <div class="submit" align="center">
-        <a *ngIf="isLoggedIn" style="margin-right: 10px" class="btn btn-success" routerLink="/exercise-submit/{{exercise_code}}">Submit now</a>
-        <app-report-errore [name_object]="'exercise'" [code_object]="exercise?.exercise_code"></app-report-errore>
-        <a *ngIf="!isLoggedIn" class="btn btn-primary" routerLink="/login">Required login first</a>
+<div class="row">
+  <div class="col-sm-8">
+    <div>
+      <h3>{{exercise?.name}}</h3>
+    </div>
+    <div id="content"></div>
+    <div class="submit" align="center">
+      <a *ngIf="isLoggedIn" style="margin-right: 10px" class="btn btn-success margin-button"
+         routerLink="/exercise-submit/{{exercise_code}}"><i class="fa fa-paper-plane" aria-hidden="true"></i> Submit</a>
+      <app-report-errore [name_object]="'exercise'" [code_object]="exercise?.exercise_code"></app-report-errore>
+      <a *ngIf="!isLoggedIn" class="btn btn-primary" routerLink="/login"><i class="fa fa-sign-in"
+                                                                            aria-hidden="true"></i> Required login first</a>
+      <app-like [code_object]="exercise_code"></app-like>
+    </div>
+    <app-comment [codeObject]="exercise_code"></app-comment>
+  </div>
+  <div class="col-sm-4">
+    <div class="card text-white bg-success margin-element">
+      <div class="card-header text-uppercase-bold"><i class="fa fa-info" aria-hidden="true"></i> Information
+        of {{exercise_code}}</div>
+      <div class="table-responsive">
+        <table class="card-table table table-borderles bg-white">
+
+          <tbody>
+          <tr>
+            <td width="60%">Exercise code</td>
+            <td class="text-xl-right" width="30%">{{exercise?.exercise_code}}</td>
+          </tr>
+
+          <tr>
+            <td>Best score</td>
+            <td class="text-xl-right">{{exercise?.best_score}}</td>
+          </tr>
+
+          <tr>
+            <td>Time limit</td>
+            <td class="text-xl-right">{{exercise?.time_limit}} s</td>
+          </tr>
+
+          <tr>
+            <td>Memory limit</td>
+            <td class="text-xl-right">{{exercise?.memory_limit}} MBs</td>
+          </tr>
+
+          <tr>
+            <td>Team</td>
+            <td class="text-xl-right">{{exercise?.team.name}}</td>
+          </tr>
+
+          <tr>
+            <td>Input</td>
+            <td class="text-xl-right">Standard Input</td>
+          </tr>
+
+          <tr>
+            <td>Output</td>
+            <td class="text-xl-right">Standard Output</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <div class="col-sm-3">
-      <div class="card text-white bg-success mb-3">
-        <ul style="color: #0c0c0d" class="list-group">
-          <li class="list-group-item active">Information of exercise</li>
-          <li class="list-group-item">Exercise code: {{exercise?.exercise_code}}</li>
-          <li class="list-group-item">Best score: {{exercise?.best_score}}</li>
-          <li class="list-group-item">Time limit: {{exercise?.time_limit}} s</li>
-          <li class="list-group-item">Memory limit: {{exercise?.memory_limit}} MBs</li>
-          <li class="list-group-item">Team: {{exercise?.team.name}}</li>
-          <li class="list-group-item">Input: Standard Input</li>
-          <li class="list-group-item">Output: Standard Output</li>
-        </ul>
-      </div>
-
-      <table style="margin-top: 10px; border-radius: 5px" class="table table-dark table-borderless">
-        <thead class="bg-success">
-        <tr>
-          <th colspan="4" scope="col">Submission for exercise</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let submit of submission">
-          <td>{{submit.exercise?.team?.account?.name}}</td>
-          <td><a routerLink="/exercise-details/{{submit.exercise_code}}">{{submit.exercise_code}}</a></td>
-          <td>{{submit.language.name}}</td>
-          <td>{{submit.score}}</td>
-        </tr>
-        </tbody>
-      </table>
-
-
-    </div>
+    <app-submission-for-exercise [codeExercise]=exercise_code></app-submission-for-exercise>
   </div>
 </div>

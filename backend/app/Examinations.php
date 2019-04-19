@@ -13,7 +13,8 @@ class Examinations extends Model
     public $incrementing = false;
 
 
-    public function collection(){
+    public function collection()
+    {
         return $this->belongsTo('App\Collections', 'code_collection');
     }
 
@@ -32,6 +33,13 @@ class Examinations extends Model
         'answer_b',
         'answer_c',
         'answer_d',
+        'answer_e',
+        'answer_f',
+        'answer_g',
+        'answer_h',
+        'answer_i',
+        'answer_j',
+        'answer_k',
         'answer_correct',
         'type_of_language',
         'explain_question',

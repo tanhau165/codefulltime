@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Exercise;
+use App\Submission;
 use Illuminate\Http\Request;
 
 class ExerciseController extends Controller
@@ -14,10 +16,36 @@ class ExerciseController extends Controller
                 'GetAll',
                 'GetOne',
                 'GetByTeam',
-                'GetByUsername'
+                'GetByUsername',
+                'ExerciseSubmitted'
 
             ]]
         );
+    }
+
+    public function ExerciseSubmitted(Request $request)
+    {
+        $id = $request->id;
+        $exercises = [];
+        $exercises_code = [];
+        $account = Account::where('id', $id)->first();
+        $submissions = Submission::where('username', $account->username)->get();
+        $allExercise = Exercise::all();
+        foreach ($submissions as $exercise) {
+            array_push($exercises_code, $exercise->exercise_code);
+        }
+        array_unique($exercises);
+
+        foreach ($allExercise as $exercise) {
+            if (in_array($exercise->exercise_code, $exercises_code)) {
+                array_push($exercises, $exercise);
+            }
+        }
+
+        return response()->json([
+            'exercises' => $exercises
+        ], 200);
+
     }
 
     public function GetAll()
@@ -26,6 +54,10 @@ class ExerciseController extends Controller
         return response()->json([
             'exercises' => $exercises
         ], 200);
+    }
+
+    public function GetNew(){
+        $exercises = Exercise::all();
     }
 
     public function GetOne(Request $request)

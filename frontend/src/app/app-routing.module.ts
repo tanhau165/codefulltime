@@ -24,11 +24,16 @@ import {ExerciseAllComponent} from './exercise/exercise-all/exercise-all.compone
 import {ExerciseDetailsComponent} from './exercise/exercise-details/exercise-details.component';
 import {ExerciseSubmitComponent} from './exercise/exercise-submit/exercise-submit.component';
 import {SubmissionComponent} from './submit/submission/submission.component';
+import {ViewExaminationComponent} from './admin/examination/view-examination/view-examination.component';
+import {NewsFeedComponent} from './newfeedall/news-feed/news-feed.component';
+import {ViewTeamComponent} from './admin/team/view-team/view-team.component';
+import {ViewCollectionComponent} from './admin/collection/view-collection/view-collection.component';
+import {ViewExerciseComponent} from './admin/exercise/view-exercise/view-exercise.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent, canActivate: [BeforeLoginService]},
   {path: 'login', component: LoginComponent, canActivate: [BeforeLoginService]},
-  {path: 'profile', component: ProfileComponent, canActivate: [AfterLoginService]},
+  {path: 'profile', component: ProfileComponent},
   {path: 'request-password-reset', component: RequestResetComponent, canActivate: [BeforeLoginService]},
   {path: 'response-password-reset', component: ResponseResetComponent, canActivate: [BeforeLoginService]},
   {path: 'change-pass', component: ChangePassComponent, canActivate: [AfterLoginService]},
@@ -39,17 +44,30 @@ const routes: Routes = [
   {path: 'exercise-details/:exercise', component: ExerciseDetailsComponent},
   {path: 'exercise-submit/:exercise', component: ExerciseSubmitComponent},
 
+  {path: 'profile/:id', component: ProfileComponent},
+  {path: 'news-feed', component: NewsFeedComponent},
 
   {path: 'admin', component: TeacherAdminComponent, canActivate: [IsAdminService]},
-  {path: 'admin/team/add', component: AddTeamComponent},
-  {path: 'admin/collection/add', component: AddCollectionComponent},
-  {path: 'admin/examination/add', component: AddExaminationComponent},
-  {path: 'admin/exercise/add', component: AddComponent},
 
-  {path: 'admin/team/edit/:team', component: EditTeamComponent},
-  {path: 'admin/collection/edit/:collection', component: EditCollectionComponent},
-  {path: 'admin/examination/edit/:examination', component: EditExaminationComponent},
+  {path: 'admin/team/add', component: AddTeamComponent, canActivate: [IsAdminService]},
+  {path: 'admin/team/edit/:team', component: EditTeamComponent, canActivate: [IsAdminService]},
+  {path: 'admin/team/view', component: ViewTeamComponent, canActivate: [IsAdminService]},
+
+
+  {path: 'admin/collection/add', component: AddCollectionComponent, canActivate: [IsAdminService]},
+  {path: 'admin/collection/edit/:collection', component: EditCollectionComponent, canActivate: [IsAdminService]},
+  {path: 'admin/collection/view', component: ViewCollectionComponent, canActivate: [IsAdminService]},
+
+
+  {path: 'admin/examination/add', component: AddExaminationComponent, canActivate: [IsAdminService]},
+  {path: 'admin/examination/view', component: ViewExaminationComponent, canActivate: [IsAdminService]},
+  {path: 'admin/examination/edit/:examination', component: EditExaminationComponent, canActivate: [IsAdminService]},
+  {path: 'admin/examinations-by-collection/view/:collection', component: ViewExaminationComponent, canActivate: [IsAdminService]},
+
+  {path: 'admin/exercise/add', component: AddComponent},
   {path: 'admin/exercise/edit/:exercise', component: EditComponent},
+  {path: 'admin/exercise/view', component: ViewExerciseComponent},
+
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-<div class="col-sm-4" style="width: 300px; margin: auto auto">
+<div class="col-sm-6" style="margin: auto auto">
   <form (ngSubmit)="login(formLogin)" #formLogin="ngForm" action="">
     <div class="form-group">
       <label for="username">Username (<b style="color: red">*</b>)</label>
@@ -18,7 +18,8 @@
     </div>
 
     <div class="ui buttons">
-      <button [disabled]="formLogin.invalid" class="btn btn-primary" style="margin-right: 10px">Login</button>
+      <button [disabled]="formLogin.invalid" class="btn btn-primary margin-button"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+      <a routerLink="/register" class="btn btn-primary margin-button"><i class="fa fa-user-plus" aria-hidden="true"></i> Register</a>
       <a routerLink="/request-password-reset" class="btn btn-secondary">Forget password</a>
     </div>
   </form>

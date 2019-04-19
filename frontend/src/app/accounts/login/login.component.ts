@@ -46,13 +46,14 @@ export class LoginComponent implements OnInit {
   handleResponse(data) {
     this.token.handle(data.access_token);
     this.auth.changeAuthStatus(true);
+
     this.token.setName(data.name);
     this.auth.changeName(data.name);
 
     this.token.setRole(data.role + '');
     this.auth.changeRole(data.role);
 
-    this.auth.changeRole(data.role !== 1 ? 'Admin' : 'Customer');
+    // this.auth.changeRole(data.role !== 1 ? 'Admin' : 'Customer');
     this.router.navigateByUrl('/');
   }
 

@@ -10,7 +10,9 @@ import {Examination} from '../../models/examination';
 import {ExamminationServiceService} from '../examination/exammination-service.service';
 import {ExerciseService} from '../exercise/exercise.service';
 import {Exercises} from '../../models/exercises';
+import {AuthService} from '../../services/auth.service';
 
+declare let $: any;
 
 @Component({
   selector: 'app-teacher-admin',
@@ -34,12 +36,12 @@ export class TeacherAdminComponent implements OnInit {
 
   constructor(private jwt: JarwisService, private token: TokenService, private router: Router, private teacherService: TeacherAdminService,
               private collectionS: CollectionsService, private examinationS: ExamminationServiceService,
-              private exeS: ExerciseService
+              private exeS: ExerciseService, private auth: AuthService
   ) {
   }
 
   ngOnInit() {
-
+    this.auth.changeMenuAdminActive('Home');
     this.loadData(this.token.get());
 
   }
@@ -51,9 +53,24 @@ export class TeacherAdminComponent implements OnInit {
         data.teams.forEach((team, index) => {
           this.teams.push(new Teams(team));
         });
+        $(document).ready(() => {
+          $('#teams').DataTable();
+        });
       },
       error => console.log(error)
     );
+
+    this.collectionS.getAllCollectionByTeam(this.token.get()).subscribe(
+      res => {
+        res.collections.forEach(c => {
+          this.collections.push(c);
+        });
+        $(document).ready(() => {
+          $('#collections').DataTable();
+        });
+      }
+    );
+
     this.exeS.getOfMe(this.token.get()).subscribe(
       vl => {
         vl.exercises.forEach(e => {
@@ -64,30 +81,34 @@ export class TeacherAdminComponent implements OnInit {
 
   }
 
-  clickToViewCollection(team_code) {
-    this.currentTeam = team_code;
-    this.collections = [];
-    this.examinations = [];
-    this.collectionS.getCollectionByTeam(team_code).subscribe(data => {
-      data.collections.forEach((collection) => {
-        this.collections.push(new Collections(collection));
-      });
-    });
-  }
-
-  clickToViewExamination(code_collection) {
-    this.examinations = [];
-    this.currentCollection = code_collection;
-    this.examinationS.getExaminationByCollection(code_collection).subscribe(data => {
-      data.examinations.forEach((collection) => {
-        this.examinations.push(new Examination(collection));
-      });
-    });
-  }
-
-  detailsExamination(code_examination: string) {
-    this.examinationS.getExamination(code_examination).subscribe(data => {
-      this.currentExamination = new Examination(data.examination);
-    });
-  }
+  // clickToViewCollection(team_code) {
+  //   this.currentTeam = team_code;
+  //   this.collections = [];
+  //   this.examinations = [];
+  //   this.collectionS.getCollectionByTeam(team_code).subscribe(data => {
+  //     data.collections.forEach((collection) => {
+  //       this.collections.push(new Collections(collection));
+  //     });
+  //   });
+  // }
+  //
+  // clickToViewExamination(code_collection) {
+  //   this.examinations = [];
+  //   this.currentCollection = code_collection;
+  //   this.examinationS.getExaminationByCollection(code_collection).subscribe(data => {
+  //     data.examinations.forEach((collection) => {
+  //       this.examinations.push(new Examination(collection));
+  //     });
+  //     $(document).ready(() => {
+  //       $('#example').DataTable();
+  //     });
+  //   });
+  //
+  // }
+  //
+  // detailsExamination(code_examination: string) {
+  //   this.examinationS.getExamination(code_examination).subscribe(data => {
+  //     this.currentExamination = new Examination(data.examination);
+  //   });
+  // }
 }

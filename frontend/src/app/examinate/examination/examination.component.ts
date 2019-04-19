@@ -11,6 +11,7 @@ import {AuthService} from '../../services/auth.service';
 
 declare var CodeMirror: any;
 declare var showdown: any;
+declare var $: any;
 
 @Component({
   selector: 'app-examination',
@@ -39,7 +40,8 @@ export class ExaminationComponent implements OnInit {
 
   // information
   yourScore: number;
-  username: string;
+  name: string;
+  location: string;
   currentCollection: any;
 
   editor: any;
@@ -62,18 +64,28 @@ export class ExaminationComponent implements OnInit {
   ngOnInit() {
 
     this.auth.changeMenuActive('Examination');
-    this.teamS.getAll().subscribe(
-      res => {
-        res.teams.forEach((val) => {
-          this.listTeam.push(new Teams(val));
-        });
-      }
-    );
+
     if (this.token.get() !== null) {
       this.jwt.me(this.token.get()).subscribe(
         res => {
           this.yourScore = res.score;
-          this.username = res.username;
+          this.name = res.name;
+          this.location = res.location;
+          this.teamS.getByLocation(this.location).subscribe(
+            resTeam => {
+              resTeam.teams.forEach((val) => {
+                this.listTeam.push(new Teams(val));
+              });
+            }
+          );
+        }
+      );
+    } else {
+      this.teamS.getAll().subscribe(
+        res => {
+          res.teams.forEach((val) => {
+            this.listTeam.push(new Teams(val));
+          });
         }
       );
     }
@@ -90,8 +102,7 @@ export class ExaminationComponent implements OnInit {
     );
   }
 
-  getStarted(formStarted) {
-    const codeCollection = formStarted.value.code_collection;
+  getStarted(code) {
     this.start = true;
     this.end = false;
 
@@ -99,12 +110,12 @@ export class ExaminationComponent implements OnInit {
       this.timer = setInterval(() => this.time++, 1000);
     }
 
-    this.examinationS.getExaminationByCollection(codeCollection).subscribe(
+    this.examinationS.getExaminationByCollection(code).subscribe(
       res => {
         res.examinations.forEach(v => {
           this.listExamination.push(new Examination(v));
         });
-        this.currentCollection = this.listCollection[0].name;
+        this.currentCollection = this.listCollection[0].code_collection;
         this.currentExamination = this.getRandomExamination(this.currentExamination);
         this.loadQuestionToHTML();
       },
@@ -114,7 +125,6 @@ export class ExaminationComponent implements OnInit {
   }
 
   loadQuestionToHTML() {
-
     this.editor = CodeMirror.fromTextArea(document.getElementById('code'), {
         lineNumbers: true,
         styleActiveLine: true,
@@ -138,10 +148,10 @@ export class ExaminationComponent implements OnInit {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-        theme: 'dracula'
+        theme: 'dracula',
+        readOnly: 'nocursor'
       }
     );
-    this.editor.setOption('readOnly', 'cursor');
     this.editor.setValue(this.currentExamination.question);
   }
 
@@ -159,49 +169,90 @@ export class ExaminationComponent implements OnInit {
     }
   }
 
-  check() {
 
+  check(applike) {
+    const check = $('#check');
     if (this.currentExamination.answer_correct === this.answer_correct) {
-      // đúng và tiếp tục
-      this.score++;
-      this.listExaminationCodeCorrect.push(this.currentExamination.code_examination);
-      const temp = this.currentExamination;
-      this.currentExamination = this.getRandomExamination(this.currentExamination);
-      if (this.editor !== null) {
-        if (this.currentExamination !== undefined) {
-          this.editor.setOption('mode', {name: `${this.currentExamination.type_of_language}`, globalVars: true});
-          this.editor.setValue(this.currentExamination.question);
+      check.html('<i class="fa fa-check-square-o" aria-hidden="true"></i> Correct');
+      this.notifyIfCorrect(true).then(() => {
+        // đúng và tiếp tục
+        this.score++;
+        this.listExaminationCodeCorrect.push(this.currentExamination.code_examination);
+        const temp = this.currentExamination;
+        this.currentExamination = this.getRandomExamination(this.currentExamination);
+        if (this.editor !== null) {
+          if (this.currentExamination !== undefined) {
+            this.editor.setOption('mode', {name: `${this.currentExamination.type_of_language}`, globalVars: true});
+            this.editor.setValue(this.currentExamination.question);
+          }
         }
-      }
-      if (this.currentExamination == null) {
-        this.saveScore(false);
-        this.currentExamination = temp;
-        clearInterval(this.timer);
-      } else {
-        this.removeSelectAnswer();
-      }
+        if (this.currentExamination == null) {
+          this.saveScore(false);
+          this.currentExamination = temp;
+          clearInterval(this.timer);
+        } else {
+          this.removeSelectAnswer();
+        }
+        check.html('Check');
+        applike.changeCodeObject(this.currentExamination.code_examination);
+      }).catch(e => console.log(e));
     } else {
+      applike.changeCodeObject(this.currentExamination.code_examination);
       // tính điểm lưu database và giải thích câu trả lời
+      this.reChooseIfInCorrect();
       clearInterval(this.timer);
       this.saveScore(true);
-      this.reChooseIfInCorrect();
     }
   }
 
   reChooseIfInCorrect() { // chọn câu trả lời đúng nếu sai
     const answer_correct = this.currentExamination.answer_correct;
     if (answer_correct === 'A') {
-      document.getElementById('row_A').style.backgroundColor = '#00bb00;';
+      document.getElementById('row_A').style.backgroundColor = 'green';
     }
     if (answer_correct === 'B') {
-      document.getElementById('row_B').style.backgroundColor = '#00bb00;';
+      document.getElementById('row_B').style.backgroundColor = 'green';
     }
     if (answer_correct === 'C') {
-      document.getElementById('row_C').style.backgroundColor = '#00bb00;';
+      document.getElementById('row_C').style.backgroundColor = 'green';
     }
     if (answer_correct === 'D') {
-      document.getElementById('row_D').style.backgroundColor = '#00bb00;';
+      document.getElementById('row_D').style.backgroundColor = 'green';
     }
+    if (answer_correct === 'E') {
+      document.getElementById('row_E').style.backgroundColor = 'green';
+    }
+    if (answer_correct === 'F') {
+      document.getElementById('row_F').style.backgroundColor = 'green';
+    }
+    if (answer_correct === 'G') {
+      document.getElementById('row_G').style.backgroundColor = 'green';
+    }
+    if (answer_correct === 'H') {
+      document.getElementById('row_H').style.backgroundColor = 'green';
+    }
+    if (answer_correct === 'I') {
+      document.getElementById('row_I').style.backgroundColor = 'green';
+    }
+    if (answer_correct === 'J') {
+      document.getElementById('row_J').style.backgroundColor = 'green';
+    }
+    if (answer_correct === 'K') {
+      document.getElementById('row_K').style.backgroundColor = 'green';
+    }
+  }
+
+  notifyIfCorrect(bool) { // chọn câu trả lời đúng nếu sai
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (!bool) {
+          return reject();
+        }
+
+        return resolve();
+      }, 1000);
+    });
   }
 
   chooseA() {
@@ -229,6 +280,48 @@ export class ExaminationComponent implements OnInit {
     this.answer_correct = 'D';
   }
 
+  chooseE() {
+    const e: any = document.getElementById('ans_e');
+    e.checked = true;
+    this.answer_correct = 'E';
+  }
+
+  chooseF() {
+    const f: any = document.getElementById('ans_f');
+    f.checked = true;
+    this.answer_correct = 'F';
+  }
+
+  chooseG() {
+    const g: any = document.getElementById('ans_g');
+    g.checked = true;
+    this.answer_correct = 'G';
+  }
+
+  chooseH() {
+    const h: any = document.getElementById('ans_h');
+    h.checked = true;
+    this.answer_correct = 'H';
+  }
+
+  chooseI() {
+    const i: any = document.getElementById('ans_i');
+    i.checked = true;
+    this.answer_correct = 'I';
+  }
+
+  chooseJ() {
+    const j: any = document.getElementById('ans_j');
+    j.checked = true;
+    this.answer_correct = 'J';
+  }
+
+  chooseK() {
+    const k: any = document.getElementById('ans_k');
+    k.checked = true;
+    this.answer_correct = 'k';
+  }
+
 
   removeSelectAnswer() {
     const a: any = document.getElementById('ans_a');
@@ -239,38 +332,102 @@ export class ExaminationComponent implements OnInit {
     c.checked = false;
     const d: any = document.getElementById('ans_d');
     d.checked = false;
+    const e: any = document.getElementById('ans_e');
+    if (e !== null) {
+      e.checked = false;
+    }
+    const f: any = document.getElementById('ans_f');
+    if (f !== null) {
+      f.checked = false;
+    }
+    const g: any = document.getElementById('ans_g');
+    if (g !== null) {
+      g.checked = false;
+    }
+    const h: any = document.getElementById('ans_h');
+    if (h !== null) {
+      h.checked = false;
+    }
+    const i: any = document.getElementById('ans_i');
+    if (i !== null) {
+      i.checked = false;
+    }
+    const j: any = document.getElementById('ans_j');
+    if (j !== null) {
+      j.checked = false;
+    }
+    const k: any = document.getElementById('ans_k');
+    if (k !== null) {
+      k.checked = false;
+    }
   }
 
   removeHighlightAnswerIncorrect() {
-    document.getElementById('row_A').style.backgroundColor = '';
-    document.getElementById('row_B').style.backgroundColor = '';
-    document.getElementById('row_C').style.backgroundColor = '';
-    document.getElementById('row_D').style.backgroundColor = '';
+    const a: any = document.getElementById('row_A');
+    if (a !== null) {
+      a.style.backgroundColor = '';
+    }
+
+    const b: any = document.getElementById('row_B');
+    if (b !== null) {
+      b.style.backgroundColor = '';
+    }
+
+    const c: any = document.getElementById('row_C');
+    if (c !== null) {
+      c.style.backgroundColor = '';
+    }
+    const d: any = document.getElementById('row_D');
+    if (d !== null) {
+      d.style.backgroundColor = '';
+    }
+
+    const e: any = document.getElementById('row_E');
+    if (e !== null) {
+      e.style.backgroundColor = '';
+    }
+
+    const f: any = document.getElementById('row_F');
+    if (f !== null) {
+      f.style.backgroundColor = '';
+    }
+
+    const g: any = document.getElementById('row_G');
+    if (g !== null) {
+      g.style.backgroundColor = '';
+    }
+
+    const h: any = document.getElementById('row_H');
+    if (h !== null) {
+      h.style.backgroundColor = '';
+    }
+
+    const i: any = document.getElementById('row_I');
+    if (i !== null) {
+      i.style.backgroundColor = '';
+    }
+
+    const j: any = document.getElementById('row_J');
+    if (j !== null) {
+      j.style.backgroundColor = '';
+    }
+
+    const k: any = document.getElementById('row_K');
+    if (k !== null) {
+      k.style.backgroundColor = '';
+    }
+
   }
 
-  goToAnotherExamination() { // hàm được gọi khi làm sai muốn làm lại. Đây là hàm được xem như là reset tất cả mọi thứ trở về ban đầu và cập nhật luôn cả điểm của account lên giao diện
-    this.start = false;
-    this.end = true;
-    this.finish = false;
-    this.win = false;
-
-    this.removeHighlightAnswerIncorrect();
-    this.removeSelectAnswer();
-    this.currentExamination = null;
-    this.answer_correct = '';
-    this.listExamination = [];
-    this.score = 0;
-    this.jwt.me(this.token.get()).subscribe(
-      res => this.yourScore = res.score
-    );
-    this.msgCheckScore = '';
-    this.time = 0;
+  goToAnotherExamination() {
+    window.location.href = '/';
   }
 
   private saveScore(questionAvailable) { // hàm save score khi làm sai 1 câu
     if (!questionAvailable) {
       this.examinationS.addNewReportExamination({
         score: this.score,
+        time_work: this.time,
         list_examination: this.listExaminationCodeCorrect.join(','),
         code_collection: this.currentCollection
       }, this.token.get()).subscribe(
@@ -286,12 +443,15 @@ export class ExaminationComponent implements OnInit {
 
       this.examinationS.addNewReportExamination({
         score: this.score,
+        time_work: this.time,
         list_examination: this.listExaminationCodeCorrect.join(','),
         code_collection: this.currentExamination.code_collection
       }, this.token.get()).subscribe(
         res => {
+          console.log(res);
           this.finish = true;
           this.msgCheckScore = res.message;
+
         },
         error => console.log(error)
       );
@@ -300,5 +460,42 @@ export class ExaminationComponent implements OnInit {
 
   round(s) {
     return Math.floor(s);
+  }
+
+  restart(applike) {
+    this.start = true;
+    this.end = false;
+    this.finish = false;
+    this.win = false;
+    this.time = 0;
+    this.score = 0;
+    this.removeHighlightAnswerIncorrect();
+    this.removeSelectAnswer();
+
+    this.jwt.me(this.token.get()).subscribe(
+      resMe => {
+        this.yourScore = resMe.score;
+        this.examinationS.getExaminationByCollection(this.currentCollection).subscribe(
+          res => {
+            res.examinations.forEach(v => {
+              this.listExamination.push(new Examination(v));
+            });
+            this.currentCollection = this.listCollection[0].code_collection;
+            this.currentExamination = this.getRandomExamination(null);
+            this.editor.setOption('readOnly', 'cursor');
+            this.editor.setValue(this.currentExamination.question);
+            if (this.start) {
+              this.timer = setInterval(() => this.time++, 1000);
+            }
+            applike.changeCodeObject(this.currentExamination.code_examination);
+
+          },
+          error => {
+          }
+        );
+      }
+    );
+
+
   }
 }

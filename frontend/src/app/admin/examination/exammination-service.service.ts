@@ -20,6 +20,7 @@ export class ExamminationServiceService {
     return this.http.get(`${this.api}/client/examination/one/${code_examination}`);
   }
 
+
   addNewExamination(token, examination): any {
     return this.http.post(`${this.api}/admin/examination/add`, examination, {headers: {Authorization: `Bearer ${token}`}});
 
@@ -42,4 +43,7 @@ export class ExamminationServiceService {
     return this.http.get(`${this.api}/client/rp-examinations/get/top/${numberRow}`);
   }
 
+  getAllExamination(): any {
+    return this.http.get(`${this.api}/client/examinations`);
+  }
 }

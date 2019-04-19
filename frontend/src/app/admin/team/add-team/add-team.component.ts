@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TeamServiceService} from '../team-service.service';
 import {JarwisService} from '../../../services/jarwis.service';
 import {TokenService} from '../../../services/token.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-add-team',
@@ -14,18 +15,21 @@ export class AddTeamComponent implements OnInit {
   listLocation = [
     {code: 'vn', name: 'Vietnam'},
     {code: 'en', name: 'English'},
-    {code: 'jp', name: 'Japan'}
+    {code: 'jp', name: 'Japan'},
+    {code: 'all', name: 'Over the world'},
   ];
 
 
   constructor(
     private teamS: TeamServiceService,
     private jwt: JarwisService,
-    private token: TokenService
+    private token: TokenService,
+    private auth: AuthService
   ) {
   }
 
   ngOnInit() {
+    this.auth.changeMenuAdminActive('Team');
   }
 
   addNewTeam(formAddTeam) {

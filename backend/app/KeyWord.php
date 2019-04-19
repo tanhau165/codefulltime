@@ -15,6 +15,5 @@ class KeyWord extends Model
     protected $fillable = [
         'key_word',
         'times_search',
-        'username',
     ];
 }

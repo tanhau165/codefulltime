@@ -1,365 +1,238 @@
-<div class="col-sm-3"></div>
-<div class="col-sm-6">
+<div class="row">
+  <div class="col-sm-12">
+    <app-menu-admin></app-menu-admin>
+  </div>
+</div>
+<form (ngSubmit)="addExercise(formAddExercise)" #formAddExercise="ngForm" action="">
+  <div class="row">
+    <div class="col-sm-6">
 
-  <form (ngSubmit)="addExercise(formAddExercise)" #formAddExercise="ngForm" action="">
-    <div class="form-group">
-      <label>Code exercise (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtCodeExercise.touched ?
+      <div class="form-group">
+        <label>Code exercise (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtCodeExercise.touched ?
          (txtCodeExercise.value.length < 3 || txtCodeExercise.value.length > 6 ||
          txtCodeExercise.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtCodeExercise="ngModel" placeholder="Code exercise" ngModel name="exercise_code">
-      <div
-        *ngIf="txtCodeExercise.touched ? (txtCodeExercise.value.length < 3 || txtCodeExercise.value.length > 6 || txtCodeExercise.invalid):false"
-        class="invalid-feedback">
-        Length of code from 3 to 6 character.
+               #txtCodeExercise="ngModel" placeholder="Code exercise" ngModel name="exercise_code">
+        <div
+          *ngIf="txtCodeExercise.touched ? (txtCodeExercise.value.length < 3 || txtCodeExercise.value.length > 6 || txtCodeExercise.invalid):false"
+          class="invalid-feedback">
+          Length of code from 3 to 6 character.
+        </div>
       </div>
-    </div>
 
 
-    <div class="form-group">
-      <label for="code">Question (<b style="color: red">*</b>)</label>
-      <textarea id="code" #txtQuestion="ngModel" name="question" ngModel></textarea><br>
-    </div>
+      <div class="form-group">
+        <label for="code">Question (<b style="color: red">*</b>)</label>
+        <textarea id="code" #txtQuestion="ngModel" name="question" ngModel></textarea><br>
+      </div>
 
 
-    <div class="form-group">
-      <label>Name (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtName.touched ?
+      <div class="form-group">
+        <label>Name (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtName.touched ?
          (txtName.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtName="ngModel" placeholder="Name exercise" ngModel name="name">
-      <div
-        *ngIf="txtName.touched ? (txtName.invalid):false"
-        class="invalid-feedback">
-        Name is required
+               #txtName="ngModel" placeholder="Name exercise" ngModel name="name">
+        <div
+          *ngIf="txtName.touched ? (txtName.invalid):false"
+          class="invalid-feedback">
+          Name is required
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Time limit (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtTimeLimit.touched ?
+      <div class="form-group">
+        <label>Time limit (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtTimeLimit.touched ?
          (txtTimeLimit.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtTimeLimit="ngModel" placeholder="Time limit of exercise" ngModel name="time_limit">
-      <div
-        *ngIf="txtTimeLimit.touched ? (txtTimeLimit.invalid):false"
-        class="invalid-feedback">
-        Time limit is required
+               #txtTimeLimit="ngModel" placeholder="Time limit of exercise" ngModel name="time_limit">
+        <div
+          *ngIf="txtTimeLimit.touched ? (txtTimeLimit.invalid):false"
+          class="invalid-feedback">
+          Time limit is required
+        </div>
       </div>
-    </div>
 
 
-    <div class="form-group">
-      <label>Memory limit (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtMemoryLimit.touched ?
+      <div class="form-group">
+        <label>Memory limit (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtMemoryLimit.touched ?
          (txtMemoryLimit.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtMemoryLimit="ngModel" placeholder="Memory limit of exercise" ngModel name="memory_limit">
-      <div
-        *ngIf="txtMemoryLimit.touched ? (txtMemoryLimit.invalid):false"
-        class="invalid-feedback">
-        Memory Limit is required
+               #txtMemoryLimit="ngModel" placeholder="Memory limit of exercise" ngModel name="memory_limit">
+        <div
+          *ngIf="txtMemoryLimit.touched ? (txtMemoryLimit.invalid):false"
+          class="invalid-feedback">
+          Memory Limit is required
+        </div>
       </div>
     </div>
+    <div class="col-sm-6">
 
-
-    <div class="form-group">
-      <label>Input 1 (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtInput1.touched ?
+      <div class="form-group">
+        <label>Input 1 (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtInput1.touched ?
          (txtInput1.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtInput1="ngModel" placeholder="Input 1" ngModel name="input1">
-      <div
-        *ngIf="txtInput1.touched ? (txtInput1.invalid):false"
-        class="invalid-feedback">
-        Input 1 is required
+               #txtInput1="ngModel" placeholder="Input 1" ngModel name="input1">
+        <div
+          *ngIf="txtInput1.touched ? (txtInput1.invalid):false"
+          class="invalid-feedback">
+          Input 1 is required
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label>Output 1 (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtOutput1.touched ?
+      <div class="form-group">
+        <label>Output 1 (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtOutput1.touched ?
          (txtOutput1.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtOutput1="ngModel" placeholder="Output 1" ngModel name="output1">
-      <div
-        *ngIf="txtOutput1.touched ? (txtOutput1.invalid):false"
-        class="invalid-feedback">
-        Output 1 is required
+               #txtOutput1="ngModel" placeholder="Output 1" ngModel name="output1">
+        <div
+          *ngIf="txtOutput1.touched ? (txtOutput1.invalid):false"
+          class="invalid-feedback">
+          Output 1 is required
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Input 2 (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtInput2.touched ?
+      <div class="form-group">
+        <label>Input 2 (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtInput2.touched ?
          (txtInput2.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtInput2="ngModel" placeholder="Input 2" ngModel name="input2">
-      <div
-        *ngIf="txtInput2.touched ? (txtInput2.invalid):false"
-        class="invalid-feedback">
-        Input 2 is required
+               #txtInput2="ngModel" placeholder="Input 2" ngModel name="input2">
+        <div
+          *ngIf="txtInput2.touched ? (txtInput2.invalid):false"
+          class="invalid-feedback">
+          Input 2 is required
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label>Output 2 (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtOutput2.touched ?
+      <div class="form-group">
+        <label>Output 2 (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtOutput2.touched ?
          (txtOutput2.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtOutput2="ngModel" placeholder="Input 2" ngModel name="output2">
-      <div
-        *ngIf="txtOutput2.touched ? (txtOutput2.invalid):false"
-        class="invalid-feedback">
-        Output 2 is required
+               #txtOutput2="ngModel" placeholder="Input 2" ngModel name="output2">
+        <div
+          *ngIf="txtOutput2.touched ? (txtOutput2.invalid):false"
+          class="invalid-feedback">
+          Output 2 is required
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Input 3 (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtInput3.touched ?
+      <div class="form-group">
+        <label>Input 3 (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtInput3.touched ?
          (txtInput3.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtInput3="ngModel" placeholder="Input 2" ngModel name="input3">
-      <div
-        *ngIf="txtInput3.touched ? (txtInput3.invalid):false"
-        class="invalid-feedback">
-        Input 3 is required
+               #txtInput3="ngModel" placeholder="Input 2" ngModel name="input3">
+        <div
+          *ngIf="txtInput3.touched ? (txtInput3.invalid):false"
+          class="invalid-feedback">
+          Input 3 is required
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label>Output 3 (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtOutput3.touched ?
+      <div class="form-group">
+        <label>Output 3 (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtOutput3.touched ?
          (txtOutput3.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtOutput3="ngModel" placeholder="Output 3" ngModel name="output3">
-      <div
-        *ngIf="txtOutput3.touched ? (txtOutput3.invalid):false"
-        class="invalid-feedback">
-        Output 3 is required
+               #txtOutput3="ngModel" placeholder="Output 3" ngModel name="output3">
+        <div
+          *ngIf="txtOutput3.touched ? (txtOutput3.invalid):false"
+          class="invalid-feedback">
+          Output 3 is required
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>Input 4 (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtInput4.touched ?
+      <div class="form-group">
+        <label>Input 4 (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtInput4.touched ?
          (txtInput4.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtInput4="ngModel" placeholder="Input 4" ngModel name="input4">
-      <div
-        *ngIf="txtInput4.touched ? (txtInput4.invalid):false"
-        class="invalid-feedback">
-        Input 4 is required
+               #txtInput4="ngModel" placeholder="Input 4" ngModel name="input4">
+        <div
+          *ngIf="txtInput4.touched ? (txtInput4.invalid):false"
+          class="invalid-feedback">
+          Input 4 is required
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label>Output 4 (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtOutput4.touched ?
+      <div class="form-group">
+        <label>Output 4 (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtOutput4.touched ?
          (txtOutput4.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtOutput4="ngModel" placeholder="Output 4" ngModel name="output4">
-      <div
-        *ngIf="txtOutput4.touched ? (txtOutput4.invalid):false"
-        class="invalid-feedback">
-        Output 4 is required
+               #txtOutput4="ngModel" placeholder="Output 4" ngModel name="output4">
+        <div
+          *ngIf="txtOutput4.touched ? (txtOutput4.invalid):false"
+          class="invalid-feedback">
+          Output 4 is required
+        </div>
       </div>
-    </div>
 
-    <!--5-->
-    <div class="form-group">
-      <label>Input 5 (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtInput5.touched ?
+      <!--5-->
+      <div class="form-group">
+        <label>Input 5 (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtInput5.touched ?
          (txtInput5.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtInput5="ngModel" placeholder="Input 5" ngModel name="input5">
-      <div
-        *ngIf="txtInput5.touched ? (txtInput5.invalid):false"
-        class="invalid-feedback">
-        Input 5 is required
+               #txtInput5="ngModel" placeholder="Input 5" ngModel name="input5">
+        <div
+          *ngIf="txtInput5.touched ? (txtInput5.invalid):false"
+          class="invalid-feedback">
+          Input 5 is required
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label>Output 5 (<b style="color: red">*</b>)</label>
-      <input type="text" class="form-control"
-             [className]="txtOutput5.touched ?
+      <div class="form-group">
+        <label>Output 5 (<b style="color: red">*</b>)</label>
+        <input type="text" class="form-control"
+               [className]="txtOutput5.touched ?
          (txtOutput5.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
-             #txtOutput5="ngModel" placeholder="Output 5" ngModel name="output5">
-      <div
-        *ngIf="txtOutput5.touched ? (txtOutput5.invalid):false"
-        class="invalid-feedback">
-        Output 5 is required
+               #txtOutput5="ngModel" placeholder="Output 5" ngModel name="output5">
+        <div
+          *ngIf="txtOutput5.touched ? (txtOutput5.invalid):false"
+          class="invalid-feedback">
+          Output 5 is required
+        </div>
       </div>
-    </div>
 
-    <!--&lt;!&ndash;6&ndash;&gt;-->
-    <!--<div class="form-group">-->
-      <!--<label>Input 6 (<b style="color: red">*</b>)</label>-->
-      <!--<input type="text" class="form-control"-->
-             <!--[className]="txtInput6.touched ?-->
-         <!--(txtInput6.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"-->
-             <!--#txtInput6="ngModel" placeholder="Input 6" ngModel name="input6">-->
-      <!--<div-->
-        <!--*ngIf="txtInput6.touched ? (txtInput6.invalid):false"-->
-        <!--class="invalid-feedback">-->
-        <!--Input 6 is required-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label>Output 6 (<b style="color: red">*</b>)</label>-->
-      <!--<input type="text" class="form-control"-->
-             <!--[className]="txtOutput6.touched ?-->
-         <!--(txtOutput6.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"-->
-             <!--#txtOutput6="ngModel" placeholder="Output 6" ngModel name="output6">-->
-      <!--<div-->
-        <!--*ngIf="txtOutput6.touched ? (txtOutput6.invalid):false"-->
-        <!--class="invalid-feedback">-->
-        <!--Output 6 is required-->
-      <!--</div>-->
-    <!--</div>-->
+      <div class="form-group">
+        <label>Team (<b style="color: red">*</b>) (Teams for collection)</label>
+        <select required class="form-control" name="code_team" ngModel #team="ngModel"
+                id="code_team">
+          <option *ngFor="let l of listTeam" [ngValue]="l.code_team">{{l.name}}</option>
+        </select>
 
-    <!--&lt;!&ndash;7&ndash;&gt;-->
-    <!--<div class="form-group">-->
-      <!--<label>Input 7 (<b style="color: red">*</b>)</label>-->
-      <!--<input type="text" class="form-control"-->
-             <!--[className]="txtInput7.touched ?-->
-         <!--(txtInput7.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"-->
-             <!--#txtInput7="ngModel" placeholder="Input 7" ngModel name="input7">-->
-      <!--<div-->
-        <!--*ngIf="txtInput7.touched ? (txtInput7.invalid):false"-->
-        <!--class="invalid-feedback">-->
-        <!--Input 7 is required-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label>Output 7 (<b style="color: red">*</b>)</label>-->
-      <!--<input type="text" class="form-control"-->
-             <!--[className]="txtOutput7.touched ?-->
-         <!--(txtOutput7.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"-->
-             <!--#txtOutput7="ngModel" placeholder="Output 7" ngModel name="output7">-->
-      <!--<div-->
-        <!--*ngIf="txtOutput7.touched ? (txtOutput7.invalid):false"-->
-        <!--class="invalid-feedback">-->
-        <!--Output 7 is required-->
-      <!--</div>-->
-    <!--</div>-->
-
-    <!--&lt;!&ndash;8&ndash;&gt;-->
-    <!--<div class="form-group">-->
-      <!--<label>Input 8 (<b style="color: red">*</b>)</label>-->
-      <!--<input type="text" class="form-control"-->
-             <!--[className]="txtInput8.touched ?-->
-         <!--(txtInput8.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"-->
-             <!--#txtInput8="ngModel" placeholder="Input 8" ngModel name="input8">-->
-      <!--<div-->
-        <!--*ngIf="txtInput8.touched ? (txtInput8.invalid):false"-->
-        <!--class="invalid-feedback">-->
-        <!--Input 8 is required-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label>Output 8 (<b style="color: red">*</b>)</label>-->
-      <!--<input type="text" class="form-control"-->
-             <!--[className]="txtOutput8.touched ?-->
-         <!--(txtOutput8.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"-->
-             <!--#txtOutput8="ngModel" placeholder="Output 8" ngModel name="output8">-->
-      <!--<div-->
-        <!--*ngIf="txtOutput8.touched ? (txtOutput8.invalid):false"-->
-        <!--class="invalid-feedback">-->
-        <!--Output 8 is required-->
-      <!--</div>-->
-    <!--</div>-->
-
-    <!--&lt;!&ndash;9&ndash;&gt;-->
-    <!--<div class="form-group">-->
-      <!--<label>Input 9 (<b style="color: red">*</b>)</label>-->
-      <!--<input type="text" class="form-control"-->
-             <!--[className]="txtInput9.touched ?-->
-         <!--(txtInput9.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"-->
-             <!--#txtInput9="ngModel" placeholder="Input 9" ngModel name="input9">-->
-      <!--<div-->
-        <!--*ngIf="txtInput9.touched ? (txtInput9.invalid):false"-->
-        <!--class="invalid-feedback">-->
-        <!--Input 9 is required-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label>Output 9 (<b style="color: red">*</b>)</label>-->
-      <!--<input type="text" class="form-control"-->
-             <!--[className]="txtOutput9.touched ?-->
-         <!--(txtOutput9.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"-->
-             <!--#txtOutput9="ngModel" placeholder="Output 9" ngModel name="output9">-->
-      <!--<div-->
-        <!--*ngIf="txtOutput9.touched ? (txtOutput9.invalid):false"-->
-        <!--class="invalid-feedback">-->
-        <!--Output 9 is required-->
-      <!--</div>-->
-    <!--</div>-->
-
-
-    <!--&lt;!&ndash;10&ndash;&gt;-->
-    <!--<div class="form-group">-->
-      <!--<label>Input 10 (<b style="color: red">*</b>)</label>-->
-      <!--<input type="text" class="form-control"-->
-             <!--[className]="txtInput10.touched ?-->
-         <!--(txtInput10.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"-->
-             <!--#txtInput10="ngModel" placeholder="Input 10" ngModel name="input10">-->
-      <!--<div-->
-        <!--*ngIf="txtInput10.touched ? (txtInput10.invalid):false"-->
-        <!--class="invalid-feedback">-->
-        <!--Input 10 is required-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<label>Output 10 (<b style="color: red">*</b>)</label>-->
-      <!--<input type="text" class="form-control"-->
-             <!--[className]="txtOutput10.touched ?-->
-         <!--(txtOutput10.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"-->
-             <!--#txtOutput10="ngModel" placeholder="Output 10" ngModel name="output10">-->
-      <!--<div-->
-        <!--*ngIf="txtOutput10.touched ? (txtOutput10.invalid):false"-->
-        <!--class="invalid-feedback">-->
-        <!--Output 10 is required-->
-      <!--</div>-->
-    <!--</div>-->
-
-
-    <div class="form-group">
-      <label>Team (<b style="color: red">*</b>) (Teams for collection)</label>
-      <select required class="form-control" name="code_team" ngModel #team="ngModel"
-              id="code_team">
-        <option *ngFor="let l of listTeam" [ngValue]="l.code_team">{{l.name}}</option>
-      </select>
-
-      <div
-        *ngIf="team.touched ? (team.invalid):false"
-        class="invalid-feedback">
-        Required choose the location
+        <div
+          *ngIf="team.touched ? (team.invalid):false"
+          class="invalid-feedback">
+          Required choose the location
+        </div>
       </div>
-    </div>
 
 
-    <div class="form-group">
-      <label for="status">Status (<b style="color: red">*</b>) (Status 1: Show, Status 0: Hide)</label>
-      <select required class="form-control" name="status" ngModel #txtStatus="ngModel" id="status">
-        <option value="1">Show</option>
-        <option value="0">Hide</option>
-      </select>
-      <div
-        *ngIf="txtStatus.touched ? (txtStatus.invalid):false"
-        class="invalid-feedback">
-        Required choose the status
+      <div class="form-group">
+        <label for="status">Status (<b style="color: red">*</b>) (Status 1: Show, Status 0: Hide)</label>
+        <select required class="form-control" name="status" ngModel #txtStatus="ngModel" id="status">
+          <option value="1">Show</option>
+          <option value="0">Hide</option>
+        </select>
+        <div
+          *ngIf="txtStatus.touched ? (txtStatus.invalid):false"
+          class="invalid-feedback">
+          Required choose the status
+        </div>
       </div>
+
+
+      <div>{{errMsg}}</div>
+
+      <div class="ui buttons">
+        <button [disabled]="formAddExercise.invalid" class="btn btn-success" style="margin-right: 20px">Add examination
+        </button>
+        <a routerLink="/admin/exercise/view" class="btn btn-primary">Back</a>
+      </div>
+
     </div>
-
-
-    <div>{{errMsg}}</div>
-
-    <div class="ui buttons">
-      <button [disabled]="formAddExercise.invalid" class="btn btn-success" style="margin-right: 20px">Add
-        examination
-      </button>
-      <a routerLink="/admin" class="btn btn-primary">Go to dashboard</a>
-    </div>
-  </form>
-
-</div>
-<div class="col-sm-3"></div>
+  </div>
+</form>

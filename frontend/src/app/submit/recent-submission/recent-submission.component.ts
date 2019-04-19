@@ -15,7 +15,7 @@ export class RecentSubmissionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.smS.getWithRow(10).subscribe(
+    this.smS.getWithRow(5).subscribe(
       val => {
         val.submissions.forEach(submit => {
           this.submission.push(submit);

@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-sm-9">
+    <div class="card margin-element">
+      <div class="bg-success text-uppercase text-white card-header">
+        Create post
+      </div>
+      <div class="card-body">
+        <div *ngIf="isLogin" class="row">
+          <div class="col-sm-1">
+            <img width="100%" [src]="account?.avatar" alt="{{account?.name}}">
+          </div>
+          <div class="col-sm-11">
+            <textarea ngModel name="problem" #problem class="form-control custom-textarea" rows="5"
+                      placeholder="Hello {{account?.name}}, what is your problem ?"></textarea>
+
+            <div class="row">
+
+              <div *ngFor="let m of listImageAfterUpload" class="col-sm-2">
+                <div class="card margin-element">
+                  <img style="width: 100%" (click)="clearImg(m?.name)" [src]="m?.src">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div *ngFor="let m of listMineAfterUpload" class="col-sm-12">
+                <p style="width: 100%" (click)="clearMine(m?.name)"><i class="fa fa-file"
+                                                                       aria-hidden="true"></i> {{m?.name}}</p>
+              </div>
+
+            </div>
+
+            <hr>
+            <p style="color: red">{{messError}}</p>
+
+            <button *ngIf="publishing" class="btn btn-primary margin-button" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Publishing ...
+            </button>
+            <button [disabled]="problem.textLength === 0" *ngIf="!publishing" (click)="publish(problem)"
+                    class="btn btn-primary margin-button"><i class="fa fa-paper-plane"
+                                                             aria-hidden="true"></i> Publish
+            </button>
+
+            <div class="file btn btn-primary margin-button">
+              <i class="fa fa-folder-open" aria-hidden="true"></i> File or image
+              <input type="file" (change)="showImageAfterUpload($event.target.files)" accept="image/*, application/pdf,
+              application/x-zip-compressed, msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                     name="file" multiple/>
+            </div>
+
+
+          </div>
+        </div>
+        <blockquote *ngIf="!isLogin" class="blockquote mb-0">
+          <p>Welcome to news feed codefulltime. You can publish new post here</p>
+          <footer class="blockquote-footer">You must <cite title="Source Title">Login now</cite> before publish new post
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+
+    <div *ngFor="let nf of newsFedds" [id]="nf.code_news_feeds" class="card mb-3">
+      <div [className]="!nf.isNew? 'card-header bg-success text-white':'card-header bg-danger text-white'">
+        <img [src]="nf?.account?.avatar" class="mr-3 align-self-center" style="float: left; width:30px;"/>
+        <span style="float: left; padding-top: 7px">
+          <a routerLink="/profile/{{nf.account.id}}"><b class="text-white">{{nf.account.name}}</b></a> | {{nf.time_add}}</span>
+        <span style="float: right"><app-like *ngIf="isLogin" [code_object]="nf.code_news_feeds"></app-like>
+      </span>
+      </div>
+
+      <div class="card-body">
+        <p class="card-text ">{{nf.content_feeds}}</p>
+        <div class="row">
+          <div *ngFor="let m of nf.mediaImage" class="col-sm-2">
+            <div class="card margin-element">
+              <img style="width: 100%" [src]="m?.link_media" [alt]="m.name">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div *ngFor="let m of nf.mediaMine" class="col-sm-12">
+            <p style="width: 100%"><a target="_blank" [href]="m?.link_media"><i class="fa fa-file"
+                                                                                                   aria-hidden="true"></i> {{m?.name}}
+            </a></p>
+          </div>
+        </div>
+
+        <app-comment [codeObject]="nf.code_news_feeds" [option]="{view_header: false}"></app-comment>
+      </div>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="col-sm-3"></div>
+
+</div>

@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-light  margin-element  bg-success ">
+  <a class="navbar-brand text-white" href="#">Admin as Teacher</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li [className]="active ==='Home'? 'nav-item active-menu-admin': 'nav-item'">
+        <a class="nav-link text-white" routerLink="/admin">Home <span class="sr-only">(current)</span></a>
+      </li>
+
+      <li [className]="active ==='Team'? 'nav-item active-menu-admin': 'nav-item'">
+        <a class="nav-link text-white" routerLink="/admin/team/view">Team</a>
+      </li>
+
+      <li [className]="active ==='Collection'? 'nav-item active-menu-admin': 'nav-item'">
+        <a class="nav-link text-white" routerLink="/admin/collection/view">Collection</a>
+      </li>
+
+
+      <li [className]="active ==='Examination'? 'nav-item active-menu-admin': 'nav-item'">
+        <a class="nav-link text-white" routerLink="/admin/examination/view">Examination</a>
+      </li>
+
+      <li [className]="active ==='Exercise'? 'nav-item active-menu-admin': 'nav-item'">
+        <a class="nav-link text-white" routerLink="/admin/exercise/view">Exercise</a>
+      </li>
+
+    </ul>
+  </div>
+</nav>

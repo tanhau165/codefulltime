@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {TeamServiceService} from '../team-service.service';
 import {Teams} from '../../../models/teams';
 import {TokenService} from '../../../services/token.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-edit-team',
@@ -27,11 +28,13 @@ export class EditTeamComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private teamS: TeamServiceService,
-    private token: TokenService
+    private token: TokenService,
+    private auth: AuthService
   ) {
   }
 
   ngOnInit() {
+    this.auth.changeMenuAdminActive('Team');
     this.router.paramMap.subscribe(value => {
       const code_team = value.get('team');
       this.teamS.getTeam(code_team).subscribe(

@@ -4,8 +4,11 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class ConfigService {
-  public api = 'http://spobiotri.site/api';
+  public api = 'http://codefulltime.com/api';
   // public api = 'http://localhost:8000/api';
+
+  public resource = 'http://codefulltime.com';
+  public apiImgur = 'https://api.imgur.com/3/image';
 
   public listLanguage = [
     {id: '10', code: 'text/x-c++src', name: 'C++'},
@@ -20,7 +23,15 @@ export class ConfigService {
     {id: '27', code: 'text/x-java', name: 'Java'},
     {id: '34', code: 'text/x-python', name: 'Python'},
   ];
+  clientKeyImgur = 'ad3bc6d390e3cdf';
 
   constructor() {
+  }
+
+  ucwords(str) {
+    str = (str + '').toLowerCase();
+    return str.replace(/^([a-z])|\s+([a-z])/g, ($1) => {
+      return $1.toUpperCase();
+    });
   }
 }

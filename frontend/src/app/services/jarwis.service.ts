@@ -20,6 +20,10 @@ export class JarwisService {
     return this.http.get('http://api.ipify.org/?format=json');
   }
 
+  getLocation(ip): any {
+    return this.http.get(`http://ip-api.com/json/${ip}`);
+  }
+
   login(data) {
     return this.http.post(`${this.api}/login`, data);
   }

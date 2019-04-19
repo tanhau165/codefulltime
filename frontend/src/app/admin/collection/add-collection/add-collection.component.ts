@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TeamServiceService} from '../../team/team-service.service';
 import {CollectionsService} from '../collections.service';
 import {TokenService} from '../../../services/token.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-add-collection',
@@ -15,11 +16,13 @@ export class AddCollectionComponent implements OnInit {
   constructor(
     private teamS: TeamServiceService,
     private collectionS: CollectionsService,
-    private token: TokenService
+    private token: TokenService,
+    private auth: AuthService
   ) {
   }
 
   ngOnInit() {
+    this.auth.changeMenuAdminActive('Collection');
     this.teamS.getAll().subscribe(
       res => {
         this.listTeam = res.teams;

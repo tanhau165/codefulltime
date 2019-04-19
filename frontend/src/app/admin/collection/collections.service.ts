@@ -16,6 +16,10 @@ export class CollectionsService {
     return this.http.get(`${this.api}/client/collection/get/${code_team}`);
   }
 
+  getAllCollectionByTeam(token): any {
+    return this.http.post(`${this.api}/admin/collection/list-collection/get`, {}, {headers: {Authorization: `Bearer ${token}`}});
+  }
+
   addNewCollection(token, collection): any {
     return this.http.post(`${this.api}/admin/collection/add`, collection, {headers: {Authorization: `Bearer ${token}`}});
   }
