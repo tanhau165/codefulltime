@@ -81,7 +81,7 @@ export class ProfileComponent implements OnInit {
               this.sex = this.account.sex;
               this.specialize = this.account.specialize;
               this.more_information = this.account.more_information;
-              this.linkNew =  data.avatar;
+              this.linkNew = data.avatar;
               this.loadSubmission(this.account.id);
               this.loadQuestionAnswer(this.account.id);
               this.loadExerciseSubmittedByID(this.account.id);
@@ -237,6 +237,9 @@ export class ProfileComponent implements OnInit {
   }
 
   covertCup(code_cup: any) {
+    if (code_cup === '0') {
+      return 'badly';
+    }
     if (code_cup === '1') {
       return 'child';
     }
@@ -252,7 +255,10 @@ export class ProfileComponent implements OnInit {
     if (code_cup === '5') {
       return 'king';
     }
-    return 'god';
+    if (code_cup === '6') {
+      return 'god';
+    }
+    return 'wtf';
   }
 
   updateProfile() {

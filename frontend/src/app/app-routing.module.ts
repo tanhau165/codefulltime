@@ -29,6 +29,7 @@ import {NewsFeedComponent} from './newfeedall/news-feed/news-feed.component';
 import {ViewTeamComponent} from './admin/team/view-team/view-team.component';
 import {ViewCollectionComponent} from './admin/collection/view-collection/view-collection.component';
 import {ViewExerciseComponent} from './admin/exercise/view-exercise/view-exercise.component';
+import {SearchComponent} from './search/search.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent, canActivate: [BeforeLoginService]},
@@ -43,6 +44,7 @@ const routes: Routes = [
   {path: 'exercise', component: ExerciseAllComponent},
   {path: 'exercise-details/:exercise', component: ExerciseDetailsComponent},
   {path: 'exercise-submit/:exercise', component: ExerciseSubmitComponent},
+  {path: 'search/:keyword', component: SearchComponent},
 
   {path: 'profile/:id', component: ProfileComponent},
   {path: 'news-feed', component: NewsFeedComponent},

@@ -2,9 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {LikeService} from './like.service';
 import {TokenService} from '../services/token.service';
-import {JarwisService} from '../services/jarwis.service';
 import {Accounts} from '../models/accounts';
-import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-like',

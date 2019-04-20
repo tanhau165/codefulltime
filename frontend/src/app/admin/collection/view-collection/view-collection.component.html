@@ -11,7 +11,8 @@
       <thead class="full-width">
       <tr>
         <th width="20%">Code</th>
-        <th width="40%">Name</th>
+        <th width="30%">Name</th>
+        <th width="20%">Team</th>
         <th width="40%">Action</th>
       </tr>
       </thead>
@@ -19,6 +20,7 @@
       <tr *ngFor="let collection of collections">
         <td>{{collection.code_collection}}</td>
         <td>{{collection.name}}</td>
+        <td>{{collection.code_team}}</td>
         <td>
           <a routerLink="/admin/collection/edit/{{collection.code_collection}}" class="btn btn-warning margin-button">Edit</a>
           <a routerLink="/admin/examinations-by-collection/view/{{collection.code_collection}}" class="btn btn-primary">View questions</a>

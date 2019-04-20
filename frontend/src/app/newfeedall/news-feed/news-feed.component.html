@@ -17,7 +17,7 @@
 
               <div *ngFor="let m of listImageAfterUpload" class="col-sm-2">
                 <div class="card margin-element">
-                  <img style="width: 100%" (click)="clearImg(m?.name)" [src]="m?.src">
+                  <img style="width: 100%" (dblclick)="clearImg(m?.name)" [src]="m?.src">
                 </div>
               </div>
 
@@ -26,7 +26,7 @@
             <div class="row">
 
               <div *ngFor="let m of listMineAfterUpload" class="col-sm-12">
-                <p style="width: 100%" (click)="clearMine(m?.name)"><i class="fa fa-file"
+                <p style="width: 100%" (dblclick)="clearMine(m?.name)"><i class="fa fa-file"
                                                                        aria-hidden="true"></i> {{m?.name}}</p>
               </div>
 
@@ -46,7 +46,7 @@
 
             <div class="file btn btn-primary margin-button">
               <i class="fa fa-folder-open" aria-hidden="true"></i> File or image
-              <input type="file" (change)="showImageAfterUpload($event.target.files)" accept="image/*, application/pdf,
+              <input type="file"  (change)="showImageAfterUpload($event.target.files)" accept="image/*, application/pdf,
               application/x-zip-compressed, msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                      name="file" multiple/>
             </div>

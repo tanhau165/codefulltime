@@ -11,14 +11,14 @@
         <label>Code question (<b style="color: red">*</b>)</label>
         <input type="text" class="form-control"
                [className]="txtCodeExamination.touched ?
-         (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 6 ||
+         (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 8 ||
          txtCodeExamination.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
                #txtCodeExamination="ngModel" placeholder="Code team" [(ngModel)]="code_examination"
                name="code_examination" readonly>
         <div
-          *ngIf="txtCodeExamination.touched ? (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 6 || txtCodeExamination.invalid):false"
+          *ngIf="txtCodeExamination.touched ? (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 8 || txtCodeExamination.invalid):false"
           class="invalid-feedback">
-          Length of code from 3 to 6 character.
+          Length of code from 3 to 8 character.
         </div>
 
       </div>

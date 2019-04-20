@@ -5,6 +5,7 @@ import {AuthService} from '../services/auth.service';
 import {JarwisService} from '../services/jarwis.service';
 import {Keyword} from '../models/keyword';
 import {SearchService} from '../search/search.service';
+import {Search} from '../models/search';
 
 declare var $;
 
@@ -103,8 +104,10 @@ export class MenuComponent implements OnInit {
   }
 
   search(ngForm) {
-    this.kwS.add(ngForm.value.keyword).subscribe(res => {
-      console.log(res);
-    });
+    this.router.navigateByUrl(`/search/${ngForm.value.keyword}`);
+    // this.kwS.add(ngForm.value.keyword).subscribe(res => {
+    //   const s = new Search(res.list);
+    //   console.log(s);
+    // });
   }
 }

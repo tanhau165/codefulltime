@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Examinations;
 use App\Exercise;
 use App\KeyWord;
+use App\Medias;
+use App\NewsFeed;
 use App\Pastes;
 use Illuminate\Http\Request;
 
@@ -25,12 +27,14 @@ class KeyWordController extends Controller
 
     public function Add(Request $request)
     {
+        $list = [];
+        $result = [];
         $key_word = $request->key_word;
         $keyword = KeyWord::where('key_word', $key_word)->first();
         if ($keyword == null) {
             $request->merge([
                 'times_search' => '1',
-                'key_word'=> $key_word
+                'key_word' => $key_word
             ]);
             KeyWord::create($request->all());
         } else {
@@ -47,36 +51,34 @@ class KeyWordController extends Controller
 //            ->orWhere('slug', 'like', '%' . str_slug($key_word) . '%')
 //            ->get();
 //
-//        $listExercise = Exercise::where('question', 'like', '%' . $key_word . '%')
-//            ->orWhere('explain', 'like', '%' . $key_word . '%')
-//            ->orWhere('name', 'like', '%' . $key_word . '%')
-//            ->get();
-//
-//        $listExamination = Examinations::where('question', 'like', '%' . $key_word . '%')
-//            ->orWhere('answer_a', 'like', '%' . $key_word . '%')
-//            ->orWhere('answer_b', 'like', '%' . $key_word . '%')
-//            ->orWhere('answer_c', 'like', '%' . $key_word . '%')
-//            ->orWhere('answer_d', 'like', '%' . $key_word . '%')
-//            ->get();
-//
-//
-//        $list = array();
-//
-//        foreach ($listPastes as $paste) {
-//            array_push($list, $paste);
-//        }
-//
-//        foreach ($listExercise as $paste) {
-//            array_push($list, $paste);
-//        }
-//
-//        foreach ($listExamination as $paste) {
-//            array_push($list, $paste);
-//        }
+        $listExercise = Exercise
+            ::whereRaw('lower(question) like "%' . strtolower($key_word) . '%"')
+            ->orWhereRaw('lower(exercise_code) like "%' . strtolower($key_word) . '%"')
+            ->orWhereRaw('lower(name) like "%' . strtolower($key_word) . '%"')
+            ->get();
+
+        $listExamination = Examinations
+            ::whereRaw('lower(question) like "%' . strtolower($key_word) . '%"')
+            ->orWhereRaw('lower(code_examination) like "%' . strtolower($key_word) . '%"')
+            ->orWhereRaw('lower(explain_question) like "%' . strtolower($key_word) . '%"')
+            ->get();
+
+        $listNewsFeed = NewsFeed
+            ::whereRaw('lower(content_feeds) like "%' . strtolower($key_word) . '%"')
+            ->get();
+
+        $listMedias = Medias
+            ::whereRaw('lower(link_media) like "%' . strtolower($key_word) . '%"')
+            ->get();
+
+        $result['examinations'] = $listExamination;
+        $result['exercises'] = $listExercise;
+        $result['news_feeds'] = $listNewsFeed;
+        $result['medias'] = $listMedias;
 
         return response()->json([
             'message' => 'Search for key word: ' . $key_word,
-//            'list' => $list,
+            'list' => $result,
             'keyword' => $request->all()
         ], 200);
     }

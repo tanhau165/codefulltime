@@ -1,3 +1,58 @@
-<p>
-  search works!
-</p>
+<div class="row">
+  <div class="col-sm-8">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong>Total {{totalResult}} result search for keyword: {{keyword}}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div *ngFor="let nf of resultSearch?.news_feeds" [id]="nf.code_news_feeds" class="card w-auto">
+      <div class="card-header bg-success text-white text-uppercase-bold">
+        <img [src]="nf?.account?.avatar" class="mr-3 align-self-center" style="float: left; width:30px;"/>
+        <span style="float: left; padding-top: 7px">
+          <a routerLink="/profile/{{nf.account.id}}"><b class="text-white">{{nf.account.name}}</b></a> | {{nf.time_add}}</span>
+        <span style="float: right"><app-like *ngIf="isLogin" [code_object]="nf.code_news_feeds"></app-like>
+      </span>
+      </div>
+
+      <div class="card-body">
+        <p class="card-text ">{{nf.content_feeds}}</p>
+        <div class="row">
+          <div *ngFor="let m of getListImageMedia(nf?.medias)" class="col-sm-2">
+            <div class="card margin-element">
+              <img style="width: 100%" [src]="m?.link_media" [alt]="m.name">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div *ngFor="let m of getListMineMedia(nf?.medias)" class="col-sm-12">
+            <p style="width: 100%"><a target="_blank" [href]="m?.link_media"><i class="fa fa-file"
+                                                                                aria-hidden="true"></i> {{m?.name}}
+            </a></p>
+          </div>
+        </div>
+        <app-comment [codeObject]="nf.code_news_feeds" [option]="{view_header: false}"></app-comment>
+      </div>
+    </div>
+
+    <div *ngFor="let exercise of resultSearch?.exercises" [id]="exercise?.exercise_code" class="card w-auto">
+      <div class="card-header bg-success text-white text-uppercase-bold">
+        <span style="float: left; padding-top: 7px">
+          <a><b class="text-white">{{exercise?.exercise_code}}</b></a> | {{exercise?.team?.name}}</span>
+        <span style="float: right"><app-like *ngIf="isLogin" [code_object]="exercise?.exercise_code"></app-like>
+      </span>
+      </div>
+
+      <div class="card-body">
+        <p><b>{{exercise?.name}}</b></p>
+        <p class="card-text ">{{exercise?.question.substring(0,100)}}</p>
+        <app-comment [codeObject]="exercise?.exercise_code" [option]="{view_header: false}"></app-comment>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="col-sm-4"></div>
+</div>

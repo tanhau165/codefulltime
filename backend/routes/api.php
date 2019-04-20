@@ -99,7 +99,6 @@ Route::group([
 
         Route::get('collection/one/{code_collection}', 'CollectionsController@GetOne');
         Route::get('collections', 'CollectionsController@GetAll');
-        Route::get('collections', 'CollectionsController@GetAll');
 
 
         // Examination
@@ -158,6 +157,14 @@ Route::group([
         // Account
         Route::get('account/get/id/{id}', 'AccountController@GetAccountByID');
 
+
+        // Tesst
+        Route::get('test/{id}', function (\Illuminate\Http\Request $request){
+
+
+            dd(\App\Http\Controllers\CupController::CalcCup($request->id));
+
+        });
 
         // New feeds
         Route::get('news-feeds', 'NewsFeedController@GetAll');

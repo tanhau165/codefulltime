@@ -112,11 +112,13 @@ export class NewsFeedComponent implements OnInit {
         }
       };
       reader.readAsDataURL(files[i]);
+
     }
   }
 
   clearImg(name) {
     this.listImageAfterUpload = this.clearInListWithName(name, this.listImageAfterUpload);
+
   }
 
   private clearInListWithName(name: string, list: any[]) {

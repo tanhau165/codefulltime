@@ -31,6 +31,7 @@ export class AddExaminationComponent implements OnInit {
 
 
   listLanguage = this.config.listLanguage;
+  number_of_answer = 4;
 
 
   constructor(private teamS: TeamServiceService, private  collectionS: CollectionsService,
@@ -120,30 +121,80 @@ export class AddExaminationComponent implements OnInit {
     }).subscribe(
       res => {
         this.editor.setValue('');
-        $('#a').val('');
-        $('#b').val('');
-        $('#c').val('');
-        $('#d').val('');
-        $('#e').val('');
-        $('#f').val('');
-        $('#g').val('');
-        $('#h').val('');
-        $('#i').val('');
-        $('#j').val('');
-        $('#k').val('');
+        if ($('#a')) {
+          $('#a').val('');
+        }
+
+        if ($('#b')) {
+          $('#b').val('');
+        }
+        if ($('#c')) {
+          $('#c').val('');
+        }
+        if ($('#d')) {
+          $('#d').val('');
+        }
+        if ($('#e')) {
+          $('#e').val('');
+        }
+        if ($('#f')) {
+          $('#f').val('');
+        }
+        if ($('#g')) {
+          $('#g').val('');
+        }
+        if ($('#h')) {
+          $('#h').val('');
+        }
+        if ($('#i')) {
+          $('#i').val('');
+        }
+        if ($('#j')) {
+          $('#j').val('');
+        }
+        if ($('#k')) {
+          $('#k').val('');
+        }
         $('#explain').val('');
         const controls = formAddExamination.controls;
-        controls.answer_a.setValue('');
-        controls.answer_b.setValue('');
-        controls.answer_c.setValue('');
-        controls.answer_d.setValue('');
-        controls.answer_e.setValue('');
-        controls.answer_f.setValue('');
-        controls.answer_g.setValue('');
-        controls.answer_h.setValue('');
-        controls.answer_i.setValue('');
-        controls.answer_j.setValue('');
-        controls.answer_k.setValue('');
+
+        if (controls.answer_a) {
+          controls.answer_a.setValue('');
+        }
+
+        if (controls.answer_b) {
+          controls.answer_b.setValue('');
+        }
+
+        if (controls.answer_c) {
+          controls.answer_c.setValue('');
+        }
+
+        if (controls.answer_d) {
+          controls.answer_d.setValue('');
+        }
+
+        if (controls.answer_e) {
+          controls.answer_e.setValue('');
+        }
+        if (controls.answer_f) {
+          controls.answer_f.setValue('');
+        }
+        if (controls.answer_g) {
+          controls.answer_g.setValue('');
+        }
+        if (controls.answer_h) {
+          controls.answer_h.setValue('');
+        }
+        if (controls.answer_i) {
+          controls.answer_i.setValue('');
+        }
+        if (controls.answer_j) {
+          controls.answer_j.setValue('');
+        }
+        if (controls.answer_k) {
+          controls.answer_k.setValue('');
+        }
         controls.explain_question.setValue('');
         console.log(formAddExamination.value);
         this.errMsg = res.message;

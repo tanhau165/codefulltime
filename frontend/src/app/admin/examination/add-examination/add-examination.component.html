@@ -12,13 +12,13 @@
         <label>Code question (<b style="color: red">*</b>)</label>
         <input id="code_examination" type="text" class="form-control"
                [className]="txtCodeExamination.touched ?
-         (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 6 ||
+         (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 8 ||
          txtCodeExamination.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
                #txtCodeExamination="ngModel" placeholder="Code team" ngModel name="code_examination">
         <div
-          *ngIf="txtCodeExamination.touched ? (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 6 || txtCodeExamination.invalid):false"
+          *ngIf="txtCodeExamination.touched ? (txtCodeExamination.value.length < 3 || txtCodeExamination.value.length > 8 || txtCodeExamination.invalid):false"
           class="invalid-feedback">
-          Length of code from 3 to 6 character.
+          Length of code from 3 to 8 character.
         </div>
 
       </div>
@@ -104,6 +104,27 @@
           Required choose the location
         </div>
       </div>
+
+      <div class="form-group">
+        <label for="status">Number of answer</label>
+        <select required class="form-control" name="number_of_answer" [(ngModel)]="number_of_answer">
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+        </select>
+        <div
+          *ngIf="txtStatus.touched ? (txtStatus.invalid):false"
+          class="invalid-feedback">
+          Required choose the location
+        </div>
+      </div>
+
+
     </div>
 
     <div class="col-sm-6">
@@ -162,11 +183,10 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div *ngIf="number_of_answer >= 5" class="form-group">
         <label>Answer E (<b style="color: red">*</b>)</label>
-        <textarea id="e" type="text" class="form-control" rows="5" style="resize: none"
-                  [className]="txtAnsE.touched ?
-         (txtAnsE.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+        <textarea  id="e" type="text" class="form-control" rows="5" style="resize: none"
+                  [className]="txtAnsE.touched ? (txtAnsE.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
                   #txtAnsE="ngModel" placeholder="Your answer E" ngModel name="answer_e"></textarea>
         <div
           *ngIf="txtAnsE.touched ? (txtAnsE.invalid):false"
@@ -175,11 +195,11 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div *ngIf="number_of_answer >= 6" class="form-group">
         <label>Answer F (<b style="color: red">*</b>)</label>
         <textarea id="f" type="text" class="form-control" rows="5" style="resize: none"
                   [className]="txtAnsF.touched ?
-         (txtAnsF.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
+                  (txtAnsF.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
                   #txtAnsF="ngModel" placeholder="Your answer F" ngModel name="answer_f"></textarea>
         <div
           *ngIf="txtAnsF.touched ? (txtAnsF.invalid):false"
@@ -188,7 +208,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div *ngIf="number_of_answer >= 7" class="form-group">
         <label>Answer G (<b style="color: red">*</b>)</label>
         <textarea id="g" type="text" class="form-control" rows="5" style="resize: none"
                   [className]="txtAnsG.touched ?
@@ -201,7 +221,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div *ngIf="number_of_answer >= 8" class="form-group">
         <label>Answer H (<b style="color: red">*</b>)</label>
         <textarea id="h" type="text" class="form-control" rows="5" style="resize: none"
                   [className]="txtAnsH.touched ?
@@ -214,7 +234,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div *ngIf="number_of_answer >= 9" class="form-group">
         <label>Answer I (<b style="color: red">*</b>)</label>
         <textarea id="i" type="text" class="form-control" rows="5" style="resize: none"
                   [className]="txtAnsI.touched ?
@@ -227,7 +247,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div *ngIf="number_of_answer >= 10" class="form-group">
         <label>Answer J (<b style="color: red">*</b>)</label>
         <textarea id="j" type="text" class="form-control" rows="5" style="resize: none"
                   [className]="txtAnsJ.touched ?
@@ -240,7 +260,7 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div *ngIf="number_of_answer >= 11" class="form-group">
         <label>Answer K (<b style="color: red">*</b>)</label>
         <textarea id="k" type="text" class="form-control" rows="5" style="resize: none"
                   [className]="txtAnsK.touched ?

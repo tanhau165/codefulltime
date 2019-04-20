@@ -13,14 +13,14 @@
         <label>Code team (<b style="color: red">*</b>)</label>
         <input type="text" class="form-control"
                [className]="txtCodeTeam.touched ?
-         (txtCodeTeam.value.length < 3 || txtCodeTeam.value.length > 6 ||
+         (txtCodeTeam.value.length < 3 || txtCodeTeam.value.length > 8 ||
          txtCodeTeam.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
 
                #txtCodeTeam="ngModel" placeholder="Code team" ngModel name="code_team">
         <div
-          *ngIf="txtCodeTeam.touched ? (txtCodeTeam.value.length < 3 || txtCodeTeam.value.length > 6 || txtCodeTeam.invalid):false"
+          *ngIf="txtCodeTeam.touched ? (txtCodeTeam.value.length < 3 || txtCodeTeam.value.length > 8 || txtCodeTeam.invalid):false"
           class="invalid-feedback">
-          Length of code from 3 to 6 character.
+          Length of code from 3 to 8 character.
         </div>
 
       </div>

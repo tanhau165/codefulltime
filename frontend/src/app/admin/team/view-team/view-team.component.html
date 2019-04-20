@@ -10,15 +10,19 @@
     <table id="teams" class="table table-light table-bordered table-hover" cellspacing="0" width="100%">
       <thead class="full-width bg-success text-uppercase-bold text-white">
       <tr>
-        <th width="20%">Code</th>
-        <th width="60%">Name</th>
-        <th width="20%">Action</th>
+        <th width="10%">Code</th>
+        <th width="30%">Name</th>
+        <th width="20%">Number of collection</th>
+        <th width="30%">Collection</th>
+        <th width="10%">Action</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let team of teams">
         <td>{{team.code_team}}</td>
         <td>{{team.name}}</td>
+        <td>{{team.collection_count}}</td>
+        <td>{{team.collections_code.join(', ')}}</td>
         <td><a routerLink="/admin/team/edit/{{team.code_team}}" class="btn btn-warning">Edit</a></td>
       </tr>
       </tbody>

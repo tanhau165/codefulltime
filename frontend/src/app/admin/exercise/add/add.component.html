@@ -11,13 +11,13 @@
         <label>Code exercise (<b style="color: red">*</b>)</label>
         <input type="text" class="form-control"
                [className]="txtCodeExercise.touched ?
-         (txtCodeExercise.value.length < 3 || txtCodeExercise.value.length > 6 ||
+         (txtCodeExercise.value.length < 3 || txtCodeExercise.value.length > 8 ||
          txtCodeExercise.invalid ? 'form-control is-invalid':'form-control is-valid'):'form-control'"
                #txtCodeExercise="ngModel" placeholder="Code exercise" ngModel name="exercise_code">
         <div
-          *ngIf="txtCodeExercise.touched ? (txtCodeExercise.value.length < 3 || txtCodeExercise.value.length > 6 || txtCodeExercise.invalid):false"
+          *ngIf="txtCodeExercise.touched ? (txtCodeExercise.value.length < 3 || txtCodeExercise.value.length > 8 || txtCodeExercise.invalid):false"
           class="invalid-feedback">
-          Length of code from 3 to 6 character.
+          Length of code from 3 to 8 character.
         </div>
       </div>
 

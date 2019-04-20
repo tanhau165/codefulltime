@@ -25,6 +25,7 @@ export class ExaminationComponent implements OnInit {
   finish = false;
   win = false;
 
+  CPR = 0;
   msgCheckScore: string;
 
   score = 0;
@@ -448,7 +449,7 @@ export class ExaminationComponent implements OnInit {
         code_collection: this.currentExamination.code_collection
       }, this.token.get()).subscribe(
         res => {
-          console.log(res);
+          this.CPR = Math.round(res.CPR);
           this.finish = true;
           this.msgCheckScore = res.message;
 
