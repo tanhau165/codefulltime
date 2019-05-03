@@ -12,6 +12,6 @@ class Medias extends Model
     public $incrementing = false;
 
     protected $fillable = [
-      'code_media','type_media','link_media','code_news_feeds','size','name'
+      'code_media','type_media','link_media','code_news_feeds','size','name','username'
     ];
 }

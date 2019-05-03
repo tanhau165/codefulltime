@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-sm-9">
+    <app-menu-profile [active]="'friend'"></app-menu-profile>
+
+    <div class="row">
+      <div [className]="isOwner?'col-sm-7':'col-sm-12'">
+        <div class="table-responsive" style="height: 500px">
+          <table class="card-table table table-borderles bg-white" id="example">
+            <thead class="bg-success text-uppercase-bold text-white">
+            <tr>
+              <th width="20%" scope="col">#</th>
+              <th width="60%" scope="col">Name</th>
+              <th width="20%" scope="col">Cup</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let f of friends; let i = index">
+              <td>{{i + 1}}</td>
+              <td><a routerLink="/profile/timeline/{{f?.id}}" [ngbTooltip]="tipContent"
+                     data-placement="bottom"
+                     data-html="true">{{f?.name}}</a></td>
+              <td>{{f?.score}}</td>
+              <ng-template #tipContent>
+                <app-ttacount [account]="f"></app-ttacount>
+              </ng-template>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div [className]="isOwner?'col-sm-5':'hide'">
+
+        <div class="card text-white bg-success margin-element">
+          <div  class="card-header text-uppercase-bold"><i class="fa fa-trophy" aria-hidden="true"></i> Requests add
+            friend
+          </div>
+          <div *ngIf="friendsRequest.length === 0" class="table-responsive">
+            <table class="card-table table table-borderles bg-white">
+              <tbody>
+              <tr>No request</tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="friendsRequest.length > 0" class="table-responsive">
+            <table class="card-table table table-borderles bg-white">
+              <tbody>
+              <tr *ngFor="let f of friendsRequest">
+                <td width="50%"><a routerLink="/profile/timeline/{{f?.id}}" [ngbTooltip]="tipContent"
+                                   data-html="true">{{f?.name}}</a></td>
+                <td width="50%">
+                  <button (click)="acceptFriend(f?.id)" class="btn btn-primary margin-button"><i
+                    class="fa fa-check-square-o" aria-hidden="true"></i>
+                  </button>
+                  <button (click)="removeRequest(f?.id)" class="btn btn-primary"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </td>
+                <ng-template #tipContent>
+                  <app-ttacount [account]="f"></app-ttacount>
+                </ng-template>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-3">
+    <app-friend-online></app-friend-online>
+  </div>
+</div>

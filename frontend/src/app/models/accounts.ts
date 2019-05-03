@@ -18,6 +18,7 @@ export class Accounts {
   public sex: string;
   public specialize: string;
   public more_information: string;
+  public cover_image: string;
 
   constructor(acc) {
     this.name = acc.name;
@@ -39,5 +40,6 @@ export class Accounts {
     this.sex = acc.sex;
     this.specialize = acc.specialize;
     this.more_information = acc.more_information;
+    this.cover_image = acc.cover_image;
   }
 }

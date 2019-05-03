@@ -12,7 +12,7 @@
       <tbody>
       <tr *ngFor="let acc of rank; let i = index">
         <th scope="row">{{i + 1}}</th>
-        <td><a routerLink="/profile/{{acc.id}}" [ngbTooltip]="tipContent" data-html="true">{{acc.name}}</a></td>
+        <td><a routerLink="/profile/timeline/{{acc.id}}" [ngbTooltip]="tipContent" data-html="true">{{acc.name}}</a></td>
         <td>{{acc.score}}</td>
         <td>{{acc.cup.name}}</td>
         <ng-template #tipContent>

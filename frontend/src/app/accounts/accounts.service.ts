@@ -17,7 +17,7 @@ export class AccountsService {
     return this.http.post(`${this.config.api}/admin/account/change/avatar`, {avatar}, {headers: {Authorization: `Bearer ${token}`}});
   }
 
-  changeInfo(token, data) {
+  changeInfo(token, data): any {
     return this.http.post(`${this.config.api}/admin/account/change/info`, data, {headers: {Authorization: `Bearer ${token}`}});
   }
 

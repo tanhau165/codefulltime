@@ -8,7 +8,7 @@
         <td width="20%">Score</td>
       </tr>
       <tr *ngFor="let acc of topRank">
-        <td> <a routerLink="/profile/{{acc.id}}" [ngbTooltip]="tipContent" data-html="true">{{acc.name}}</a></td>
+        <td> <a routerLink="/profile/timeline/{{acc.id}}" [ngbTooltip]="tipContent" data-html="true">{{acc.name}}</a></td>
         <td>{{acc?.score}}</td>
         <ng-template #tipContent>
           <app-ttacount [account]="acc"></app-ttacount>

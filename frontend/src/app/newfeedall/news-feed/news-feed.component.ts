@@ -53,7 +53,7 @@ export class NewsFeedComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.auth.changeMenuActive('NewsFeed');
     this.auth.authStatus.subscribe(value => this.isLogin = value);
 
     this.newFeedS.getWithPage(this.page).subscribe(res => {

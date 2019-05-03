@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {RegisterComponent} from './accounts/register/register.component';
 import {LoginComponent} from './accounts/login/login.component';
-import {ProfileComponent} from './accounts/profile/profile.component';
+import {InformationComponent} from './profile/information/information.component';
 import {BeforeLoginService} from './services/before-login.service';
 import {AfterLoginService} from './services/after-login.service';
 import {RequestResetComponent} from './accounts/request-reset-password/request-reset.component';
@@ -30,11 +30,17 @@ import {ViewTeamComponent} from './admin/team/view-team/view-team.component';
 import {ViewCollectionComponent} from './admin/collection/view-collection/view-collection.component';
 import {ViewExerciseComponent} from './admin/exercise/view-exercise/view-exercise.component';
 import {SearchComponent} from './search/search.component';
+import {TestAPIComponent} from './test-api/test-api.component';
+import {TimeLineComponent} from './profile/time-line/time-line.component';
+import {StoredComponent} from './profile/stored/stored.component';
+import {SavedComponent} from './profile/saved/saved.component';
+import {FriendComponent} from './profile/friend/friend.component';
+import {AchievementsComponent} from './profile/achievements/achievements.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent, canActivate: [BeforeLoginService]},
   {path: 'login', component: LoginComponent, canActivate: [BeforeLoginService]},
-  {path: 'profile', component: ProfileComponent},
+  // {path: 'profile', component: TimeLineComponent},
   {path: 'request-password-reset', component: RequestResetComponent, canActivate: [BeforeLoginService]},
   {path: 'response-password-reset', component: ResponseResetComponent, canActivate: [BeforeLoginService]},
   {path: 'change-pass', component: ChangePassComponent, canActivate: [AfterLoginService]},
@@ -46,7 +52,14 @@ const routes: Routes = [
   {path: 'exercise-submit/:exercise', component: ExerciseSubmitComponent},
   {path: 'search/:keyword', component: SearchComponent},
 
-  {path: 'profile/:id', component: ProfileComponent},
+  {path: 'profile/timeline/:id', component: TimeLineComponent},
+  {path: 'profile/saved/:id', component: SavedComponent},
+  {path: 'profile/stored/:id', component: StoredComponent},
+  {path: 'profile/achievements/:id', component: AchievementsComponent},
+  {path: 'profile/information/:id', component: InformationComponent},
+  {path: 'profile/friend/:id', component: FriendComponent},
+
+
   {path: 'news-feed', component: NewsFeedComponent},
 
   {path: 'admin', component: TeacherAdminComponent, canActivate: [IsAdminService]},
@@ -69,6 +82,7 @@ const routes: Routes = [
   {path: 'admin/exercise/add', component: AddComponent},
   {path: 'admin/exercise/edit/:exercise', component: EditComponent},
   {path: 'admin/exercise/view', component: ViewExerciseComponent},
+  {path: 'app-test-api', component: TestAPIComponent},
 
 ];
 

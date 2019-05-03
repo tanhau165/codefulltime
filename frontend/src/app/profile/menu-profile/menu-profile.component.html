@@ -1,0 +1,47 @@
+<div class="col-sm-12">
+  <div style="position: relative;" class="row margin-element">
+    <img class="covert-photo" *ngIf="currentAccount" [src]="currentAccount?.cover_image" alt=""
+         style="width: 100%; height: 300px">
+    <div *ngIf="!isOwner" style="position: absolute; top: 250px; left: 300px">
+      <button class="btn btn-primary margin-button"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
+      <app-add-friend *ngIf="currentAccount" [friend_id]="currentAccount?.id"></app-add-friend>
+    </div>
+    <div style="position: absolute; top: 220px;margin-left: 300px;">
+      <p class="text-bold text-white">{{currentAccount?.name}}</p>
+    </div>
+    <div style="position: absolute; top: 70px;margin-left: 10px;">
+      <img *ngIf="currentAccount" class="avatar-photo rounded-circle"
+           [src]="currentAccount?.avatar"
+           alt=""
+           style="width: 280px; height: 280px">
+
+    </div>
+
+  </div>
+  <div style="float: right; margin-top: 10px">
+    <ul class="nav nav-pills">
+      <li class="nav-item ">
+        <a [className]="active==='time-line'? 'nav-link active bg-success': 'nav-link' " routerLink="/profile/timeline/{{currentAccount?.id}}">Time line</a>
+      </li>
+      <li class="nav-item bg-white">
+        <a [className]="active==='achievements'? 'nav-link active bg-success': 'nav-link'" routerLink="/profile/achievements/{{currentAccount?.id}}">Achievements</a>
+      </li>
+      <li class="nav-item">
+        <a [className]="active==='information'? 'nav-link active bg-success': 'nav-link'" routerLink="/profile/information/{{currentAccount?.id}}">Information</a>
+      </li>
+      <li class="nav-item">
+        <a [className]="active==='saved'? 'nav-link active bg-success': 'nav-link'" routerLink="/profile/saved/{{currentAccount?.id}}">Saved</a>
+      </li>
+      <li class="nav-item">
+        <a [className]="active==='friend'? 'nav-link active bg-success': 'nav-link'" routerLink="/profile/friend/{{currentAccount?.id}}">Friends</a>
+      </li>
+      <li class="nav-item">
+        <a [className]="active==='stored'? 'nav-link active bg-success': 'nav-link'" routerLink="/profile/stored/{{currentAccount?.id}}">Stored</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="clearfix margin-element"></div>
+<router-outlet></router-outlet>
+
+

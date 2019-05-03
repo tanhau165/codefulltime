@@ -51,12 +51,11 @@
                      name="file" multiple/>
             </div>
 
-
           </div>
         </div>
         <blockquote *ngIf="!isLogin" class="blockquote mb-0">
           <p>Welcome to news feed codefulltime. You can publish new post here</p>
-          <footer class="blockquote-footer">You must <cite title="Source Title">Login now</cite> before publish new post
+          <footer class="blockquote-footer">You must <cite title="Source Title"><a routerLink="/login">Login now</a></cite> before publish new post \01F354
           </footer>
         </blockquote>
       </div>
@@ -64,12 +63,21 @@
 
     <div *ngFor="let nf of newsFedds" [id]="nf.code_news_feeds" class="card mb-3">
       <div [className]="!nf.isNew? 'card-header bg-success text-white':'card-header bg-danger text-white'">
-        <img [src]="nf?.account?.avatar" class="mr-3 align-self-center" style="float: left; width:30px;"/>
-        <span style="float: left; padding-top: 7px">
-          <a routerLink="/profile/{{nf.account.id}}"><b class="text-white">{{nf.account.name}}</b></a> | {{nf.time_add}}</span>
-        <span style="float: right"><app-like *ngIf="isLogin" [code_object]="nf.code_news_feeds"></app-like>
-      </span>
+          <div style="float: left; padding-top: 7px"  class="margin-button">
+            <img [src]="nf?.account?.avatar" class="mr-3 align-self-center" style="width: 30px"/>
+            <span>
+              <a routerLink="/profile/timeline/{{nf.account.id}}"><b class="text-white">{{nf.account.name}}</b></a> | {{nf.time_add}}
+            </span>
+          </div>
+        <div style="float: right"  class="margin-button">
+          <span><app-like *ngIf="isLogin" [code_object]="nf.code_news_feeds"></app-like></span>
+          <span><app-save *ngIf="isLogin" [code_object]="nf.code_news_feeds" [type_object]="'news_feed'"></app-save></span>
+          <span><app-report-errore *ngIf="isLogin" [code_object]="nf.code_news_feeds" [name_object]="'news_feed'"></app-report-errore></span>
+          <span><app-send *ngIf="isLogin" [code_object]="nf.code_news_feeds" [type_object]="'news_feed'"></app-send></span>
+          <span><app-clear *ngIf="isLogin" [code_object]="nf.code_news_feeds" [type_object]="'news_feed'"></app-clear></span>
+        </div>
       </div>
+
 
       <div class="card-body">
         <p class="card-text ">{{nf.content_feeds}}</p>
@@ -82,12 +90,13 @@
         </div>
         <div class="row">
           <div *ngFor="let m of nf.mediaMine" class="col-sm-12">
-            <p style="width: 100%"><a target="_blank" [href]="m?.link_media"><i class="fa fa-file"
-                                                                                                   aria-hidden="true"></i> {{m?.name}}
-            </a></p>
+            <p style="width: 100%">
+              <a target="_blank" class="margin-button" [href]="m?.link_media"><i class="fa fa-file" aria-hidden="true"></i> {{m?.name}}</a>
+
+            </p>
           </div>
         </div>
-
+        <emoji-mart title="Pick your emoji…" emoji="point_up"></emoji-mart>
         <app-comment [codeObject]="nf.code_news_feeds" [option]="{view_header: false}"></app-comment>
       </div>
     </div>

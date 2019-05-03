@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-sm-9">
+    <app-menu-profile [active]="'stored'"></app-menu-profile>
+    <div class="col-sm-12">
+      <div class="table-responsive" style="height: 500px">
+        <table class="card-table table table-borderles bg-white" id="example">
+          <thead class="bg-success text-uppercase-bold text-white">
+          <tr>
+            <th width="5%" scope="col">#</th>
+            <th width="50%" scope="col">Name</th>
+            <th width="20%" scope="col">Type media</th>
+            <th width="10%" scope="col">Size</th>
+            <th width="15%" scope="col">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let f of saves; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{f.name}}</td>
+            <td>{{f.type_media}}</td>
+            <td>{{f.size}}</td>
+            <td>
+              <a [href]="f.link_media" class="btn btn-primary margin-button"><i class="fa fa-download" aria-hidden="true"></i></a>
+              <app-report-errore [code_object]="f.code_media" [name_object]="'media'"></app-report-errore>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <app-friend-online></app-friend-online>
+  </div>
+</div>

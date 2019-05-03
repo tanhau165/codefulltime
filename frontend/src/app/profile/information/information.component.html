@@ -1,0 +1,131 @@
+<div class="row">
+  <div class="col-sm-9">
+    <app-menu-profile [active]="'information'"></app-menu-profile>
+    <form action="">
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input [readOnly]="!isOwner" id="name" type="text"
+               class="form-control"
+               placeholder="Name" [(ngModel)]="name" name="name">
+
+      </div>
+
+      <div class="form-group">
+        <label for="name">Birth day</label>
+        <input [readOnly]="!isOwner" id="birth_day" type="date"
+               class="form-control"
+               placeholder="Birth Day" [(ngModel)]="birth_day" name="birth_day">
+
+      </div>
+
+      <div class="form-group">
+        <label for="name">Number phone</label>
+        <input [readOnly]="!isOwner" id="number_phone" type="number"
+               class="form-control"
+               placeholder="Number phone" [(ngModel)]="number_phone" name="number_phone">
+
+      </div>
+
+      <div class="form-group">
+        <label for="name">Address</label>
+        <input [readOnly]="!isOwner" id="address" type="text"
+               class="form-control"
+               placeholder="Address" [(ngModel)]="address" name="address">
+
+      </div>
+
+      <div class="form-group">
+        <label for="strengths">Strengths</label>
+        <textarea [readOnly]="!isOwner" id="strengths" type="text"
+                  class="form-control"
+                  placeholder="Strengths" [(ngModel)]="strengths" name="strengths"></textarea>
+
+      </div>
+
+      <div class="form-group">
+        <label for="hobby">Hobby (<b style="color: red">*</b>)</label>
+        <textarea [readOnly]="!isOwner" id="hobby" type="text"
+                  class="form-control"
+                  placeholder="Hobby" [(ngModel)]="hobby" name="hobby"></textarea>
+
+      </div>
+
+      <div class="form-group">
+        <label for="skill">Skill (<b style="color: red">*</b>)</label>
+        <textarea [readOnly]="!isOwner" id="skill" type="text"
+                  class="form-control"
+                  placeholder="Skill" [(ngModel)]="skill" name="skill"></textarea>
+
+      </div>
+
+      <div class="form-group">
+        <label for="project">Project (<b style="color: red">*</b>)</label>
+        <textarea [readOnly]="!isOwner" id="project" type="text"
+                  class="form-control"
+                  placeholder="Project" [(ngModel)]="project" name="project"></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+        <label for="social">Social (<b style="color: red">*</b>)</label>
+        <textarea [readOnly]="!isOwner" id="social" type="text"
+                  class="form-control"
+                  placeholder="Social" [(ngModel)]="social" name="social"></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+        <label for="website">Website (<b style="color: red">*</b>)</label>
+        <textarea [readOnly]="!isOwner" id="website" type="text"
+                  class="form-control"
+                  placeholder="Website" [(ngModel)]="website" name="website"></textarea>
+
+      </div>
+
+      <div class="form-group">
+        <label for="website">Work in week (<b style="color: red">*</b>)</label>
+        <input [readOnly]="!isOwner" id="work_in_week" type="number"
+               class="form-control"
+               placeholder="Work in week" [(ngModel)]="work_in_week" name="work_in_week"/>
+      </div>
+
+
+      <div class="form-group">
+        <label for="website">Sex (<b style="color: red">*</b>)</label>
+        <select [disabled]="!isOwner" name="sex" class="form-control" id="sex" [(ngModel)]="sex">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="specialize">Specialize (<b style="color: red">*</b>)</label>
+        <textarea [readOnly]="!isOwner" id="specialize" type="text"
+                  class="form-control"
+                  placeholder="Specialize" [(ngModel)]="specialize" name="specialize"></textarea>
+
+      </div>
+
+      <div class="form-group">
+        <label for="more_information">More Information (<b style="color: red">*</b>)</label>
+        <textarea [readOnly]="!isOwner" id="more_information" type="text"
+                  class="form-control"
+                  placeholder="More Information" [(ngModel)]="more_information" name="more_information"></textarea>
+
+      </div>
+
+      <p style="color: red">{{msgError}}</p>
+      <button *ngIf="isOwner" (click)="updateProfile()" class="btn bg-primary">Update</button>
+
+    </form>
+  </div>
+  <div class="col-sm-3">
+    <app-friend-online></app-friend-online>
+  </div>
+</div>
+
+

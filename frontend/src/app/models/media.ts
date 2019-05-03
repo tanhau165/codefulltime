@@ -1,5 +1,6 @@
 export class Media {
 
+  public code_media: string;
   public type_media: string;
   public link_media: string;
   public size: number;
@@ -7,6 +8,7 @@ export class Media {
 
 
   constructor(media) {
+    this.code_media = media.code_media;
     this.type_media = media.type_media;
     this.link_media = media.link_media;
     this.name = media.name;

@@ -10,7 +10,7 @@
         <td width="10%">Times</td>
       </tr>
       <tr *ngFor="let exam of examinations">
-        <td><a routerLink="/profile/{{exam?.account?.id}}" [ngbTooltip]="tipContent" data-html="true">{{exam?.account?.name}}</a></td>
+        <td><a routerLink="/profile/timeline/{{exam?.account?.id}}" [ngbTooltip]="tipContent" data-html="true">{{exam?.account?.name}}</a></td>
         <td>{{exam?.score}}</td>
         <td><a data-toggle="tooltip" data-placement="top" data-html="true"
                title="{{exam?.collection?.name}}">{{exam?.code_collection}}</a></td>

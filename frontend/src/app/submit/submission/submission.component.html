@@ -19,7 +19,7 @@
         <td><a routerLink="/exercise-details/{{ss?.exercise_code}}">{{ss?.exercise_code}}</a></td>
         <td>{{ss?.time_submit}}</td>
         <td>{{ss?.score}}</td>
-        <td><a routerLink="/profile/{{ss?.exercise?.account?.id}}" [ngbTooltip]="tipContent" data-html="true">{{ss?.exercise?.account?.name}}</a></td>
+        <td><a routerLink="/profile/timeline/{{ss?.exercise?.account?.id}}" [ngbTooltip]="tipContent" data-html="true">{{ss?.exercise?.account?.name}}</a></td>
         <td>{{ss?.language?.name}}</td>
 
         <ng-template #tipContent>

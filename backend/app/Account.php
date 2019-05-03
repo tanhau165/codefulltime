@@ -16,10 +16,16 @@ class Account extends Model
         return $this->belongsTo('App\Cup', 'code_cup');
     }
 
+//    public function friends()
+//    {
+//        return $this->hasMany('App\Friends', 'username');
+//    }
+
     public function toArray()
     {
         $acc = parent::toArray();
         $acc['cup'] = $this->cup;
+//        $acc['friends'] = $this->friends;
         unset($acc['username']);
         unset($acc['password']);
         unset($acc['email']);

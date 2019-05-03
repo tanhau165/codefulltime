@@ -70,12 +70,14 @@ Route::group([
 
         // Comment
         Route::post('comment/add', 'CommentController@Add');
+        Route::post('comment/clear', 'CommentController@Clear');
 
         // Ans Comment
         Route::post('ans-comment/add', 'AnsCommentController@Add');
 
         // News feed
         Route::post('news-feed/add', 'NewsFeedController@Add');
+        Route::post('news-feed/clear', 'NewsFeedController@Clear');
 
 
         // upload
@@ -86,6 +88,21 @@ Route::group([
         Route::post('like/add', 'LikeObjectController@AddLike');
         Route::post('like/is-like', 'LikeObjectController@IsLike');
 
+        // Save
+        Route::post('save/add', 'SaveController@Add');
+
+
+        // Fiends
+        Route::post('friend/send-request-add', 'FriendsController@SendRequestAddFriend');
+        Route::post('friend/accept', 'FriendsController@Accept');
+        Route::post('friend/remove', 'FriendsController@Remove');
+
+
+        Route::post('friend/remove/id', 'FriendsController@RemoveById');
+
+        Route::post('friend/clear', 'FriendsController@Clear');
+        Route::post('friend/is-friend', 'FriendsController@IsFriend');
+        Route::post('friend/friend-username', 'FriendsController@IsFriend');
     });
 
     Route::group(['prefix' => 'client'], function () {
@@ -156,6 +173,16 @@ Route::group([
 
         // Account
         Route::get('account/get/id/{id}', 'AccountController@GetAccountByID');
+
+        // friends
+        Route::get('friends/get/id/{id}', 'FriendsController@GetById');
+
+        // Saved
+        Route::get('saved/get/id/{id}', 'SaveController@GetByID');
+
+
+        Route::get('medias/get/id/{id}', 'MediasController@GetById');
+
 
 
         // Tesst

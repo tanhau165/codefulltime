@@ -165,7 +165,7 @@
 
   <div class="col-sm-4">
 
-    <div class="card text-white bg-success margin-element">
+    <div *ngIf="isLoggedIn" class="card text-white bg-success margin-element">
       <div class="card-header text-uppercase-bold"><i class="fa fa-user-o" aria-hidden="true"></i> Information</div>
       <div class="table-responsive">
         <table class="card-table table table-borderles bg-white">

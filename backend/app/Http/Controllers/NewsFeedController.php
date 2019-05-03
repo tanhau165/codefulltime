@@ -18,7 +18,7 @@ class NewsFeedController extends Controller
         $page = (int)$request->page;
         if ($page == 1) {
             $list = NewsFeed::orderby('code_news_feeds', 'desc')->skip(0)->take(2)->get();
-        }else{
+        } else {
             $list = NewsFeed::orderby('code_news_feeds', 'desc')->skip(($page - 1) * 2)->take(2)->get();
         }
         return response()->json([
@@ -72,6 +72,20 @@ class NewsFeedController extends Controller
         return response()->json([
             'message' => 'Create new post successfully',
             'news_feed' => $news_feed
+        ]);
+    }
+
+    public function Clear(Request $request)
+    {
+        $code = $request->code;
+        $newfeed = NewsFeed::where('code_news_feeds', $code)->first();
+        $medias = $newfeed->medias;
+        foreach ($medias as $media) {
+            Medias::where('code_media', $media->code_media)->delete();
+        }
+        NewsFeed::where('code_news_feeds', $code)->delete();
+        return response()->json([
+            'message' => 'Remove successfully !'
         ]);
     }
 }

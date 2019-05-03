@@ -65,6 +65,7 @@ class UploadController extends Controller
             $media->code_news_feeds = $code_news_feeds;
             $media->size = $file->getSize();
             $media->name = $file->getClientOriginalName();
+            $media->username = $account->username;
             $media->save();
             array_push($data, $media);
 

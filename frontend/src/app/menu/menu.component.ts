@@ -76,6 +76,13 @@ export class MenuComponent implements OnInit {
     );
   }
 
+  goToProfile() {
+    this.jwt.me(this.token.get()).subscribe(
+      data => {
+        this.router.navigateByUrl('/profile/timeline/' + data.id);
+      });
+  }
+
   logout() {
     this.token.remove();
     this.auth.changeName('Account');

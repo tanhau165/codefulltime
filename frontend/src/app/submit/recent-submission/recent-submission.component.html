@@ -1,5 +1,5 @@
 <div class="card text-white bg-success margin-element">
-  <div class="card-header text-uppercase-bold"><i class="fa fa-list" aria-hidden="true"></i> Submit examination recent</div>
+  <div class="card-header text-uppercase-bold"><i class="fa fa-list" aria-hidden="true"></i> Submission recent</div>
   <div class="table-responsive">
     <table class="card-table table table-borderles bg-white">
       <tbody>
@@ -12,7 +12,7 @@
 
 
       <tr *ngFor="let submit of submission">
-        <td><a routerLink="/profile/{{submit.exercise?.team?.account?.id}}" [ngbTooltip]="tipContent" data-html="true">{{submit.exercise?.team?.account?.name}}</a></td>
+        <td><a routerLink="/profile/timeline/{{submit.exercise?.team?.account?.id}}" [ngbTooltip]="tipContent" data-html="true">{{submit.exercise?.team?.account?.name}}</a></td>
         <td><a routerLink="/exercise-details/{{submit.exercise_code}}">{{submit.exercise_code}}</a></td>
         <td>{{submit.language.name}}</td>
         <td>{{submit.score}}</td>
