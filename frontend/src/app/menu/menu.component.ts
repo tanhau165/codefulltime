@@ -6,6 +6,7 @@ import {JarwisService} from '../services/jarwis.service';
 import {Keyword} from '../models/keyword';
 import {SearchService} from '../search/search.service';
 import {Search} from '../models/search';
+import {BoxChat} from '../models/box-chat';
 
 declare var $;
 
@@ -65,6 +66,7 @@ export class MenuComponent implements OnInit {
   public isTeacher: number;
   public active: string;
   keywords: Keyword[] = [];
+
 
   ngOnInit() {
     this.kwS.getAll().subscribe(

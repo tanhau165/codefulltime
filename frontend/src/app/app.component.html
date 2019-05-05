@@ -1,3 +1,8 @@
 <app-menu></app-menu>
+<div>
+  <ng-template ngFor let-i="index" let-c="count" let-box [ngForOf]="chatBoxes">
+    <app-chat  [me]="chatBoxes[i].me" [index] = "i" [friends]="chatBoxes[i].friends"></app-chat>
+  </ng-template>
+</div>
 <ng-snotify></ng-snotify>
 <router-outlet></router-outlet>

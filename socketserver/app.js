@@ -14,9 +14,20 @@ const io = require('socket.io').listen(server);
 
 io.on('connection', function (socket) {
 
-    console.log("Co nguoi ket noi");
+    console.log("Co nguoi ket noi" + socket.id);
 
-
+    socket.on('client-request-create-room', function (data) {
+        socket.join(data);
+        console.log(socket.adapter.rooms);
+    });
+    socket.on('client-chat', function (data) {
+        io.sockets.in(data.room).emit('server-send-client-chat', {
+            message: data.message,
+            account: data.account,
+            time: data.time,
+            room: data.room
+        });
+    });
 
     socket.on('disconnect', function () {
         console.log("Co nguoi ngat ket noi")

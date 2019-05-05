@@ -2,27 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82f4a814-7109-4cf5-8359-e94bb6564c89" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/socketserver.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../android/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/app/Http/Controllers/NewsFeedController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/app/Http/Controllers/NewsFeedController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/accounts/register/register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/accounts/register/register.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/like/like.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/like/like.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/comment/comment.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/comment/comment.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/friend/add-friend/add-friend.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/friend/add-friend/add-friend.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/app/menu/menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/menu/menu.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/newfeedall/news-feed/news-feed.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/newfeedall/news-feed/news-feed.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/newfeedall/news-feed/news-feed.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/newfeedall/news-feed/news-feed.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/app/report-errore/report-errore.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/report-errore/report-errore.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/menu/menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/menu/menu.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/profile/menu-profile/menu-profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/profile/menu-profile/menu-profile.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/profile/menu-profile/menu-profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/profile/menu-profile/menu-profile.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/rank/rank.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/rank/rank.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/services/config.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/services/config.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/app/tooltip/ttacount/ttacount.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/app/tooltip/ttacount/ttacount.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+            <state relative-caret-position="323">
+              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
             </state>
           </provider>
         </entry>
@@ -67,6 +64,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -83,7 +81,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -120,11 +117,14 @@
       <updated>1556371805792</updated>
       <workItem from="1556371807523" duration="1925000" />
       <workItem from="1556896333131" duration="1391000" />
+      <workItem from="1556927419558" duration="5767000" />
+      <workItem from="1556975489540" duration="607000" />
+      <workItem from="1557027317465" duration="7170000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3316000" />
+    <option name="totallyTimeSpent" value="16860000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -156,8 +156,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="323">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
         </state>
       </provider>
     </entry>

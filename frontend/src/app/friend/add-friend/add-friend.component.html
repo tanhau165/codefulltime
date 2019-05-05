@@ -1,6 +1,6 @@
 <button *ngIf="isFriend === 0" (click)="sendRequest()" class="btn btn-primary margin-button"><i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;{{message}}</button>
 
-<div *ngIf="isFriend === 1" class="btn-group">
+<div *ngIf="isFriend === 1" class="btn-group margin-button">
   <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
     <i class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp;Sent request !
@@ -11,7 +11,7 @@
 </div>
 
 
-<div *ngIf="isFriend === 2" class="btn-group">
+<div *ngIf="isFriend === 2" class="btn-group margin-button">
   <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">
     Friend

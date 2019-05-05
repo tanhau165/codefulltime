@@ -1,0 +1,24 @@
+<div>
+  <div *ngIf="isMax" [className]="getClass(index)" style="width: 250px; float: left; background-color: white; border: 1px solid green; height: 400px; min-height: 400px;" class="margin-button">
+    <div (click)="minAndMax()" style="height: 40px; background-color: green; color: white; font-weight: bold">
+      <p style="padding-top: 10px; padding-left: 10px; float: left"><a routerLink="/profile/timeline/{{f?.id}}" *ngFor="let f of friendsAccounts" class="margin-button text-white">{{f?.name}}</a></p>
+      <a (click)="closeBox()" style="padding-top: 10px; padding-right: 10px; float: right" class="fa fa-times" aria-hidden="true"></a>
+    </div>
+    <div class="clearfix"></div>
+    <div style="height: 305px" >
+      <div *ngFor="let m of messages">
+        <div style="padding-left: 10px"><b data-toggle="tooltip" data-placement="top" data-html="true" title="{{m.time}}<br/>{{m.account.name}}"><a
+          routerLink="/profile/timeline/{{m.account.id}}">{{m.account.name}}</a></b>: {{m.message}}</div>
+      </div>
+    </div>
+    <input  #msg (keypress)="sendChat(msg, $event)" class="input-chat margin-button form-control" autocomplete="off"
+            placeholder="Type message.."
+            name="msg" required/>
+  </div>
+
+  <div *ngIf="!isMax" [className]="getClass(index)" style="width: 250px; float: left;height: 40px; background-color: white; border: 1px solid green;margin-bottom: 1px" class="margin-button">
+    <div (click)="minAndMax()" style="height: 40px; background-color: green; color: white; font-weight: bold">
+      <p style="padding-top: 10px; padding-left: 10px; float: left"><a routerLink="/profile/timeline/{{f?.id}}" *ngFor="let f of friendsAccounts" class="margin-button text-white">{{f?.name}}</a></p>
+    </div>
+  </div>
+</div>

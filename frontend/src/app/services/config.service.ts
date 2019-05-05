@@ -24,6 +24,7 @@ export class ConfigService {
     {id: '34', code: 'text/x-python', name: 'Python'},
   ];
   clientKeyImgur = 'ad3bc6d390e3cdf';
+  socketServer = 'http://localhost:3000';
 
   constructor() {
   }

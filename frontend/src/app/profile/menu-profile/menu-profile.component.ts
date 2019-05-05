@@ -1,9 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {AccountsService} from '../../accounts/accounts.service';
 import {JarwisService} from '../../services/jarwis.service';
 import {TokenService} from '../../services/token.service';
 import {Accounts} from '../../models/accounts';
+import {MessageService} from '../../message/message.service';
+import {BoxChat} from '../../models/box-chat';
 
 @Component({
   selector: 'app-menu-profile',
@@ -15,16 +17,19 @@ export class MenuProfileComponent implements OnInit {
   @Input() active: string;
 
   currentAccount: Accounts;
+  me: Accounts;
   // currentAccountID: string;
   // avatar: string;
   // name: string;
   isOwner = false;
 
+
   constructor(
     private route: ActivatedRoute,
     private accS: AccountsService,
     private jwt: JarwisService,
-    private token: TokenService
+    private token: TokenService,
+    private msS: MessageService
   ) {
     this.isOwner = false;
   }
@@ -36,6 +41,7 @@ export class MenuProfileComponent implements OnInit {
       this.jwt.me(this.token.get()).subscribe(
         data => {
           this.isOwner = id === data.id;
+          this.me = new Accounts(data);
         }
       );
       this.accS.getUserByID(id).subscribe(
@@ -69,4 +75,8 @@ export class MenuProfileComponent implements OnInit {
   //
   //
   // }
+  showChat(friend_id) {
+    this.msS.createRoom(this.me.id, [friend_id]);
+    this.msS.addNewBoxChat(new BoxChat({me: this.me.id, friends: [friend_id], room: this.msS.genRoom(this.me.id, [friend_id])}));
+  }
 }

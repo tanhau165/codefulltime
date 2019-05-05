@@ -25,7 +25,6 @@ export class RankComponent implements OnInit {
     this.auth.changeMenuActive('Rank');
     this.rankS.getRank().subscribe(res => {
         res.accounts.forEach((v) => {
-          console.log(v);
           this.rank.push(new Accounts(v));
         });
         $(document).ready(() => {

@@ -13,7 +13,6 @@ export class TTAcountComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.account);
   }
 
 }

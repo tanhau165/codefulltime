@@ -6,7 +6,7 @@
     <img src="{{comment?.account?.avatar}}" alt="{{comment?.account?.name}}" class="mr-3 align-self-start"
          style="width:45px;">
     <div class="media-body">
-      <p><a routerLink="/profile/{{comment?.account?.id}}" data-toggle="tooltip" data-placement="top" data-html="true" title="Score: {{comment?.account?.score}}<br/>Cup: {{comment?.account?.cup?.name}}">{{comment?.account?.name}}</a>
+      <p><a routerLink="/profile/timeline/{{comment?.account?.id}}" data-toggle="tooltip" data-placement="top" data-html="true" title="Score: {{comment?.account?.score}}<br/>Cup: {{comment?.account?.cup?.name}}">{{comment?.account?.name}}</a>
         &nbsp;<small [innerHTML]="comment?.content"></small>
       </p>
 
@@ -16,7 +16,7 @@
         <img src="{{ans?.account?.avatar}}" alt="{{ans?.account?.name}}" class="mr-3 align-self-start"
              style="width:35px;">
         <div class="media-body">
-          <p><a routerLink="/profile/{{ans?.account?.id}}" data-toggle="tooltip" data-placement="top" data-html="true" title="Score: {{ans?.account?.score}}<br/>Cup: {{ans?.account?.cup?.name}}">{{ans?.account?.name}}</a>
+          <p><a routerLink="/profile/timeline/{{ans?.account?.id}}" data-toggle="tooltip" data-placement="top" data-html="true" title="Score: {{ans?.account?.score}}<br/>Cup: {{ans?.account?.cup?.name}}">{{ans?.account?.name}}</a>
             &nbsp;<small [innerHTML]="ans?.content"></small>
           </p>
         </div>

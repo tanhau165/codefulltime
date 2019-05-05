@@ -52,7 +52,8 @@
 
     </ul>
     <form (ngSubmit)="search(ngvForm)" #ngvForm="ngForm" class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" ngModel name="keyword" type="search" placeholder="Search" list="keyword" aria-label="Search">
+      <input class="form-control mr-sm-2" ngModel name="keyword" type="search" placeholder="Search" list="keyword"
+             aria-label="Search">
       <datalist id="keyword">
         <option *ngFor="let k of keywords" value="{{k.key_word}}">{{k.times_search}}</option>
       </datalist>
@@ -88,3 +89,4 @@
     </div>
   </div>
 </div>
+

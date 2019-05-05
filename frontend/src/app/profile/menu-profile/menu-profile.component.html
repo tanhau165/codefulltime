@@ -3,8 +3,9 @@
     <img class="covert-photo" *ngIf="currentAccount" [src]="currentAccount?.cover_image" alt=""
          style="width: 100%; height: 300px">
     <div *ngIf="!isOwner" style="position: absolute; top: 250px; left: 300px">
-      <button class="btn btn-primary margin-button"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
+      <button *ngIf="currentAccount" (click)="showChat(currentAccount?.id)" class="btn btn-primary margin-button"><i class="fa fa-envelope" aria-hidden="true"></i> Message</button>
       <app-add-friend *ngIf="currentAccount" [friend_id]="currentAccount?.id"></app-add-friend>
+      <app-report-errore [name_object]="'account'" [code_object]="currentAccount?.id"></app-report-errore>
     </div>
     <div style="position: absolute; top: 220px;margin-left: 300px;">
       <p class="text-bold text-white">{{currentAccount?.name}}</p>

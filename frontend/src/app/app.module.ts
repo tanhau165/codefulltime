@@ -64,6 +64,7 @@ import { MenuProfileComponent } from './profile/menu-profile/menu-profile.compon
 import { FriendOnlineComponent } from './profile/friend-online/friend-online.component';
 import { StoredComponent } from './profile/stored/stored.component';
 import { AcceptComponent } from './friend/accept/accept.component';
+import { ChatComponent } from './message/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +121,7 @@ import { AcceptComponent } from './friend/accept/accept.component';
     FriendOnlineComponent,
     StoredComponent,
     AcceptComponent,
+    ChatComponent,
 
   ],
   imports: [

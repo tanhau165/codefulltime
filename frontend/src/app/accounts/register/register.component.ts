@@ -54,6 +54,9 @@ export class RegisterComponent implements OnInit {
   }
 
   getCountryCode(countryCode) {
+    if (countryCode === undefined) {
+      return 'VN';
+    }
     countryCode = countryCode.toLowerCase();
     if (countryCode !== 'jp' && countryCode !== 'vn' && countryCode !== 'en') {
       return 'en';
